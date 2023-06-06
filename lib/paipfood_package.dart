@@ -2,15 +2,20 @@
 
 library paipfood_package;
 
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+
 //? CONTROLLERS
-export 'package:paipfood_package/src/controllers/debounce.dart';
+part 'src/controllers/debounce.dart';
 //?? EXTENIONS
-export 'package:paipfood_package/src/extensions/context_extension.dart';
-export 'package:paipfood_package/src/extensions/mask_input.dart';
-export 'package:paipfood_package/src/extensions/messages.dart';
-export 'package:paipfood_package/src/extensions/theme/color_extension.dart';
-export 'package:paipfood_package/src/extensions/theme/custom_theme_extension.dart';
-//?? UI
-export 'package:paipfood_package/src/ui/widgets/cw_search_fild.dart';
-export 'package:paipfood_package/src/ui/widgets/cw_sized_box.dart';
-export 'package:paipfood_package/src/ui/widgets/cw_text_form_fild.dart';
+part 'src/extensions/context_extension.dart';
+part 'src/extensions/mask_input.dart';
+part 'src/extensions/messages.dart';
+part 'src/extensions/theme/color_extension.dart';
+part 'src/extensions/theme/custom_theme_extension.dart';
+// //?? UI
+part 'src/ui/widgets/cw_search_fild.dart';
+part 'src/ui/widgets/cw_sized_box.dart';
+part 'src/ui/widgets/cw_text_form_fild.dart';

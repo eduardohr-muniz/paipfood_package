@@ -1,8 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'cw_sized_box.dart';
-import 'cw_text_form_fild.dart';
+part of 'package:paipfood_package/paipfood_package.dart';
 
 class CwSearchFild extends StatefulWidget {
   final void Function(dynamic)? onSelectedCallBack;

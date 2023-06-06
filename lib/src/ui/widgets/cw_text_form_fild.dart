@@ -1,7 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:paipfood_package/src/extensions/context_extension.dart';
+part of 'package:paipfood_package/paipfood_package.dart';
 
 class CwTextFormFild extends StatelessWidget {
   final double? maxWidthPercent;

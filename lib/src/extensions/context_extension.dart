@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import './theme/color_extension.dart';
+part of 'package:paipfood_package/paipfood_package.dart';
 
 extension ContextExtension on BuildContext {
   Color get primaryColor => ColorExtension.primaryColor;

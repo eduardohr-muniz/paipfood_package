@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+part of 'package:paipfood_package/paipfood_package.dart';
 
 class MaskInputModel {
   final List<TextInputFormatter>? formatter;

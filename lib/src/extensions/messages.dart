@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:paipfood_package/src/extensions/context_extension.dart';
+part of 'package:paipfood_package/paipfood_package.dart';
 
 class Messages {
   final BuildContext context;

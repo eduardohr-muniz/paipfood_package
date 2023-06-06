@@ -1,5 +1,4 @@
-import 'dart:async';
-import 'package:flutter/material.dart';
+part of 'package:paipfood_package/paipfood_package.dart';
 
 class Debounce {
   int? miliseconds;

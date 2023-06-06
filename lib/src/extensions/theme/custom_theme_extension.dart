@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import './color_extension.dart';
+part of 'package:paipfood_package/paipfood_package.dart';
 
 class CustomThemeExtension {
   CustomThemeExtension._();
