@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'package:paipfood_package/paipfood_package.dart';
 
 class CwTextFormFild extends StatelessWidget {
@@ -19,6 +20,7 @@ class CwTextFormFild extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final TextEditingController? controller;
   final void Function(String)? onChanged;
+  final TextInputType? keyboardType;
 
   const CwTextFormFild({
     Key? key,
@@ -40,6 +42,7 @@ class CwTextFormFild extends StatelessWidget {
     this.inputFormatters,
     this.controller,
     this.onChanged,
+    this.keyboardType,
   }) : super(key: key);
 
   @override
@@ -59,6 +62,7 @@ class CwTextFormFild extends StatelessWidget {
           minLines: minLines,
           maxLines: maxLines,
           validator: validator,
+          keyboardType: keyboardType,
           decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               filled: true,
