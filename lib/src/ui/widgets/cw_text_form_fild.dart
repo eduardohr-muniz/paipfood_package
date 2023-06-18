@@ -21,6 +21,7 @@ class CwTextFormFild extends StatelessWidget {
   final TextEditingController? controller;
   final void Function(String)? onChanged;
   final TextInputType? keyboardType;
+  final bool defaultStyle;
 
   const CwTextFormFild({
     Key? key,
@@ -32,6 +33,7 @@ class CwTextFormFild extends StatelessWidget {
     this.obscureText = false,
     this.suffixIcon,
     this.prefixIcon,
+    this.defaultStyle = false,
     required this.label,
     this.focusNode,
     this.expanded = false,
@@ -64,6 +66,9 @@ class CwTextFormFild extends StatelessWidget {
           validator: validator,
           keyboardType: keyboardType,
           decoration: InputDecoration(
+              enabledBorder: defaultStyle == false
+                  ? UnderlineInputBorder(borderSide: BorderSide(color: context.secondaryColor, width: 2))
+                  : null,
               contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               filled: true,
               focusColor: context.primaryColor,
