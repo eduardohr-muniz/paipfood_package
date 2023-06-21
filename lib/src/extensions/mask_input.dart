@@ -147,17 +147,14 @@ class MaskInput {
   bool isValidCpf(String cpf) {
     // Remover caracteres não numéricos
     cpf = cpf.replaceAll(RegExp(r'\D'), '');
-
     // Verificar se possui 11 dígitos
     if (cpf.length != 11) {
       return false;
     }
-
     // Verificar se todos os dígitos são iguais (caso contrário, é inválido)
     if (RegExp(r'^(\d)\1*$').hasMatch(cpf)) {
       return false;
     }
-
     // Calcular o primeiro dígito verificador
     var soma = 0;
     for (var i = 0; i < 9; i++) {
@@ -167,12 +164,10 @@ class MaskInput {
     if (digito1 == 10) {
       digito1 = 0;
     }
-
     // Verificar o primeiro dígito verificador
     if (digito1 != int.parse(cpf[9])) {
       return false;
     }
-
     // Calcular o segundo dígito verificador
     soma = 0;
     for (var i = 0; i < 10; i++) {
@@ -182,12 +177,10 @@ class MaskInput {
     if (digito2 == 10) {
       digito2 = 0;
     }
-
     // Verificar o segundo dígito verificador
     if (digito2 != int.parse(cpf[10])) {
       return false;
     }
-
     // CPF válido
     return true;
   }
