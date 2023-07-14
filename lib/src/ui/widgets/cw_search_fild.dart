@@ -2,6 +2,7 @@ part of 'package:paipfood_package/paipfood_package.dart';
 
 class CwSearchFild extends StatefulWidget {
   final void Function(dynamic)? onSelectedCallBack;
+  final MenuController? menuController;
   final bool? obscureText;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
@@ -30,6 +31,7 @@ class CwSearchFild extends StatefulWidget {
   const CwSearchFild({
     Key? key,
     this.onSelectedCallBack,
+    this.menuController,
     this.obscureText = false,
     this.suffixIcon,
     this.prefixIcon,
@@ -47,13 +49,12 @@ class CwSearchFild extends StatefulWidget {
 }
 
 class _CwSearchFildState extends State<CwSearchFild> {
-  MenuController menuController = MenuController();
   FocusNode focusNode = FocusNode();
   @override
   void initState() {
     super.initState();
     focusNode.addListener(() {
-      focusNode.hasFocus ? menuController.open() : null;
+      focusNode.hasFocus ? widget.menuController?.open() : null;
     });
   }
 
@@ -71,7 +72,7 @@ class _CwSearchFildState extends State<CwSearchFild> {
                   children: widget.children ?? [],
                 )
               ],
-              controller: menuController,
+              controller: widget.menuController,
               child: CwTextFormFild(
                 prefixIcon: widget.prefixIcon,
                 suffixIcon: widget.suffixIcon,

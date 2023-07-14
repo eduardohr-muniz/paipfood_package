@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'package:paipfood_package/paipfood_package.dart';
 
-class CwTextFormFild extends StatelessWidget {
+class CwTextFormFild extends StatefulWidget {
+  final TextEditingController controller;
+  final String? initialValue;
   final double? maxWidthPercent;
   final String? Function(String?)? validator;
   final String? hintText;
@@ -18,13 +20,14 @@ class CwTextFormFild extends StatelessWidget {
   final String? helperText;
   final String? prefixText;
   final List<TextInputFormatter>? inputFormatters;
-  final TextEditingController? controller;
   final void Function(String)? onChanged;
   final TextInputType? keyboardType;
   final bool defaultStyle;
 
   const CwTextFormFild({
     Key? key,
+    required this.controller,
+    this.initialValue,
     this.maxWidthPercent,
     this.validator,
     this.hintText,
@@ -42,31 +45,41 @@ class CwTextFormFild extends StatelessWidget {
     this.helperText = "",
     this.prefixText,
     this.inputFormatters,
-    this.controller,
     this.onChanged,
     this.keyboardType,
   }) : super(key: key);
 
   @override
+  State<CwTextFormFild> createState() => _CwTextFormFildState();
+}
+
+class _CwTextFormFildState extends State<CwTextFormFild> {
+  @override
+  void initState() {
+    if (widget.initialValue != null) widget.controller.text = widget.initialValue!;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final double widthMediaQuery = maxWidthPercent != null ? context.mediaQuery.size.width * maxWidthPercent! : 0;
+    final double widthMediaQuery = widget.maxWidthPercent != null ? context.mediaQuery.size.width * widget.maxWidthPercent! : 0;
     Widget child = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextFormField(
-          focusNode: focusNode,
-          controller: controller,
-          obscureText: obscureText!,
-          inputFormatters: inputFormatters,
-          onChanged: onChanged,
+          focusNode: widget.focusNode,
+          controller: widget.controller,
+          obscureText: widget.obscureText!,
+          inputFormatters: widget.inputFormatters,
+          onChanged: widget.onChanged,
           scrollPadding: const EdgeInsets.all(20),
           cursorColor: context.primaryTextColor,
-          minLines: minLines,
-          maxLines: maxLines,
-          validator: validator,
-          keyboardType: keyboardType,
+          minLines: widget.minLines,
+          maxLines: widget.maxLines,
+          validator: widget.validator,
+          keyboardType: widget.keyboardType,
           decoration: InputDecoration(
-              enabledBorder: defaultStyle == false
+              enabledBorder: widget.defaultStyle == false
                   ? UnderlineInputBorder(borderSide: BorderSide(color: context.secondaryColor, width: 2))
                   : null,
               contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -74,32 +87,32 @@ class CwTextFormFild extends StatelessWidget {
               focusColor: context.primaryColor,
               hoverColor: context.primaryColor.withOpacity(0.2),
               prefixIconColor: context.primaryColor,
-              prefixText: prefixText,
-              prefixIcon: prefixIcon,
-              suffixIcon: suffixIcon,
-              labelText: label,
-              hintText: hintText),
+              prefixText: widget.prefixText,
+              prefixIcon: widget.prefixIcon,
+              suffixIcon: widget.suffixIcon,
+              labelText: widget.label,
+              hintText: widget.hintText),
         ),
         Visibility(
-          visible: srinkWrap,
+          visible: widget.srinkWrap,
           child: Text(
-            helperText!,
+            widget.helperText!,
             style: context.textTheme.bodySmall,
           ),
         ),
       ],
     );
-    if (maxWidthPercent == null && expanded == false) {
+    if (widget.maxWidthPercent == null && widget.expanded == false) {
       return SizedBox(
-        width: minWidth,
+        width: widget.minWidth,
         child: child,
       );
-    } else if (maxWidthPercent == null && expanded == true) {
+    } else if (widget.maxWidthPercent == null && widget.expanded == true) {
       return SizedBox(child: child);
     } else {
       return ConstrainedBox(
           constraints:
-              BoxConstraints(minWidth: minWidth, maxWidth: widthMediaQuery > minWidth ? widthMediaQuery : minWidth),
+              BoxConstraints(minWidth: widget.minWidth, maxWidth: widthMediaQuery > widget.minWidth ? widthMediaQuery : widget.minWidth),
           child: child);
     }
   }
