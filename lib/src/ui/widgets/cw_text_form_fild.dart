@@ -65,45 +65,33 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
   @override
   Widget build(BuildContext context) {
     final double widthMediaQuery = widget.maxWidthPercent != null ? context.mediaQuery.size.width * widget.maxWidthPercent! : 0;
-    Widget child = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TextFormField(
-          focusNode: widget.focusNode,
-          controller: widget.controller,
-          obscureText: widget.obscureText!,
-          inputFormatters: widget.inputFormatters,
-          onChanged: widget.onChanged,
-          scrollPadding: const EdgeInsets.all(20),
-          cursorColor: context.primaryTextColor,
-          minLines: widget.minLines,
-          maxLines: widget.maxLines,
-          validator: widget.validator,
-          keyboardType: widget.keyboardType,
-          decoration: InputDecoration(
-              enabledBorder: widget.defaultStyle == false
-                  ? UnderlineInputBorder(borderSide: BorderSide(color: context.secondaryColor, width: 2))
-                  : null,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              filled: true,
-              fillColor: widget.filled ? context.primaryBgColor : null,
-              focusColor: context.primaryColor,
-              hoverColor: context.primaryColor.withOpacity(0.2),
-              prefixIconColor: context.primaryColor,
-              prefixText: widget.prefixText,
-              prefixIcon: widget.prefixIcon,
-              suffixIcon: widget.suffixIcon,
-              labelText: widget.label,
-              hintText: widget.hintText),
-        ),
-        Visibility(
-          visible: widget.srinkWrap,
-          child: Text(
-            widget.helperText!,
-            style: context.textTheme.bodySmall,
-          ),
-        ),
-      ],
+    Widget child = TextFormField(
+      focusNode: widget.focusNode,
+      controller: widget.controller,
+      obscureText: widget.obscureText!,
+      inputFormatters: widget.inputFormatters,
+      onChanged: widget.onChanged,
+      scrollPadding: const EdgeInsets.all(20),
+      cursorColor: context.primaryTextColor,
+      minLines: widget.minLines,
+      maxLines: widget.maxLines,
+      validator: widget.validator,
+      keyboardType: widget.keyboardType,
+      decoration: InputDecoration(
+          enabledBorder:
+              widget.defaultStyle == false ? UnderlineInputBorder(borderSide: BorderSide(color: context.secondaryColor, width: 2)) : null,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          filled: true,
+          fillColor: widget.filled ? context.primaryBgColor : null,
+          focusColor: context.primaryColor,
+          hoverColor: context.primaryColor.withOpacity(0.2),
+          prefixIconColor: context.primaryColor,
+          prefixText: widget.prefixText,
+          prefixIcon: widget.prefixIcon,
+          suffixIcon: widget.suffixIcon,
+          labelText: widget.label,
+          helperText: widget.helperText,
+          hintText: widget.hintText),
     );
     if (widget.maxWidthPercent == null && widget.expanded == false) {
       return SizedBox(
