@@ -7,6 +7,7 @@ class CwTextFormFild extends StatefulWidget {
   final double? maxWidthPercent;
   final String? Function(String?)? validator;
   final String? hintText;
+  final bool filled;
   final bool srinkWrap;
   final double minWidth;
   final bool? obscureText;
@@ -31,12 +32,12 @@ class CwTextFormFild extends StatefulWidget {
     this.maxWidthPercent,
     this.validator,
     this.hintText,
+    this.filled = true,
     this.srinkWrap = true,
     this.minWidth = 200,
     this.obscureText = false,
     this.suffixIcon,
     this.prefixIcon,
-    this.defaultStyle = false,
     required this.label,
     this.focusNode,
     this.expanded = false,
@@ -47,6 +48,7 @@ class CwTextFormFild extends StatefulWidget {
     this.inputFormatters,
     this.onChanged,
     this.keyboardType,
+    this.defaultStyle = false,
   }) : super(key: key);
 
   @override
@@ -84,6 +86,7 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
                   : null,
               contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               filled: true,
+              fillColor: widget.filled ? context.primaryBgColor : null,
               focusColor: context.primaryColor,
               hoverColor: context.primaryColor.withOpacity(0.2),
               prefixIconColor: context.primaryColor,
