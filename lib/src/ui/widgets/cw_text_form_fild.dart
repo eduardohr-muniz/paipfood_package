@@ -48,7 +48,7 @@ class CwTextFormFild extends StatefulWidget {
     this.onChanged,
     this.keyboardType,
     this.defaultStyle = false,
-    this.filled = true,
+    this.filled = false,
   }) : super(key: key);
 
   @override
