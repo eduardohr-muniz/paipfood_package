@@ -23,6 +23,7 @@ class CwTextFormFild extends StatefulWidget {
   final void Function(String)? onChanged;
   final TextInputType? keyboardType;
   final bool defaultStyle;
+  final bool filled;
 
   const CwTextFormFild({
     Key? key,
@@ -36,7 +37,6 @@ class CwTextFormFild extends StatefulWidget {
     this.obscureText = false,
     this.suffixIcon,
     this.prefixIcon,
-    this.defaultStyle = false,
     required this.label,
     this.focusNode,
     this.expanded = false,
@@ -47,6 +47,8 @@ class CwTextFormFild extends StatefulWidget {
     this.inputFormatters,
     this.onChanged,
     this.keyboardType,
+    this.defaultStyle = false,
+    this.filled = true,
   }) : super(key: key);
 
   @override
@@ -82,7 +84,8 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
                 widget.defaultStyle == false ? UnderlineInputBorder(borderSide: BorderSide(color: context.secondaryColor, width: 2)) : null,
             contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
             focusedBorder: UnderlineInputBorder(borderSide: BorderSide(width: 3, color: context.primaryColor)),
-            filled: true,
+            filled: widget.filled,
+            fillColor: Colors.grey.withOpacity(0.09),
             labelStyle: const TextStyle(color: Colors.grey),
             floatingLabelStyle: TextStyle(color: context.secondaryColor),
             focusColor: context.primaryColor,

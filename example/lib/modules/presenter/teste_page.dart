@@ -11,7 +11,7 @@ class TestePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Teste')),
       body: Container(
-        color: context.primaryBgColor,
+        color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Column(
