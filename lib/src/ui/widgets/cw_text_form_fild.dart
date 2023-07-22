@@ -7,7 +7,6 @@ class CwTextFormFild extends StatefulWidget {
   final double? maxWidthPercent;
   final String? Function(String?)? validator;
   final String? hintText;
-  final bool filled;
   final bool srinkWrap;
   final double minWidth;
   final bool? obscureText;
@@ -32,12 +31,12 @@ class CwTextFormFild extends StatefulWidget {
     this.maxWidthPercent,
     this.validator,
     this.hintText,
-    this.filled = true,
     this.srinkWrap = true,
     this.minWidth = 200,
     this.obscureText = false,
     this.suffixIcon,
     this.prefixIcon,
+    this.defaultStyle = false,
     required this.label,
     this.focusNode,
     this.expanded = false,
@@ -48,7 +47,6 @@ class CwTextFormFild extends StatefulWidget {
     this.inputFormatters,
     this.onChanged,
     this.keyboardType,
-    this.defaultStyle = false,
   }) : super(key: key);
 
   @override
@@ -65,33 +63,37 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
   @override
   Widget build(BuildContext context) {
     final double widthMediaQuery = widget.maxWidthPercent != null ? context.mediaQuery.size.width * widget.maxWidthPercent! : 0;
-    Widget child = TextFormField(
-      focusNode: widget.focusNode,
-      controller: widget.controller,
-      obscureText: widget.obscureText!,
-      inputFormatters: widget.inputFormatters,
-      onChanged: widget.onChanged,
-      scrollPadding: const EdgeInsets.all(20),
-      cursorColor: context.primaryTextColor,
-      minLines: widget.minLines,
-      maxLines: widget.maxLines,
-      validator: widget.validator,
-      keyboardType: widget.keyboardType,
-      decoration: InputDecoration(
-          enabledBorder:
-              widget.defaultStyle == false ? UnderlineInputBorder(borderSide: BorderSide(color: context.secondaryColor, width: 2)) : null,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-          filled: true,
-          fillColor: widget.filled ? context.primaryBgColor : null,
-          focusColor: context.primaryColor,
-          hoverColor: context.primaryColor.withOpacity(0.2),
-          prefixIconColor: context.primaryColor,
-          prefixText: widget.prefixText,
-          prefixIcon: widget.prefixIcon,
-          suffixIcon: widget.suffixIcon,
-          labelText: widget.label,
-          helperText: widget.helperText,
-          hintText: widget.hintText),
+    Widget child = Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: TextFormField(
+        focusNode: widget.focusNode,
+        controller: widget.controller,
+        obscureText: widget.obscureText!,
+        inputFormatters: widget.inputFormatters,
+        onChanged: widget.onChanged,
+        scrollPadding: const EdgeInsets.all(20),
+        cursorColor: context.primaryTextColor,
+        minLines: widget.minLines,
+        maxLines: widget.maxLines,
+        validator: widget.validator,
+        keyboardType: widget.keyboardType,
+        decoration: InputDecoration(
+            enabledBorder:
+                widget.defaultStyle == false ? UnderlineInputBorder(borderSide: BorderSide(color: context.secondaryColor, width: 2)) : null,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
+            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(width: 3, color: context.primaryColor)),
+            filled: true,
+            labelStyle: const TextStyle(color: Colors.grey),
+            floatingLabelStyle: TextStyle(color: context.secondaryColor),
+            focusColor: context.primaryColor,
+            hoverColor: context.primaryColor.withOpacity(0.1),
+            prefixIconColor: context.primaryColor,
+            prefixText: widget.prefixText,
+            prefixIcon: widget.prefixIcon,
+            suffixIcon: widget.suffixIcon,
+            labelText: widget.label,
+            hintText: widget.hintText),
+      ),
     );
     if (widget.maxWidthPercent == null && widget.expanded == false) {
       return SizedBox(

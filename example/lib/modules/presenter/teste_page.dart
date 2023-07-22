@@ -16,8 +16,12 @@ class TestePage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Column(
             children: [
-              Text("Text Fild"),
-              CwTextFormFild(controller: inputEC, label: "Teste", expanded: true, filled: true),
+              Text("Text Fild", style: context.textTheme.displayLarge),
+              CwTextFormFild(
+                controller: inputEC,
+                label: "Teste",
+                expanded: true,
+              ),
               CwSizedBox(),
               // CwSearchFild(menuController: menuController, label: label, children: children, list: list, controller: controller)
             ],

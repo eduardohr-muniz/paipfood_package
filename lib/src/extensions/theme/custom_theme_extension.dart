@@ -11,8 +11,8 @@ class CustomThemeExtension {
       iconTheme: IconThemeData(color: ColorExtension.primaryTextLight),
     ),
     filledButtonTheme: FilledButtonThemeData(
-        style: FilledButton.styleFrom(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)), minimumSize: const Size(80, 45))),
+        style:
+            FilledButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)), minimumSize: const Size(80, 45))),
     scaffoldBackgroundColor: ColorExtension.primaryBackgroundLight,
     textTheme: extTextTheme,
     brightness: Brightness.light,
@@ -58,7 +58,10 @@ class CustomThemeExtension {
   );
 
   static const extTextTheme = TextTheme(
-    displayLarge: TextStyle(fontSize: 47, letterSpacing: 0),
+    displayLarge: TextStyle(
+      fontSize: 47,
+      letterSpacing: 0,
+    ),
     displayMedium: TextStyle(fontSize: 45, letterSpacing: 0),
     displaySmall: TextStyle(fontSize: 36, letterSpacing: 0),
     //
