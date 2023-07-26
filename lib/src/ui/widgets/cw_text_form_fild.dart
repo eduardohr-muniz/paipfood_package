@@ -4,6 +4,7 @@ part of 'package:paipfood_package/paipfood_package.dart';
 class CwTextFormFild extends StatefulWidget {
   final TextEditingController controller;
   final String? initialValue;
+  final ValueListenable<bool>? updateInitialValueVN;
   final double? maxWidthPercent;
   final String? Function(String?)? validator;
   final String? hintText;
@@ -29,6 +30,7 @@ class CwTextFormFild extends StatefulWidget {
     Key? key,
     required this.controller,
     this.initialValue,
+    this.updateInitialValueVN,
     this.maxWidthPercent,
     this.validator,
     this.hintText,
@@ -62,9 +64,13 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
     super.initState();
   }
 
+  bool _update = false;
+
   @override
   Widget build(BuildContext context) {
-    final double widthMediaQuery = widget.maxWidthPercent != null ? context.mediaQuery.size.width * widget.maxWidthPercent! : 0;
+    final double widthMediaQuery = widget.maxWidthPercent != null
+        ? context.mediaQuery.size.width * widget.maxWidthPercent!
+        : 0;
     Widget child = Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
@@ -80,10 +86,13 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
         validator: widget.validator,
         keyboardType: widget.keyboardType,
         decoration: InputDecoration(
-            enabledBorder:
-                widget.defaultStyle == false ? UnderlineInputBorder(borderSide: BorderSide(color: context.secondaryColor, width: 2)) : null,
+            enabledBorder: widget.defaultStyle == false
+                ? UnderlineInputBorder(
+                    borderSide: BorderSide(color: context.secondaryColor, width: 2))
+                : null,
             contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
-            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(width: 3, color: context.primaryColor)),
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(width: 3, color: context.primaryColor)),
             filled: widget.filled,
             fillColor: Colors.grey.withOpacity(0.09),
             labelStyle: const TextStyle(color: Colors.grey),
@@ -98,18 +107,34 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
             hintText: widget.hintText),
       ),
     );
+
+    Widget valueLB = widget.updateInitialValueVN != null
+        ? ValueListenableBuilder(
+            valueListenable: widget.updateInitialValueVN!,
+            builder: (context, update, _) {
+              if (_update != update) {
+                widget.controller.text = widget.initialValue!;
+                _update = update;
+              }
+              return child;
+            },
+          )
+        : const SizedBox.shrink();
+
     if (widget.maxWidthPercent == null && widget.expanded == false) {
       return SizedBox(
         width: widget.minWidth,
-        child: child,
+        child: widget.updateInitialValueVN != null ? valueLB : child,
       );
     } else if (widget.maxWidthPercent == null && widget.expanded == true) {
-      return SizedBox(child: child);
+      return SizedBox(child: widget.updateInitialValueVN != null ? valueLB : child);
     } else {
       return ConstrainedBox(
-          constraints:
-              BoxConstraints(minWidth: widget.minWidth, maxWidth: widthMediaQuery > widget.minWidth ? widthMediaQuery : widget.minWidth),
-          child: child);
+          constraints: BoxConstraints(
+              minWidth: widget.minWidth,
+              maxWidth:
+                  widthMediaQuery > widget.minWidth ? widthMediaQuery : widget.minWidth),
+          child: widget.updateInitialValueVN != null ? valueLB : child);
     }
   }
 }
