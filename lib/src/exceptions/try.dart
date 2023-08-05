@@ -1,3 +1,5 @@
+part of '../../paipfood_package.dart';
+
 class Try {
   double stringToDoubleTry(String text) {
     if (text != "") {
