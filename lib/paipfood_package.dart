@@ -27,4 +27,4 @@ part 'src/ui/widgets/cw_text_form_fild.dart';
 //?? State
 part 'src/state_notifier/state_notier_x.dart';
 //? Exceptions
-part './src/exceptions/try.dart';
+part 'src/exceptions/try_functions.dart';
