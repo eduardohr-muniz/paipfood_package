@@ -1,5 +1,8 @@
+import 'package:example/modules/presenter/cw_toast.dart';
+import 'package:example/modules/presenter/overlay_test.dart';
 import 'package:flutter/material.dart';
 import 'package:paipfood_package/paipfood_package.dart';
+import 'package:toastification/toastification.dart';
 
 class TestePage extends StatefulWidget {
   const TestePage({super.key});
@@ -11,6 +14,7 @@ class TestePage extends StatefulWidget {
 class _TestePageState extends State<TestePage> {
   final inputEC = TextEditingController();
   final testeUpdate = ValueNotifier(false);
+  final toastification = Toastification();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,14 +33,14 @@ class _TestePageState extends State<TestePage> {
                 label: "Teste",
                 expanded: true,
               ),
-              CwSizedBox(),
               TextButton(
                   onPressed: () {
                     setState(() {
-                      // testeUpdate.value = !testeUpdate.value;
+                      CwOverlay.hide();
                     });
                   },
-                  child: Text("change"))
+                  child: Text("change")),
+              TextButton(onPressed: () {}, child: Text("change")),
               // CwSearchFild(menuController: menuController, label: label, children: children, list: list, controller: controller)
             ],
           ),
