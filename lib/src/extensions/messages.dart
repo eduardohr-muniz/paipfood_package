@@ -8,11 +8,11 @@ class Messages {
     return Messages._(context);
   }
 
-  void showError(String message) => _showMessage(message, Colors.red, Colors.white);
+  void showError(String message) => _showMessage(message, context.tertiaryColor, Colors.white);
 
-  void showInfo(String message) => _showMessage(message, context.secondaryColor, Colors.white);
+  void showInfo(String message) => _showMessage(message, context.secondaryColor, Colors.black);
 
-  void showSucess(String message) => _showMessage(message, context.primaryColor, Colors.black);
+  void showSucess(String message) => _showMessage(message, context.primaryColor, Colors.white);
 
   void _showMessage(String message, Color color, Color colorText) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(

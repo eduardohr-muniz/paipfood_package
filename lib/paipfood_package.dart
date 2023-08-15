@@ -16,11 +16,13 @@ import 'package:toastification/toastification.dart';
 //? CONTROLLERS
 part 'src/controllers/debounce.dart';
 //?? EXTENIONS
-part 'src/extensions/context_extension.dart';
+part 'src/extensions/context/context_extension.dart';
+part 'src/extensions/context/shadowns.dart';
 part 'src/extensions/mask_input.dart';
 part 'src/extensions/messages.dart';
 part 'src/extensions/theme/color_extension.dart';
 part 'src/extensions/theme/custom_theme_extension.dart';
+
 // //?? UI
 part 'src/ui/widgets/cw_search_fild.dart';
 part 'src/ui/widgets/cw_sized_box.dart';
