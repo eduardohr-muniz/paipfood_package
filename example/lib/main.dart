@@ -18,8 +18,11 @@ class MyApp extends StatelessWidget {
       theme: CustomThemeExtension.darkTheme,
       themeMode: ThemeMode.light,
       darkTheme: CustomThemeExtension.darkTheme,
-      routes: {"/": (context) => const BotoesPage()},
-      initialRoute: "/",
+      routes: {
+        "/": (context) => const BotoesPage(),
+        "/teste/": (context) => const TestePage(),
+      },
+      initialRoute: "/teste/",
     );
   }
 }

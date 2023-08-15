@@ -6,6 +6,7 @@ extension ContextExtension on BuildContext {
   Color get secondaryColor => ColorExtension.secondaryColor;
 
   Color get tertiaryColor => Theme.of(this).brightness == Brightness.light ? ColorExtension.tertiaryColor : ColorExtension.tertiaryColorDark;
+  Color get alternateColor => Theme.of(this).brightness == Brightness.light ? ColorExtension.alternateColor : ColorExtension.alternateColorDark;
 
   Color get primaryBgColor =>
       Theme.of(this).brightness == Brightness.light ? ColorExtension.primaryBackgroundLight : ColorExtension.primaryBackgroundDark;
