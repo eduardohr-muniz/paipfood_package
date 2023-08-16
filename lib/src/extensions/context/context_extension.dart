@@ -23,7 +23,7 @@ extension ContextExtension on BuildContext {
 
   TextTheme get textTheme => Theme.of(this).textTheme;
 
-  ButtonStyle get buttonPrimary => ElevatedButton.styleFrom(backgroundColor: ColorExtension.primaryColor);
+  ButtonStyle get buttonPrimary => ElevatedButton.styleFrom(backgroundColor: primaryColor);
 
   double get spaceheight => 20;
 

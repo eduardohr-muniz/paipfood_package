@@ -27,6 +27,7 @@ part 'src/extensions/theme/custom_theme_extension.dart';
 part 'src/ui/widgets/cw_search_fild.dart';
 part 'src/ui/widgets/cw_sized_box.dart';
 part 'src/ui/widgets/cw_text_form_fild.dart';
+part 'src/ui/widgets/cw_elevated_button.dart';
 //?? State
 part 'src/state_notifier/state_notier_x.dart';
 //? Exceptions
