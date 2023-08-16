@@ -1,7 +1,7 @@
 part of 'package:paipfood_package/paipfood_package.dart';
 
 class ColorExtension {
-  static const Color primaryColor = Color(0xff2DA15F); //* Light
+  static const Color primaryColor = Color(0xff00D856); //* Light
   static const Color secondaryColor = Color(0xff9AC1F0);
   static const Color tertiaryColor = Color(0xffF6C445);
   static const Color alternateColor = Color(0xffE45F2B);
