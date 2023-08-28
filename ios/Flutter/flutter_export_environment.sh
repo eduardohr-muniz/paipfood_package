@@ -3,6 +3,7 @@
 export "FLUTTER_ROOT=C:\Users\eduar\fvm\versions\3.3.9"
 export "FLUTTER_APPLICATION_PATH=C:\flutter_projects\paipfood_package"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
+export "FLUTTER_TARGET=lib\main.dart"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=0.0.1"
 export "FLUTTER_BUILD_NUMBER=0.0.1"

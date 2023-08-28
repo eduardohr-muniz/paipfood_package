@@ -19,18 +19,21 @@ extension ContextExtension on BuildContext {
   Color get secondaryTextColor =>
       Theme.of(this).brightness == Brightness.light ? ColorExtension.secondaryTextLight : ColorExtension.secondaryTextDark;
 
-  // Color get focus => Theme.of(this).brightness == Brightness.light ? ColorExtension.focusLight : ColorExtension.focusDark;
-
   TextTheme get textTheme => Theme.of(this).textTheme;
 
   ButtonStyle get buttonPrimary => ElevatedButton.styleFrom(backgroundColor: primaryColor);
 
-  double get spaceheight => 20;
+  MaskInputExtension get maskInput => MaskInputExtension();
 
-  MediaQueryData get mediaQuery => MediaQuery.of(this);
-  double get mqSw => MediaQuery.of(this).size.width;
-  double get mqSh => MediaQuery.of(this).size.height;
+  double get spacing => 20;
 
+  ///Mediaquery.size.width[w]
+  double get w => MediaQuery.sizeOf(this).width;
+
+  ///Mediaquery.size.height[h]
+  double get h => MediaQuery.sizeOf(this).width;
+
+  ///Only numbers regex
   RegExp get rgxNumber => RegExp(r'\d+');
 
   InputDecorationTheme get inputDecorationThemePrimary => InputDecorationTheme(

@@ -1,4 +1,4 @@
-part of '../../paipfood_package.dart';
+part of '../../../paipfood_package.dart';
 
 double stringToDoubleTry(String text) {
   if (text != "") {

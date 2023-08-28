@@ -1,7 +1,7 @@
 part of 'package:paipfood_package/paipfood_package.dart';
 
-class CustomThemeExtension {
-  CustomThemeExtension._();
+class ThemeExtension {
+  ThemeExtension._();
   ColorExtension colorExtension = ColorExtension();
 
   static FilledButtonThemeData filledButtonTheme = FilledButtonThemeData(

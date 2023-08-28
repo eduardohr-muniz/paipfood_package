@@ -1,7 +1,8 @@
 name: paipfood_package
 description: A new Flutter package project.
 version: 0.0.1
-homepage:
+publish_to: "none"
+# homepage: paipfood_package
 
 environment:
   sdk: '>=3.0.1 <4.0.0'
@@ -10,10 +11,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_svg: ^2.0.7
-  intl: ^0.18.1
-  mask_text_input_formatter: ^2.4.0
-  toastification: ^0.0.3
+  paipfood_dependencies:
+    git: https://github.com/eduardohr-muniz/paipfood_dependencies
+    
+  
 
 dev_dependencies:
   flutter_test:

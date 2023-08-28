@@ -2,33 +2,35 @@
 
 library paipfood_package;
 
+import 'package:paipfood_dependencies/paipfood_dependencies.dart';
+// dependencies
+import 'dart:io';
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'src/state_notifier/overlay_loader.dart';
-import 'package:toastification/toastification.dart';
+import 'src/core/interfaces/local_storage/i_local_storage.dart';
+import 'src/core/interfaces/messages/i_messages.dart';
+import 'src/core/log/conf_log.dart';
+import 'src/ui/overlay_loader.dart';
 
 //? CONTROLLERS
 part 'src/controllers/debounce.dart';
 //?? EXTENIONS
-part 'src/extensions/context/context_extension.dart';
-part 'src/extensions/context/shadowns.dart';
-part 'src/extensions/mask_input.dart';
-part 'src/extensions/messages.dart';
-part 'src/extensions/theme/color_extension.dart';
-part 'src/extensions/theme/custom_theme_extension.dart';
-
+part 'src/extensions/context_extension.dart';
+part 'src/ui/shadowns.dart';
+part 'src/extensions/mask_input_extension.dart';
+part 'src/core/interfaces/messages/messages.dart';
+part 'src/extensions/color_extension.dart';
+part 'src/extensions/theme_extension.dart';
+part 'src/core/log/log.dart';
+part 'src/core/interfaces/local_storage/local_storage.dart';
 // //?? UI
 part 'src/ui/widgets/cw_search_fild.dart';
 part 'src/ui/widgets/cw_sized_box.dart';
 part 'src/ui/widgets/cw_text_form_fild.dart';
 part 'src/ui/widgets/cw_elevated_button.dart';
 //?? State
-part 'src/state_notifier/state_notier_x.dart';
 //? Exceptions
-part 'src/exceptions/try_functions.dart';
+part 'src/core/exceptions/try_functions.dart';

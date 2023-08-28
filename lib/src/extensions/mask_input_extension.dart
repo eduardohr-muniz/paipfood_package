@@ -17,8 +17,8 @@ class MaskInputModel {
   });
 }
 
-class MaskInput {
-  MaskInputModel email = MaskInputModel(
+class MaskInputExtension {
+  static MaskInputModel email = MaskInputModel(
     hint: "example@mail.com",
     textInputType: TextInputType.number,
     validator: (value) {
@@ -37,7 +37,7 @@ class MaskInput {
     },
   );
 
-  MaskInputModel password = MaskInputModel(
+  static MaskInputModel password = MaskInputModel(
     hint: "Insira sua senha",
     textInputType: TextInputType.number,
     validator: (value) {
@@ -51,7 +51,7 @@ class MaskInput {
     },
   );
 
-  MaskInputModel phonePtBr = MaskInputModel(
+  static MaskInputModel phonePtBr = MaskInputModel(
     mask: MaskTextInputFormatter(mask: "(##) ####-####"),
     changeMask: (value, mask) {
       if (value.length == 14) mask.updateMask(mask: "(##)# ####-####");
@@ -70,7 +70,7 @@ class MaskInput {
     },
   );
 
-  MaskInputModel cep = MaskInputModel(
+  static MaskInputModel cep = MaskInputModel(
     mask: MaskTextInputFormatter(mask: "#####-###"),
     hint: "00000-000",
     textInputType: TextInputType.number,
@@ -187,51 +187,6 @@ class MaskInput {
     return true;
   }
 }
-
-// String decimalFormat(String value) {
-//   String text = value;
-//   text = text.replaceAll(RegExp(r'[a-zA-Z]'), '');
-
-//   // Remover todos os pontos e vírgulas
-//   text = text.replaceAll('.', '');
-//   text = text.replaceAll(',', '');
-//   text = text.replaceAll('-', '');
-//   text = text.replaceAll('+', '');
-
-//   // Encontrar o índice do ponto decimal
-//   int decimalIndex = text.length - 2;
-
-//   // Verifica se ha mais de duas casas decimais
-//   if (decimalIndex < 0) {
-//     decimalIndex = 0;
-//   } else {
-//     decimalIndex = text.length - 2;
-//   }
-
-//   // Adiciona o ponto para separar milhares
-//   int thousandsSeparator = decimalIndex > 0 ? decimalIndex - 3 : text.length - 3;
-//   while (thousandsSeparator > 0) {
-//     text = '${text.substring(0, thousandsSeparator)}.${text.substring(thousandsSeparator)}';
-//     thousandsSeparator -= 3;
-//   }
-//   // Insere a virgula para separar o decimal
-//   text.length > 3
-//       ? text = '${text.substring(0, text.length - 2)},${text.substring(text.length - 2, text.length)}'
-//       : text = '${text.substring(0, decimalIndex)},${text.substring(decimalIndex)}';
-
-//   // Adicona o 0 no inicio e tira deposi que sai da casa de centavos
-//   if (text.length == 2) {
-//     text = "0$text";
-//   } else if (text.length == 5) {
-//     text = text.replaceFirst("0", "");
-//   }
-
-//   // Se for vazio setamo vazio
-//   if (text == ',' || text.isEmpty) {
-//     text = '';
-//   }
-//   return text;
-// }
 
 class DecimalInputFormatter extends TextInputFormatter {
   @override
