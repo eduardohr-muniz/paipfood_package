@@ -2,7 +2,7 @@
 
 library paipfood_package;
 
-import 'package:paipfood_dependencies/paipfood_dependencies.dart';
+export 'package:paipfood_dependencies/paipfood_dependencies.dart';
 // dependencies
 import 'dart:io';
 import 'dart:async';
@@ -10,6 +10,7 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:paipfood_package/paipfood_package.dart';
 import 'src/core/interfaces/local_storage/i_local_storage.dart';
 import 'src/core/interfaces/messages/i_messages.dart';
 import 'src/core/log/conf_log.dart';
