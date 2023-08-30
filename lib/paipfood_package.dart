@@ -17,7 +17,7 @@ import 'src/core/log/conf_log.dart';
 import 'src/ui/overlay_loader.dart';
 
 //? CONTROLLERS
-part 'src/controllers/debounce.dart';
+part './src/core/controllers/debounce.dart';
 //?? EXTENIONS
 part 'src/extensions/context_extension.dart';
 part 'src/ui/shadowns.dart';
@@ -35,5 +35,3 @@ part 'src/ui/widgets/cw_elevated_button.dart';
 //?? State
 //? Exceptions
 part 'src/core/exceptions/try_functions.dart';
-
-part './src/core/fonts/icomoon_icons.dart';

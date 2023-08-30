@@ -23,7 +23,6 @@ class _TestePageState extends State<TestePage> {
           child: Column(
             children: [
               Text("Text Fild", style: context.textTheme.displayLarge),
-              const Icon(Icomoon.add_circle),
               CwTextFormFild(
                 updateInitialValueVN: testeUpdate,
                 initialValue: "abcde",
