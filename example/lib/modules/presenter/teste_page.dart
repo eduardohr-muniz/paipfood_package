@@ -15,7 +15,7 @@ class _TestePageState extends State<TestePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Teste')),
+      appBar: AppBar(title: const Text('Teste Pormocional')),
       body: Container(
         color: Colors.white,
         child: Padding(
@@ -27,7 +27,7 @@ class _TestePageState extends State<TestePage> {
                 updateInitialValueVN: testeUpdate,
                 initialValue: "abcde",
                 controller: inputEC,
-                label: "Teste",
+                label: "Teste Pormocional",
                 expanded: true,
               ),
               CwElevatedButton(

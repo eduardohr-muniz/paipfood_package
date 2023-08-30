@@ -77,7 +77,7 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 4),
-            child: Text(widget.label, style: context.textTheme.labelMedium, maxLines: 1),
+            child: Text(widget.label, style: context.textTheme.labelMedium, maxLines: 1, overflow: TextOverflow.ellipsis),
           ),
           TextFormField(
             focusNode: widget.focusNode,
