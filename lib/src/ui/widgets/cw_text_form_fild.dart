@@ -25,6 +25,7 @@ class CwTextFormFild extends StatefulWidget {
   final TextInputType? keyboardType;
   final bool defaultStyle;
   final bool filled;
+  final bool enabled;
 
   const CwTextFormFild({
     Key? key,
@@ -51,6 +52,7 @@ class CwTextFormFild extends StatefulWidget {
     this.keyboardType,
     this.defaultStyle = false,
     this.filled = true,
+    this.enabled = false,
   }) : super(key: key);
 
   @override
@@ -98,6 +100,7 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
                 filled: widget.filled,
                 isDense: true,
                 fillColor: context.primaryBgColor,
+                enabled: widget.enabled,
                 // labelStyle: const TextStyle(color: Colors.grey),
                 floatingLabelStyle: TextStyle(color: context.secondaryColor),
                 // focusColor: context.primaryColor,
