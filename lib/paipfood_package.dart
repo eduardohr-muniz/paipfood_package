@@ -35,3 +35,5 @@ part 'src/ui/widgets/cw_elevated_button.dart';
 //?? State
 //? Exceptions
 part 'src/core/exceptions/try_functions.dart';
+
+part './src/core/fonts/icomoon_icons.dart';
