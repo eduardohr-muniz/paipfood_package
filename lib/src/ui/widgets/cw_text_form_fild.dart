@@ -101,6 +101,7 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
                 isDense: true,
                 fillColor: context.primaryBgColor,
                 enabled: widget.enabled,
+                disabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 0, color: context.primaryBgColor)),
                 // labelStyle: const TextStyle(color: Colors.grey),
                 floatingLabelStyle: TextStyle(color: context.secondaryColor),
                 // focusColor: context.primaryColor,
