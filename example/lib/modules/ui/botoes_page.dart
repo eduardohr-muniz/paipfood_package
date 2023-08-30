@@ -14,16 +14,16 @@ class BotoesPage extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            ElevatedButton(onPressed: () {}, child: Text("Eleveted")),
-            OutlinedButton(onPressed: () {}, child: Text("outlined")),
+            ElevatedButton(onPressed: () {}, child: const Text("Eleveted")),
+            OutlinedButton(onPressed: () {}, child: const Text("outlined")),
             FilledButton(
                 onPressed: () {},
-                child: Text(
+                child: const Text(
                   "Filled",
                   style: TextStyle(color: Colors.black),
                 )),
-            FilledButton.tonal(onPressed: () {}, child: Text("Tonal")),
-            TextButton(onPressed: () {}, child: Text("TextButton"))
+            FilledButton.tonal(onPressed: () {}, child: const Text("Tonal")),
+            TextButton(onPressed: () {}, child: const Text("TextButton"))
           ],
         ),
       )),

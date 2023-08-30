@@ -22,32 +22,32 @@ class LocalStorage implements ILocalStorage {
 
   @override
   Future<void> delete<T>(String boxId, {required String key}) async {
-    var box = await Hive.openLazyBox<T>(boxId);
+    var box = Hive.box<T>(boxId);
     box.delete(key);
-    box.close();
+
     _logInfos(boxId, "DELETE", key: key);
   }
 
   @override
   Future<T?> get<T>(String boxId, {required String key}) async {
-    var box = await Hive.openLazyBox<T>(boxId);
+    var box = Hive.box<T>(boxId);
     final result = box.get(key);
-    box.close();
+
     _logInfos(boxId, "GET", key: key, value: result);
     return result;
   }
 
   @override
   Future<void> put<T>(String boxId, {required String key, required T value}) async {
-    var box = await Hive.openLazyBox<T>(boxId);
+    var box = Hive.box<T>(boxId);
     await box.put(key, value);
-    box.close();
+
     _logInfos(boxId, "PUT", key: key, value: value);
   }
 
   @override
   Future<List<T>>? getAll<T>(String boxId) async {
-    var box = await Hive.openBox<T>(boxId);
+    var box = Hive.box<T>(boxId);
     List<T> resultMap = [];
     try {
       resultMap = List<T>.from(box.values);
@@ -65,7 +65,6 @@ class LocalStorage implements ILocalStorage {
       }
     }
     _logInfos(boxId, "GETALL", key: box.keys.toString(), value: "${resultMap.length}");
-    await box.close();
     return resultMap;
   }
 

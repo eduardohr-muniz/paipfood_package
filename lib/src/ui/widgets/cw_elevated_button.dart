@@ -19,7 +19,7 @@ class CwElevatedButton extends StatelessWidget {
               icon,
               color: context.primaryBgColor,
             )
-          : SizedBox.shrink(),
+          : const SizedBox.shrink(),
       label: Text(
         label,
         style: TextStyle(color: context.primaryBgColor),

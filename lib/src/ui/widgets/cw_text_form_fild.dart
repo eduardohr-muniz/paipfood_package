@@ -50,7 +50,7 @@ class CwTextFormFild extends StatefulWidget {
     this.onChanged,
     this.keyboardType,
     this.defaultStyle = false,
-    this.filled = false,
+    this.filled = true,
   }) : super(key: key);
 
   @override
@@ -71,35 +71,45 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
     final double widthMediaQuery = widget.maxWidthPercent != null ? context.w * widget.maxWidthPercent! : 0;
     Widget child = Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
-      child: TextFormField(
-        focusNode: widget.focusNode,
-        controller: widget.controller,
-        obscureText: widget.obscureText!,
-        inputFormatters: widget.inputFormatters,
-        onChanged: widget.onChanged,
-        scrollPadding: const EdgeInsets.all(20),
-        cursorColor: context.primaryTextColor,
-        minLines: widget.minLines,
-        maxLines: widget.maxLines,
-        validator: widget.validator,
-        keyboardType: widget.keyboardType,
-        decoration: InputDecoration(
-            enabledBorder:
-                widget.defaultStyle == false ? UnderlineInputBorder(borderSide: BorderSide(color: context.secondaryColor, width: 2)) : null,
-            contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
-            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(width: 3, color: context.primaryColor)),
-            filled: widget.filled,
-            fillColor: Colors.grey.withOpacity(0.09),
-            labelStyle: const TextStyle(color: Colors.grey),
-            floatingLabelStyle: TextStyle(color: context.secondaryColor),
-            focusColor: context.primaryColor,
-            hoverColor: context.primaryColor.withOpacity(0.1),
-            prefixIconColor: context.primaryColor,
-            prefixText: widget.prefixText,
-            prefixIcon: widget.prefixIcon,
-            suffixIcon: widget.suffixIcon,
-            labelText: widget.label,
-            hintText: widget.hintText),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 4),
+            child: Text(widget.label, style: context.textTheme.labelMedium),
+          ),
+          TextFormField(
+            focusNode: widget.focusNode,
+            controller: widget.controller,
+            obscureText: widget.obscureText!,
+            inputFormatters: widget.inputFormatters,
+            onChanged: widget.onChanged,
+            scrollPadding: const EdgeInsets.all(20),
+            cursorColor: context.primaryColor,
+            minLines: widget.minLines,
+            maxLines: widget.maxLines,
+            validator: widget.validator,
+            keyboardType: widget.keyboardType,
+            decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 0, color: context.primaryBgColor)),
+                // contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
+                focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 0, color: context.primaryBgColor)),
+                filled: widget.filled,
+                isDense: true,
+                fillColor: context.primaryBgColor,
+                // labelStyle: const TextStyle(color: Colors.grey),
+                floatingLabelStyle: TextStyle(color: context.secondaryColor),
+                // focusColor: context.primaryColor,
+                // hoverColor: context.primaryColor.withOpacity(0.1),
+                prefixIconColor: context.primaryColor,
+                prefixText: widget.prefixText,
+                prefixIcon: widget.prefixIcon,
+                suffixIcon: widget.suffixIcon,
+                // labelText: widget.label,
+                hintText: widget.hintText),
+          ),
+        ],
       ),
     );
 

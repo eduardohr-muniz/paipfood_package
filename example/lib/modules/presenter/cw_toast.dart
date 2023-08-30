@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:example/modules/presenter/overlay_test.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:paipfood_package/paipfood_package.dart';
 
@@ -144,7 +143,7 @@ class _CwToastState extends State<CwToast> {
               ),
             ),
             StreamBuilder(
-              stream: Stream.periodic(Duration(milliseconds: 100)),
+              stream: Stream.periodic(const Duration(milliseconds: 100)),
               builder: (context, snapshot) {
                 double increment = widget.seconds / 100;
                 var value = progress += increment;
