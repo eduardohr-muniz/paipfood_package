@@ -1,4 +1,6 @@
-part of 'package:paipfood_package/paipfood_package.dart';
+// part of 'package:paipfood_package/paipfood_package.dart';
+import 'dart:async';
+import 'package:flutter/material.dart';
 
 class Debounce {
   int? miliseconds;

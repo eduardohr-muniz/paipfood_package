@@ -22,6 +22,7 @@ class _TestePageState extends State<TestePage> {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Column(
             children: [
+              const Icon(Icomoon.alarm),
               Text("Text Fild", style: context.textTheme.displayLarge),
               CwTextFormFild(
                 updateInitialValueVN: testeUpdate,

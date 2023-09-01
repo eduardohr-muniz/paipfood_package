@@ -1,4 +1,5 @@
-part of '../../../paipfood_package.dart';
+import '../../../paipfood_package.dart';
+import 'conf_log.dart';
 
 class Log extends Logger {
   Log({LogPrinter? printer}) : super(printer: printer);

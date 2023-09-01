@@ -25,5 +25,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  assets:
-    - assets/
+  # assets:
+  #   - assets/
+
+  fonts:
+    - family: icomoon
+      fonts:
+        - asset: packages/paipfood_package/fonts/icomoon.ttf

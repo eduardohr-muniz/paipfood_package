@@ -1,4 +1,4 @@
-part of 'package:paipfood_package/paipfood_package.dart';
+import 'package:flutter/material.dart';
 
 class CwSizedBox extends StatelessWidget {
   const CwSizedBox({Key? key}) : super(key: key);

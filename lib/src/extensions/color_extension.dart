@@ -1,4 +1,4 @@
-part of 'package:paipfood_package/paipfood_package.dart';
+import 'package:flutter/material.dart';
 
 class ColorExtension {
   static const Color primaryColor = Color(0xff00D856); //* Light

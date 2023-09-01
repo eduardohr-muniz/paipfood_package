@@ -1,4 +1,5 @@
-part of 'package:paipfood_package/paipfood_package.dart';
+import 'package:flutter/material.dart';
+import 'package:paipfood_package/paipfood_package.dart';
 
 class CwElevatedButton extends StatelessWidget {
   final IconData? icon;

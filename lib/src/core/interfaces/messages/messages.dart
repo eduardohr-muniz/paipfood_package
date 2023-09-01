@@ -1,4 +1,7 @@
-part of '../../../../paipfood_package.dart';
+import 'package:flutter/material.dart';
+import 'package:paipfood_package/src/extensions/context_extension.dart';
+
+import 'i_messages.dart';
 
 class Messages implements IMessages {
   final BuildContext context;

@@ -1,4 +1,6 @@
-part of '../../paipfood_package.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import '../../paipfood_package.dart';
 
 class MaskInputModel {
   final FormFieldValidator<String>? validator;

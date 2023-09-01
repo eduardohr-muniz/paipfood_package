@@ -1,5 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-part of 'package:paipfood_package/paipfood_package.dart';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:paipfood_package/paipfood_package.dart';
 
 class CwTextFormFild extends StatefulWidget {
   final TextEditingController controller;

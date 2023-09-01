@@ -1,4 +1,7 @@
-part of '../../../../paipfood_package.dart';
+import 'dart:io';
+import '../../../../paipfood_package.dart';
+import 'i_local_storage.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class LocalStorage implements ILocalStorage {
   LocalStorage();

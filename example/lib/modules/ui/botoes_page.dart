@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:paipfood_package/paipfood_package.dart';
 
 class BotoesPage extends StatelessWidget {
   const BotoesPage({super.key});
@@ -18,9 +19,9 @@ class BotoesPage extends StatelessWidget {
             OutlinedButton(onPressed: () {}, child: const Text("outlined")),
             FilledButton(
                 onPressed: () {},
-                child: const Text(
+                child: Text(
                   "Filled",
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(color: context.color.primary),
                 )),
             FilledButton.tonal(onPressed: () {}, child: const Text("Tonal")),
             TextButton(onPressed: () {}, child: const Text("TextButton"))

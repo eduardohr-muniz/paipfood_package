@@ -1,4 +1,6 @@
-part of '../../../paipfood_package.dart';
+import 'dart:math';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 double stringToDoubleTry(String text) {
   if (text != "") {

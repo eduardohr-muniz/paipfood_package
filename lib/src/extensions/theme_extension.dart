@@ -1,4 +1,5 @@
-part of 'package:paipfood_package/paipfood_package.dart';
+import 'package:flutter/material.dart';
+import '../../paipfood_package.dart';
 
 class ThemeCustom {
   ThemeCustom._();
@@ -20,6 +21,7 @@ class ThemeCustom {
         backgroundColor: ColorExtension.primaryColor.withAlpha(35),
         side: const BorderSide(color: ColorExtension.primaryColor)),
   );
+
   static ElevatedButtonThemeData? elevatedButtonTheme = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
