@@ -35,4 +35,4 @@ export 'src/ui/widgets/cw_elevated_button.dart';
 //? State
 //? Exceptions
 export 'src/core/exceptions/try_functions.dart';
-export './src/ui/icons/icomoon_icons.dart';
+export 'fonts/icomoon_icons.dart';
