@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import '../../paipfood_package.dart';
 
 extension ContextExtension on BuildContext {
+  bool get isLightTheme => Theme.of(this).brightness == Brightness.light;
+
   Color get primaryColor => Theme.of(this).brightness == Brightness.light ? ColorExtension.primaryColor : ColorExtension.primaryColorDark;
 
   Color get secondaryColor => ColorExtension.secondaryColor;
 
   Color get tertiaryColor => Theme.of(this).brightness == Brightness.light ? ColorExtension.tertiaryColor : ColorExtension.tertiaryColorDark;
   Color get alternateColor => Theme.of(this).brightness == Brightness.light ? ColorExtension.alternateColor : ColorExtension.alternateColorDark;
-
   Color get primaryBgColor =>
       Theme.of(this).brightness == Brightness.light ? ColorExtension.primaryBackgroundLight : ColorExtension.primaryBackgroundDark;
 
