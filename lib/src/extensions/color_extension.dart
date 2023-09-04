@@ -15,7 +15,7 @@ class ColorExtension {
   // static const Color secondaryDark = Color(0xff9AC1F0);
   // static const Color tertiaryDark = Color(0xffee8b60);
   // static const Color alternateDark = Color(0xffff5963);
-  static const Color primaryColorDark = Color(0xffccff00); //* Light
+  static const Color primaryColorDark = Color(0xff00D856); //* Light
   static const Color tertiaryColorDark = Color(0xffF6C445);
   static const Color alternateColorDark = Color(0xfffe483e);
   static const Color primaryBackgroundDark = Color(0xff191919);
