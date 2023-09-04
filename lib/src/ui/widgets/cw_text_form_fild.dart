@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:paipfood_package/paipfood_package.dart';
+import 'package:paipfood_package/src/ui/widgets/cw_icon_tolltip.dart';
 
 class CwTextFormFild extends StatefulWidget {
   final TextEditingController controller;
@@ -30,34 +31,38 @@ class CwTextFormFild extends StatefulWidget {
   final bool defaultStyle;
   final bool filled;
   final bool enabled;
+  final String? tooltipMessage;
+  final IconData? tooltipIcon;
 
-  const CwTextFormFild({
-    Key? key,
-    required this.controller,
-    this.initialValue,
-    this.updateInitialValueVN,
-    this.maxWidthPercent,
-    this.validator,
-    this.hintText,
-    this.srinkWrap = true,
-    this.minWidth = 200,
-    this.obscureText = false,
-    this.suffixIcon,
-    this.prefixIcon,
-    required this.label,
-    this.focusNode,
-    this.expanded = false,
-    this.minLines,
-    this.maxLines = 1,
-    this.helperText = "",
-    this.prefixText,
-    this.inputFormatters,
-    this.onChanged,
-    this.keyboardType,
-    this.defaultStyle = false,
-    this.filled = true,
-    this.enabled = true,
-  }) : super(key: key);
+  const CwTextFormFild(
+      {Key? key,
+      required this.controller,
+      this.initialValue,
+      this.updateInitialValueVN,
+      this.maxWidthPercent,
+      this.validator,
+      this.hintText,
+      this.srinkWrap = true,
+      this.minWidth = 200,
+      this.obscureText = false,
+      this.suffixIcon,
+      this.prefixIcon,
+      required this.label,
+      this.focusNode,
+      this.expanded = false,
+      this.minLines,
+      this.maxLines = 1,
+      this.helperText = "",
+      this.prefixText,
+      this.inputFormatters,
+      this.onChanged,
+      this.keyboardType,
+      this.defaultStyle = false,
+      this.filled = true,
+      this.enabled = true,
+      this.tooltipMessage,
+      this.tooltipIcon})
+      : super(key: key);
 
   @override
   State<CwTextFormFild> createState() => _CwTextFormFildState();
@@ -83,7 +88,15 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 4),
-            child: Text(widget.label, style: context.textTheme.labelMedium, maxLines: 1, overflow: TextOverflow.ellipsis),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(widget.label, style: context.textTheme.labelMedium, maxLines: 1, overflow: TextOverflow.ellipsis),
+                widget.tooltipMessage != null
+                    ? CwIconTolltip(tooltipMessage: widget.tooltipMessage!, icon: widget.tooltipIcon, iconSize: 18)
+                    : const SizedBox.shrink(),
+              ],
+            ),
           ),
           TextFormField(
             focusNode: widget.focusNode,

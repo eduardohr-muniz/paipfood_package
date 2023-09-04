@@ -29,6 +29,7 @@ class _TestePageState extends State<TestePage> {
                 initialValue: "abcde",
                 controller: inputEC,
                 label: "Teste Pormocional",
+                tooltipMessage: "teste",
                 expanded: true,
               ),
               CwElevatedButton(
