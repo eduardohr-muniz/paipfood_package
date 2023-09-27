@@ -6,6 +6,7 @@ import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
 @UseCase(name: "Default", type: CwTextFormFild)
 Widget cwTextFormFildUseCase(BuildContext context) {
-  final label = context.knobs.string(label: "Label", description: "", initialValue: "Label");
-  return BgWidget(child: CwTextFormFild(label: label));
+  final label = context.knobs.string(label: "Label", description: "String", initialValue: "Label");
+  final obscureText = context.knobs.boolean(label: "Obscure Text", description: "Password", initialValue: false);
+  return BgWidget(child: CwTextFormFild(label: label, obscureText: obscureText));
 }

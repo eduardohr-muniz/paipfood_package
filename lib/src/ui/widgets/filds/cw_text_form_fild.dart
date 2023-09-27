@@ -69,10 +69,12 @@ class CwTextFormFild extends StatefulWidget {
 }
 
 class _CwTextFormFildState extends State<CwTextFormFild> {
+  bool _obscure = false;
   @override
   void initState() {
-    if (widget.initialValue != null) widget.controller?.text = widget.initialValue!;
     super.initState();
+    if (widget.initialValue != null) widget.controller?.text = widget.initialValue!;
+    if (widget.obscureText == true) _obscure = true;
   }
 
   bool _update = false;
@@ -101,7 +103,7 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
           TextFormField(
             focusNode: widget.focusNode,
             controller: widget.controller,
-            obscureText: widget.obscureText!,
+            obscureText: _obscure,
             inputFormatters: widget.inputFormatters,
             onChanged: widget.onChanged,
             scrollPadding: const EdgeInsets.all(20),
@@ -126,7 +128,13 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
                 prefixIconColor: context.primaryColor,
                 prefixText: widget.prefixText,
                 prefixIcon: widget.prefixIcon,
-                suffixIcon: widget.suffixIcon,
+                suffixIcon: widget.obscureText == true
+                    ? IconButton(
+                        onPressed: () {
+                          setState(() => _obscure = !_obscure);
+                        },
+                        icon: Icon(_obscure ? Icomoon.eye_slash : Icomoon.eye))
+                    : widget.suffixIcon,
                 // labelText: widget.label,
                 hintText: widget.hintText),
           ),

@@ -23,7 +23,31 @@ class WidgetbookApp extends StatelessWidget {
             WidgetbookTheme(name: 'Light', data: ThemeCustom.lightTheme),
             WidgetbookTheme(name: 'Dark', data: ThemeCustom.darkTheme),
           ],
-        )
+        ),
+        TextScaleAddon(
+          scales: [1.0, 2.0],
+        ),
+        LocalizationAddon(
+          locales: [
+            const Locale('en', 'US'),
+          ],
+          localizationsDelegates: [
+            DefaultWidgetsLocalizations.delegate,
+            DefaultMaterialLocalizations.delegate,
+          ],
+        ),
+        DeviceFrameAddon(
+          devices: [
+            Devices.ios.iPhoneSE,
+            Devices.ios.iPhone13,
+            Devices.android.samsungGalaxyA50,
+            Devices.android.smallTablet,
+            Devices.android.mediumTablet,
+            Devices.android.largeTablet,
+            Devices.macOS.macBookPro,
+            Devices.macOS.wideMonitor,
+          ],
+        ),
       ],
     );
   }
