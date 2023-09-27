@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'cw_sized_box.dart';
+import '../cw_sized_box.dart';
 import 'cw_text_form_fild.dart';
 
 /// Cria um campo de pesquisa personalizado.

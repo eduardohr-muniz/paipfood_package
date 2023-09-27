@@ -4,10 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:paipfood_package/paipfood_package.dart';
-import 'package:paipfood_package/src/ui/widgets/cw_icon_tolltip.dart';
+import 'package:paipfood_package/src/ui/widgets/buttons/cw_icon_tolltip.dart';
 
 class CwTextFormFild extends StatefulWidget {
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String? initialValue;
   final ValueListenable<bool>? updateInitialValueVN;
   final double? maxWidthPercent;
@@ -36,7 +36,8 @@ class CwTextFormFild extends StatefulWidget {
 
   const CwTextFormFild(
       {Key? key,
-      required this.controller,
+      required this.label,
+      this.controller,
       this.initialValue,
       this.updateInitialValueVN,
       this.maxWidthPercent,
@@ -47,7 +48,6 @@ class CwTextFormFild extends StatefulWidget {
       this.obscureText = false,
       this.suffixIcon,
       this.prefixIcon,
-      required this.label,
       this.focusNode,
       this.expanded = false,
       this.minLines,
@@ -71,7 +71,7 @@ class CwTextFormFild extends StatefulWidget {
 class _CwTextFormFildState extends State<CwTextFormFild> {
   @override
   void initState() {
-    if (widget.initialValue != null) widget.controller.text = widget.initialValue!;
+    if (widget.initialValue != null) widget.controller?.text = widget.initialValue!;
     super.initState();
   }
 
@@ -139,7 +139,7 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
             valueListenable: widget.updateInitialValueVN!,
             builder: (context, update, _) {
               if (_update != update) {
-                widget.controller.text = widget.initialValue!;
+                widget.controller?.text = widget.initialValue!;
                 _update = update;
               }
               return child;
