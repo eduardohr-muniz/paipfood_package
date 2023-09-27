@@ -15,7 +15,7 @@ class CwTextFormFild extends StatefulWidget {
   final String? hintText;
   final bool srinkWrap;
   final double minWidth;
-  final bool? obscureText;
+  final bool obscureText;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final String label;
@@ -74,7 +74,7 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
   void initState() {
     super.initState();
     if (widget.initialValue != null) widget.controller?.text = widget.initialValue!;
-    if (widget.obscureText == true) _obscure = true;
+    if (widget.obscureText) _obscure = true;
   }
 
   bool _update = false;
@@ -128,7 +128,7 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
                 prefixIconColor: context.primaryColor,
                 prefixText: widget.prefixText,
                 prefixIcon: widget.prefixIcon,
-                suffixIcon: widget.obscureText == true
+                suffixIcon: widget.obscureText
                     ? IconButton(
                         onPressed: () {
                           setState(() => _obscure = !_obscure);
