@@ -1,26 +1,65 @@
 import 'package:flutter/material.dart';
 
 class ColorExtension {
-  static const Color primaryColor = Color(0xff00D856); //* Light
-  static const Color secondaryColor = Color(0xff9AC1F0);
-  static const Color tertiaryColor = Color(0xffF6C445);
-  static const Color alternateColor = Color(0xffE45F2B);
-  static const Color primaryBackgroundLight = Color(0xffF5F6FA);
-  static const Color secondaryBackgroundLight = Color(0xffFfffff);
-  static const Color primaryTextLight = Color(0xff121214);
-  static const Color secondaryTextLight = Color(0xffababab);
-  // static const Color focusLight = Color(0xffECECF4);
-  // separador de themas
-  // static const Color primaryDark = Color(0xffA0E548); //* Dark
-  // static const Color secondaryDark = Color(0xff9AC1F0);
-  // static const Color tertiaryDark = Color(0xffee8b60);
-  // static const Color alternateDark = Color(0xffff5963);
-  static const Color primaryColorDark = Color(0xff00D856); //* Light
-  static const Color tertiaryColorDark = Color(0xffF6C445);
-  static const Color alternateColorDark = Color(0xfffe483e);
-  static const Color primaryBackgroundDark = Color(0xff191919);
-  static const Color secondaryBackgroundDark = Color(0xff202024);
-  static const Color primaryTextDark = Color(0xffF5F6FA);
-  static const Color secondaryTextDark = Color(0xffababab);
-  // static const Color focusDark = Color(0xffECECF4);
+  final Color primaryColor;
+  final Color secondaryColor;
+  final Color tertiaryColor;
+  final Color alternateColor;
+  final Color primaryBG;
+  final Color secondaryBG;
+  final Color primaryText;
+  final Color secondaryText;
+  ColorExtension({
+    required this.primaryColor,
+    required this.secondaryColor,
+    required this.tertiaryColor,
+    required this.alternateColor,
+    required this.primaryBG,
+    required this.secondaryBG,
+    required this.primaryText,
+    required this.secondaryText,
+  });
+
+  static ColorExtension light = ColorExtension(
+    primaryColor: const Color(0xff49A568),
+    secondaryColor: const Color(0xff233831),
+    tertiaryColor: const Color(0xffceac5c),
+    alternateColor: const Color(0xff7E121d),
+    primaryBG: const Color(0xffF5F6FA),
+    secondaryBG: const Color(0xffFfffff),
+    primaryText: const Color(0xff121214),
+    secondaryText: const Color(0xffababab),
+  );
+  static ColorExtension dark = ColorExtension(
+    primaryColor: const Color(0xff49A568),
+    secondaryColor: const Color(0xff233831),
+    tertiaryColor: const Color(0xffceac5c),
+    alternateColor: const Color(0xffbd3634),
+    primaryBG: const Color(0xff191919),
+    secondaryBG: const Color(0xff202024),
+    primaryText: const Color(0xffF5F6FA),
+    secondaryText: const Color(0xffababab),
+  );
+
+  ColorExtension copyWith({
+    Color? primaryColor,
+    Color? secondaryColor,
+    Color? tertiaryColor,
+    Color? alternateColor,
+    Color? primaryBG,
+    Color? secondaryBG,
+    Color? primaryText,
+    Color? secondaryText,
+  }) {
+    return ColorExtension(
+      primaryColor: primaryColor ?? this.primaryColor,
+      secondaryColor: secondaryColor ?? this.secondaryColor,
+      tertiaryColor: tertiaryColor ?? this.tertiaryColor,
+      alternateColor: alternateColor ?? this.alternateColor,
+      primaryBG: primaryBG ?? this.primaryBG,
+      secondaryBG: secondaryBG ?? this.secondaryBG,
+      primaryText: primaryText ?? this.primaryText,
+      secondaryText: secondaryText ?? this.secondaryText,
+    );
+  }
 }

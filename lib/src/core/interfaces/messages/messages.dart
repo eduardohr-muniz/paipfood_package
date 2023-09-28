@@ -8,13 +8,13 @@ class Messages implements IMessages {
   Messages._(this.context);
 
   @override
-  void showError(String message) => _showMessage(message, context.tertiaryColor, Colors.white);
+  void showError(String message) => _showMessage(message, context.color.tertiaryColor, Colors.white);
 
   @override
-  void showInfo(String message) => _showMessage(message, context.secondaryColor, Colors.black);
+  void showInfo(String message) => _showMessage(message, context.color.secondaryColor, Colors.black);
 
   @override
-  void showSucess(String message) => _showMessage(message, context.primaryColor, Colors.white);
+  void showSucess(String message) => _showMessage(message, context.color.primaryColor, Colors.white);
 
   void _showMessage(String message, Color color, Color colorText) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(

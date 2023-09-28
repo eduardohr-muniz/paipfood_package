@@ -3,82 +3,59 @@ import '../../paipfood_package.dart';
 
 class ThemeCustom {
   ThemeCustom._();
-  ColorExtension colorExtension = ColorExtension();
-
-  static FilledButtonThemeData filledButtonTheme = FilledButtonThemeData(
-    style: FilledButton.styleFrom(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-      minimumSize: const Size(80, 40),
-      elevation: 1,
-    ),
-  );
-
-  static OutlinedButtonThemeData outlinedButtonTheme = OutlinedButtonThemeData(
-    style: FilledButton.styleFrom(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-        minimumSize: const Size(80, 40),
-        elevation: 1,
-        backgroundColor: ColorExtension.primaryColor.withAlpha(35),
-        side: const BorderSide(color: ColorExtension.primaryColor)),
-  );
-
-  static ElevatedButtonThemeData? elevatedButtonTheme = ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-      minimumSize: const Size(80, 40),
-      elevation: 1,
-    ),
-  );
-
   static final lightTheme = ThemeData(
     fontFamily: "Roboto",
     useMaterial3: true,
-    filledButtonTheme: filledButtonTheme,
-    elevatedButtonTheme: elevatedButtonTheme,
-    outlinedButtonTheme: outlinedButtonTheme,
-    scaffoldBackgroundColor: ColorExtension.primaryBackgroundLight,
-    textTheme: extTextTheme,
+    scaffoldBackgroundColor: ColorExtension.light.primaryBG,
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: ColorExtension.light.secondaryColor,
+      selectionColor: ColorExtension.light.primaryColor.withOpacity(0.5),
+      selectionHandleColor: ColorExtension.light.secondaryColor,
+    ),
+    textTheme: text,
     brightness: Brightness.light,
-    colorScheme: const ColorScheme(
+    colorScheme: ColorScheme(
       brightness: Brightness.light,
-      primary: ColorExtension.primaryColor,
-      onPrimary: Colors.white,
-      secondary: ColorExtension.primaryTextLight,
-      onSecondary: Colors.white,
-      error: ColorExtension.alternateColor,
-      onError: Colors.white,
-      background: Colors.white,
-      onBackground: Colors.black,
-      surface: Colors.white,
-      onSurface: Colors.black,
+      background: ColorExtension.light.primaryBG, //primaryBackGround
+      onBackground: ColorExtension.light.secondaryText,
+      surface: ColorExtension.light.secondaryBG, // secondary Backgorund
+      onSurface: ColorExtension.light.primaryText,
+      primary: ColorExtension.light.primaryColor,
+      onPrimary: ColorExtension.light.primaryText,
+      secondary: ColorExtension.light.secondaryColor,
+      onSecondary: ColorExtension.light.primaryText,
+      error: ColorExtension.light.alternateColor,
+      onError: ColorExtension.light.primaryBG,
     ),
   );
 
   static final darkTheme = ThemeData(
     fontFamily: "Roboto",
     useMaterial3: true,
-    filledButtonTheme: filledButtonTheme,
-    elevatedButtonTheme: elevatedButtonTheme,
-    outlinedButtonTheme: outlinedButtonTheme,
-    scaffoldBackgroundColor: ColorExtension.primaryBackgroundDark,
-    textTheme: extTextTheme,
+    scaffoldBackgroundColor: ColorExtension.dark.primaryBG,
+    textTheme: text,
     brightness: Brightness.dark,
-    colorScheme: const ColorScheme(
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: ColorExtension.light.secondaryColor,
+      selectionColor: ColorExtension.light.primaryColor.withOpacity(0.5),
+      selectionHandleColor: ColorExtension.light.secondaryColor,
+    ),
+    colorScheme: ColorScheme(
       brightness: Brightness.dark,
-      primary: ColorExtension.primaryColorDark,
-      onPrimary: Colors.white,
-      secondary: ColorExtension.secondaryColor,
-      onSecondary: Colors.black,
-      error: ColorExtension.alternateColorDark,
-      onError: Colors.white,
-      background: ColorExtension.primaryBackgroundDark,
-      onBackground: Colors.white,
-      surface: Colors.grey,
-      onSurface: Colors.white,
+      background: ColorExtension.dark.primaryBG, //primaryBackGround
+      onBackground: ColorExtension.dark.secondaryText,
+      surface: ColorExtension.dark.secondaryBG, // secondary Backgorund
+      onSurface: ColorExtension.dark.primaryText,
+      primary: ColorExtension.dark.primaryColor,
+      onPrimary: ColorExtension.dark.primaryText,
+      secondary: ColorExtension.dark.secondaryColor,
+      onSecondary: ColorExtension.dark.primaryText,
+      error: ColorExtension.dark.alternateColor,
+      onError: ColorExtension.dark.primaryBG,
     ),
   );
 
-  static const extTextTheme = TextTheme(
+  static const text = TextTheme(
     displayLarge: TextStyle(letterSpacing: 0),
     displayMedium: TextStyle(letterSpacing: 0),
     displaySmall: TextStyle(letterSpacing: 0),

@@ -12,7 +12,7 @@ class BgWidget extends StatelessWidget {
     return Center(
       child: Container(
         width: double.infinity,
-        color: context.secondaryBgColor,
+        color: context.color.secondaryBG,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 50),
           child: child,

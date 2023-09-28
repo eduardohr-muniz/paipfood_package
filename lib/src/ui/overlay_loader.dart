@@ -83,10 +83,7 @@ class Loader extends StatelessWidget {
       _currentLoader = OverlayEntry(builder: (context) {
         return Stack(
           children: <Widget>[
-            _overlayWidget(
-                isSafeAreaOverlay,
-                overlayColor ?? const Color(0x99ffffff),
-                isAppbarOverlay ? 0.0 : overlayFromTop ?? defaultPaddingTop,
+            _overlayWidget(isSafeAreaOverlay, overlayColor ?? const Color(0x99ffffff), isAppbarOverlay ? 0.0 : overlayFromTop ?? defaultPaddingTop,
                 isBottomBarOverlay ? 0.0 : overlayFromBottom ?? defaultPaddingBottom),
             Center(
                 child: Loader._(
@@ -154,9 +151,7 @@ class Loader extends StatelessWidget {
         },
         child: Center(
             child: Theme(
-                data: _themeData ??
-                    Theme.of(context)
-                        .copyWith(colorScheme: ColorScheme.fromSwatch().copyWith(secondary: context.primaryColor)),
+                data: _themeData ?? Theme.of(context).copyWith(colorScheme: ColorScheme.fromSwatch().copyWith(secondary: context.color.primaryColor)),
                 child: _progressIndicator ?? const CircularProgressIndicator())));
   }
 }

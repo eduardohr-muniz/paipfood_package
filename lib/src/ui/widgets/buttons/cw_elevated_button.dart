@@ -18,15 +18,15 @@ class CwElevatedButton extends StatelessWidget {
       icon: icon != null
           ? Icon(
               icon,
-              color: context.primaryBgColor,
+              color: context.color.primaryBG,
             )
           : const SizedBox.shrink(),
       label: Text(
         label,
-        style: TextStyle(color: context.primaryBgColor),
+        style: TextStyle(color: context.color.primaryBG),
       ),
       onPressed: onPressed,
-      style: context.buttonPrimary,
+      style: ElevatedButton.styleFrom(backgroundColor: context.color.primaryColor),
     );
   }
 }
