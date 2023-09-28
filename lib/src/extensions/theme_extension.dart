@@ -6,52 +6,54 @@ class ThemeCustom {
   static final lightTheme = ThemeData(
     fontFamily: "Roboto",
     useMaterial3: true,
-    scaffoldBackgroundColor: ColorExtension.light.primaryBG,
+    scaffoldBackgroundColor: PColors.light.primaryBG,
     textSelectionTheme: TextSelectionThemeData(
-      cursorColor: ColorExtension.light.secondaryColor,
-      selectionColor: ColorExtension.light.primaryColor.withOpacity(0.5),
-      selectionHandleColor: ColorExtension.light.secondaryColor,
+      cursorColor: PColors.light.secondaryColor,
+      selectionColor: PColors.light.primaryColor.withOpacity(0.5),
+      selectionHandleColor: PColors.light.secondaryColor,
     ),
     textTheme: text,
     brightness: Brightness.light,
+    extensions: [PColors.light],
     colorScheme: ColorScheme(
       brightness: Brightness.light,
-      background: ColorExtension.light.primaryBG, //primaryBackGround
-      onBackground: ColorExtension.light.secondaryText,
-      surface: ColorExtension.light.secondaryBG, // secondary Backgorund
-      onSurface: ColorExtension.light.primaryText,
-      primary: ColorExtension.light.primaryColor,
-      onPrimary: ColorExtension.light.primaryText,
-      secondary: ColorExtension.light.secondaryColor,
-      onSecondary: ColorExtension.light.primaryText,
-      error: ColorExtension.light.alternateColor,
-      onError: ColorExtension.light.primaryBG,
+      background: PColors.light.primaryBG, //primaryBackGround
+      onBackground: PColors.light.secondaryText,
+      surface: PColors.light.secondaryBG, // secondary Backgorund
+      onSurface: PColors.light.primaryText,
+      primary: PColors.light.primaryColor,
+      onPrimary: PColors.light.primaryText,
+      secondary: PColors.light.secondaryColor,
+      onSecondary: PColors.light.primaryText,
+      error: PColors.light.errorColor,
+      onError: PColors.light.primaryBG,
     ),
   );
 
   static final darkTheme = ThemeData(
     fontFamily: "Roboto",
     useMaterial3: true,
-    scaffoldBackgroundColor: ColorExtension.dark.primaryBG,
+    scaffoldBackgroundColor: PColors.dark.primaryBG,
     textTheme: text,
     brightness: Brightness.dark,
     textSelectionTheme: TextSelectionThemeData(
-      cursorColor: ColorExtension.light.secondaryColor,
-      selectionColor: ColorExtension.light.primaryColor.withOpacity(0.5),
-      selectionHandleColor: ColorExtension.light.secondaryColor,
+      cursorColor: PColors.light.secondaryColor,
+      selectionColor: PColors.light.primaryColor.withOpacity(0.5),
+      selectionHandleColor: PColors.light.secondaryColor,
     ),
+    extensions: [PColors.dark],
     colorScheme: ColorScheme(
       brightness: Brightness.dark,
-      background: ColorExtension.dark.primaryBG, //primaryBackGround
-      onBackground: ColorExtension.dark.secondaryText,
-      surface: ColorExtension.dark.secondaryBG, // secondary Backgorund
-      onSurface: ColorExtension.dark.primaryText,
-      primary: ColorExtension.dark.primaryColor,
-      onPrimary: ColorExtension.dark.primaryText,
-      secondary: ColorExtension.dark.secondaryColor,
-      onSecondary: ColorExtension.dark.primaryText,
-      error: ColorExtension.dark.alternateColor,
-      onError: ColorExtension.dark.primaryBG,
+      background: PColors.dark.primaryBG, //primaryBackGround
+      onBackground: PColors.dark.secondaryText,
+      surface: PColors.dark.secondaryBG, // secondary Backgorund
+      onSurface: PColors.dark.primaryText,
+      primary: PColors.dark.primaryColor,
+      onPrimary: PColors.dark.primaryText,
+      secondary: PColors.dark.secondaryColor,
+      onSecondary: PColors.dark.primaryText,
+      error: PColors.dark.errorColor,
+      onError: PColors.dark.primaryBG,
     ),
   );
 

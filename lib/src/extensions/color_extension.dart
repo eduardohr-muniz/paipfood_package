@@ -1,47 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:paipfood_package/src/extensions/context_extension.dart';
 
-class ColorExtension {
+class PColors extends ThemeExtension<PColors> {
   final Color primaryColor;
   final Color secondaryColor;
   final Color tertiaryColor;
-  final Color alternateColor;
+  final Color errorColor;
   final Color primaryBG;
   final Color secondaryBG;
   final Color primaryText;
   final Color secondaryText;
-  ColorExtension({
+
+  PColors({
     required this.primaryColor,
     required this.secondaryColor,
     required this.tertiaryColor,
-    required this.alternateColor,
+    required this.errorColor,
     required this.primaryBG,
     required this.secondaryBG,
     required this.primaryText,
     required this.secondaryText,
   });
 
-  static ColorExtension light = ColorExtension(
+  static PColors light = PColors(
     primaryColor: const Color(0xff49A568),
     secondaryColor: const Color(0xff233831),
     tertiaryColor: const Color(0xffceac5c),
-    alternateColor: const Color(0xff7E121d),
+    errorColor: const Color(0xff7E121d),
     primaryBG: const Color(0xffF5F6FA),
     secondaryBG: const Color(0xffFfffff),
     primaryText: const Color(0xff121214),
     secondaryText: const Color(0xffababab),
   );
-  static ColorExtension dark = ColorExtension(
+  static PColors dark = PColors(
     primaryColor: const Color(0xff49A568),
     secondaryColor: const Color(0xff233831),
     tertiaryColor: const Color(0xffceac5c),
-    alternateColor: const Color(0xffbd3634),
+    errorColor: const Color(0xffbd3634),
     primaryBG: const Color(0xff191919),
     secondaryBG: const Color(0xff202024),
     primaryText: const Color(0xffF5F6FA),
     secondaryText: const Color(0xffababab),
   );
 
-  ColorExtension copyWith({
+  @override
+  PColors copyWith({
     Color? primaryColor,
     Color? secondaryColor,
     Color? tertiaryColor,
@@ -51,15 +54,39 @@ class ColorExtension {
     Color? primaryText,
     Color? secondaryText,
   }) {
-    return ColorExtension(
+    return PColors(
       primaryColor: primaryColor ?? this.primaryColor,
       secondaryColor: secondaryColor ?? this.secondaryColor,
       tertiaryColor: tertiaryColor ?? this.tertiaryColor,
-      alternateColor: alternateColor ?? this.alternateColor,
+      errorColor: alternateColor ?? this.errorColor,
       primaryBG: primaryBG ?? this.primaryBG,
       secondaryBG: secondaryBG ?? this.secondaryBG,
       primaryText: primaryText ?? this.primaryText,
       secondaryText: secondaryText ?? this.secondaryText,
+    );
+  }
+
+  @override
+  PColors lerp(PColors? other, double t) {
+    if (other is! PColors) return this;
+    return t > 0.5 ? other : this;
+  }
+}
+
+class ThemeEditor extends StatelessWidget {
+  final WidgetBuilder builder;
+  final Color color;
+  const ThemeEditor({
+    Key? key,
+    required this.builder,
+    required this.color,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Theme(
+      data: Theme.of(context).copyWith(extensions: [context.color.copyWith(primaryColor: color)]),
+      child: Builder(builder: builder),
     );
   }
 }

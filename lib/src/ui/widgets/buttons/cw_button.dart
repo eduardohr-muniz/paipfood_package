@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+
 import 'package:paipfood_package/paipfood_package.dart';
 
-class CwElevatedButton extends StatelessWidget {
+class CwButton extends StatelessWidget {
   final IconData? icon;
   final String label;
   final void Function()? onPressed;
-  const CwElevatedButton({
+  const CwButton({
     Key? key,
     this.icon,
     required this.label,
@@ -14,7 +15,7 @@ class CwElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton.icon(
+    return FilledButton.icon(
       icon: icon != null
           ? Icon(
               icon,
@@ -23,10 +24,14 @@ class CwElevatedButton extends StatelessWidget {
           : const SizedBox.shrink(),
       label: Text(
         label,
-        style: TextStyle(color: context.color.primaryBG),
+        style: TextStyle(color: PColors.light.primaryBG),
       ),
       onPressed: onPressed,
-      style: ElevatedButton.styleFrom(backgroundColor: context.color.primaryColor),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: context.color.primaryColor,
+        minimumSize: const Size(60, 45),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+      ),
     );
   }
 }
