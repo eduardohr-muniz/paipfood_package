@@ -21,7 +21,7 @@ class Debounce {
   void startTimer(VoidCallback? onTap) {
     _timer?.cancel();
     _timer = Timer(Duration(milliseconds: miliseconds!), () {
-      textEditingController.text.length >= 7 ? onTap?.call() : null;
+      if (textEditingController.text.length >= 7) onTap?.call();
     });
   }
 }

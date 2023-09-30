@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:paipfood_package/src/extensions/context_extension.dart';
 
 class PColors extends ThemeExtension<PColors> {
@@ -44,11 +45,17 @@ class PColors extends ThemeExtension<PColors> {
   );
 
   @override
+  PColors lerp(PColors? other, double t) {
+    if (other is! PColors) return this;
+    return t > 0.5 ? other : this;
+  }
+
+  @override
   PColors copyWith({
     Color? primaryColor,
     Color? secondaryColor,
     Color? tertiaryColor,
-    Color? alternateColor,
+    Color? errorColor,
     Color? primaryBG,
     Color? secondaryBG,
     Color? primaryText,
@@ -58,18 +65,12 @@ class PColors extends ThemeExtension<PColors> {
       primaryColor: primaryColor ?? this.primaryColor,
       secondaryColor: secondaryColor ?? this.secondaryColor,
       tertiaryColor: tertiaryColor ?? this.tertiaryColor,
-      errorColor: alternateColor ?? this.errorColor,
+      errorColor: errorColor ?? this.errorColor,
       primaryBG: primaryBG ?? this.primaryBG,
       secondaryBG: secondaryBG ?? this.secondaryBG,
       primaryText: primaryText ?? this.primaryText,
       secondaryText: secondaryText ?? this.secondaryText,
     );
-  }
-
-  @override
-  PColors lerp(PColors? other, double t) {
-    if (other is! PColors) return this;
-    return t > 0.5 ? other : this;
   }
 }
 
@@ -77,9 +78,9 @@ class ThemeEditor extends StatelessWidget {
   final WidgetBuilder builder;
   final Color color;
   const ThemeEditor({
-    Key? key,
     required this.builder,
     required this.color,
+    Key? key,
   }) : super(key: key);
 
   @override

@@ -31,7 +31,6 @@ class CwOutlineButton extends StatelessWidget {
         minimumSize: const Size(60, 45),
         side: BorderSide(
           color: context.color.primaryColor,
-          width: 1,
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       ),

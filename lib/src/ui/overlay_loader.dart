@@ -63,7 +63,7 @@ class Loader extends StatelessWidget {
     /// bottomNavBar then make it false.
     bool isSafeAreaOverlay = true,
   }) {
-    var safeBottomPadding = MediaQuery.of(context).padding.bottom;
+    final safeBottomPadding = MediaQuery.of(context).padding.bottom;
     var defaultPaddingTop = 0.0;
     var defaultPaddingBottom = 0.0;
     if (!isAppbarOverlay) {

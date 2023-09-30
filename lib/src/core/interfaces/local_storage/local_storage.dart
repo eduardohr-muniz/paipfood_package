@@ -8,12 +8,12 @@ class LocalStorage implements ILocalStorage {
 
   final logger = Log(printer: PrettyPrinter());
 
-  static init() {
-    final hive = LocalStorage.initHive();
+  static dynamic init() {
+    final hive = LocalStorage._initHive();
     return hive;
   }
 
-  static initHive() async {
+  static void _initHive() async {
     String path = "";
     if (kIsWeb) {
       path = "/assets/db";
@@ -25,15 +25,15 @@ class LocalStorage implements ILocalStorage {
 
   @override
   Future<void> delete<T>(String boxId, {required String key}) async {
-    var box = Hive.box<T>(boxId);
-    box.delete(key);
+    final box = Hive.box<T>(boxId);
+    await box.delete(key);
 
     _logInfos(boxId, "DELETE", key: key);
   }
 
   @override
   Future<T?> get<T>(String boxId, {required String key}) async {
-    var box = Hive.box<T>(boxId);
+    final box = Hive.box<T>(boxId);
     final result = box.get(key);
 
     _logInfos(boxId, "GET", key: key, value: result);
@@ -42,7 +42,7 @@ class LocalStorage implements ILocalStorage {
 
   @override
   Future<void> put<T>(String boxId, {required String key, required T value}) async {
-    var box = Hive.box<T>(boxId);
+    final box = Hive.box<T>(boxId);
     await box.put(key, value);
 
     _logInfos(boxId, "PUT", key: key, value: value);
@@ -50,7 +50,7 @@ class LocalStorage implements ILocalStorage {
 
   @override
   Future<List<T>>? getAll<T>(String boxId) async {
-    var box = Hive.box<T>(boxId);
+    final box = Hive.box<T>(boxId);
     List<T> resultMap = [];
     try {
       resultMap = List<T>.from(box.values);
@@ -61,7 +61,7 @@ class LocalStorage implements ILocalStorage {
           try {
             resultMap.add(content);
           } catch (e) {
-            box.delete(key);
+            await box.delete(key);
             _logInfos(boxId, "DELETE", key: key, value: content);
           }
         }

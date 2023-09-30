@@ -6,8 +6,8 @@ class CwIconTolltip extends StatelessWidget {
   final IconData? icon;
   final double? iconSize;
   const CwIconTolltip({
-    Key? key,
     required this.tooltipMessage,
+    Key? key,
     this.icon,
     this.iconSize,
   }) : super(key: key);

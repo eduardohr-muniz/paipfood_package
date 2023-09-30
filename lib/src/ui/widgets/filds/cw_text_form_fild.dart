@@ -35,8 +35,8 @@ class CwTextFormFild extends StatefulWidget {
   final IconData? tooltipIcon;
 
   const CwTextFormFild(
-      {Key? key,
-      required this.label,
+      {required this.label,
+      Key? key,
       this.controller,
       this.initialValue,
       this.updateInitialValueVN,
@@ -82,10 +82,9 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
   @override
   Widget build(BuildContext context) {
     final double widthMediaQuery = widget.maxWidthPercent != null ? context.w * widget.maxWidthPercent! : 0;
-    Widget child = Padding(
+    final Widget child = Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
@@ -106,7 +105,6 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
             obscureText: _obscure,
             inputFormatters: widget.inputFormatters,
             onChanged: widget.onChanged,
-            scrollPadding: const EdgeInsets.all(20),
             cursorColor: context.color.primaryColor,
             minLines: widget.minLines,
             maxLines: widget.maxLines,
@@ -142,7 +140,7 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
       ),
     );
 
-    Widget valueLB = widget.updateInitialValueVN != null
+    final Widget valueLB = widget.updateInitialValueVN != null
         ? ValueListenableBuilder(
             valueListenable: widget.updateInitialValueVN!,
             builder: (context, update, _) {

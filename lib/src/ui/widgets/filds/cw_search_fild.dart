@@ -32,18 +32,18 @@ class CwSearchFild extends StatefulWidget {
   final void Function(String)? onChanged;
 
   const CwSearchFild({
+    required this.label,
+    required this.children,
+    required this.list,
+    required this.controller,
     Key? key,
     this.onSelectedCallBack,
     this.menuController,
     this.obscureText = false,
     this.suffixIcon,
     this.prefixIcon,
-    required this.label,
-    required this.children,
     this.hintText,
-    required this.list,
     this.inputFormatters,
-    required this.controller,
     this.onChanged,
   }) : super(key: key);
 
@@ -57,7 +57,7 @@ class _CwSearchFildState extends State<CwSearchFild> {
   void initState() {
     super.initState();
     focusNode.addListener(() {
-      focusNode.hasFocus ? widget.menuController?.open() : null;
+      if (focusNode.hasFocus) widget.menuController?.open();
     });
   }
 

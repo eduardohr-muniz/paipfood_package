@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import '../../paipfood_package.dart';
 
 class MaskInputModel {
@@ -10,11 +9,11 @@ class MaskInputModel {
   final TextInputType textInputType;
   final FocusManager? focusNode;
   MaskInputModel({
+    required this.hint,
+    required this.textInputType,
     this.validator,
     this.mask,
-    required this.hint,
     this.changeMask,
-    required this.textInputType,
     this.focusNode,
   });
 }
@@ -118,7 +117,7 @@ class MaskInputExtension {
       soma += int.parse(cnpj[i]) * peso;
       peso = (peso == 2) ? 9 : peso - 1;
     }
-    var digito1 = (11 - (soma % 11)) % 10;
+    final digito1 = (11 - (soma % 11)) % 10;
     // Calcular o segundo dígito verificador
     soma = 0;
     peso = 6;
@@ -126,7 +125,7 @@ class MaskInputExtension {
       soma += int.parse(cnpj[i]) * peso;
       peso = (peso == 2) ? 9 : peso - 1;
     }
-    var digito2 = (11 - (soma % 11)) % 10;
+    final digito2 = (11 - (soma % 11)) % 10;
     // Verificar se os dígitos calculados correspondem aos dígitos informados
     return digito1 == int.parse(cnpj[12]) && digito2 == int.parse(cnpj[13]);
   }
@@ -188,25 +187,4 @@ class MaskInputExtension {
     // CPF válido
     return true;
   }
-}
-
-class DecimalInputFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
-    if (newValue.text.isEmpty) () => newValue;
-    String result = formatNumberPtbr(newValue.text);
-    return TextEditingValue(
-      text: result,
-      selection: TextSelection.collapsed(offset: result.length),
-    );
-  }
-}
-
-var numberFormat = NumberFormat("#,###,##", "pt_BR");
-
-String formatNumberPtbr(String value) {
-  String regex = value.replaceAll(RegExp(r"[^0-9]"), "");
-  int toNumber = int.tryParse(regex) ?? 0;
-  String text = numberFormat.format(toNumber).toString();
-  return text.replaceFirstMapped(RegExp(r'\.(?=[^.]*$)'), (match) => ',');
 }

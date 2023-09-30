@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 
 class Shadowns {
-  static List<BoxShadow> shadown1 = const [
-    BoxShadow(color: Color.fromRGBO(149, 157, 165, 0.2), blurRadius: 24, spreadRadius: 0, offset: Offset(0, 8))
-  ];
-  static List<BoxShadow> shadown2 = const [
-    BoxShadow(color: Color.fromRGBO(100, 100, 111, 0.2), blurRadius: 29, spreadRadius: 0, offset: Offset(0, 7))
-  ];
+  static List<BoxShadow> shadown1 = const [BoxShadow(color: Color.fromRGBO(149, 157, 165, 0.2), blurRadius: 24, offset: Offset(0, 8))];
+  static List<BoxShadow> shadown2 = const [BoxShadow(color: Color.fromRGBO(100, 100, 111, 0.2), blurRadius: 29, offset: Offset(0, 7))];
 
-  static List<BoxShadow> shadown3 = const [
-    BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.15), blurRadius: 2.6, spreadRadius: 0, offset: Offset(1.95, 1.95))
-  ];
+  static List<BoxShadow> shadown3 = const [BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.15), blurRadius: 2.6, offset: Offset(1.95, 1.95))];
 
-  static List<BoxShadow> shadown4 = const [BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.35), blurRadius: 15, spreadRadius: 0, offset: Offset(0, 5))];
+  static List<BoxShadow> shadown4 = const [BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.35), blurRadius: 15, offset: Offset(0, 5))];
 
   // static List<BoxShadow>  shadown5 =
   // static List<BoxShadow>  shadown6 =
