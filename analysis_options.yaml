@@ -1,4 +1,123 @@
 include: package:flutter_lints/flutter.yaml
 
+analyzer:
+  exclude:
+    - build/**
+    - assets/**
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - lib/app/app_widget.widgetbook.dart
+  language:
+    strict-inference: false
+    strict-raw-types: false
+  errors:
+    missing_required_param: error
+    missing_return: error
+
+linter:
+  rules:
+    # Evitar prints no console, use o debugPrint()
+    # X print("Hello World");
+    # >> debugPrint("Hello World");
+    avoid_print: true
+
+    always_use_package_imports: false
+
+    # Evitar aspas simples
+    prefer_single_quotes: false
+
+    # Evitar instruções else vazias
+    avoid_empty_else: true
+
+    # Evitar declarações vazias
+    empty_statements: true
+
+    # Evitar usar declarações desnecessárias
+    unnecessary_statements: true
+
+    # Declarar tipos de retorno dos métodos
+    # X getExampleText() { ... }
+    # >> String getExampleText() { ... }
+    always_declare_return_types: true
+
+    # Colocar os parâmetros nomeados necessariamente primeiro nos construtores
+    # Ex: Widget({required this.name, this.age});
+    always_put_required_named_parameters_first: true
+
+    # Preferir usar lowerCamelCase para nomes de constantes
+    # Ex: const String exampleText = "Hello World";
+    constant_identifier_names: true
+
+    # Use interpolação para compor strings e valores
+    # Ex: 'Hello, $name!'
+    prefer_interpolation_to_compose_strings: true
+
+    # Parênteses desnecessários podem ser removidos
+    # Ex: (boolValue == true) ? true : false
+    # >> boolValue == true ? true : false
+    unnecessary_parenthesis: true
+
+    # Sempre aguardar Futures (await). Se o Future não precisar ser aguardado, use unawaited(...)
+    unawaited_futures: true
+
+    # Utilizar uma Key para widgets públicos
+    use_key_in_widget_constructors: true
+
+    #  # Sempre colocar o corpo de estruturas de controle em uma nova linha. [curly_braces_in_flow_control_structures]
+    #  # não não vale para o caso de if's com uma linha.
+    #   always_put_control_body_on_new_line: true
+
+    # Sempre colocar o corpo de estruturas de controle dentro de chaves {}
+    curly_braces_in_flow_control_structures: true
+
+    # Evitar argumentos redundantes
+    # Ex: foo({bool trueValue = true, bool? val})
+    # X foo(trueValue: true) // Argumento redundante
+    # >> foo()
+    avoid_redundant_argument_values: true
+
+    # Evitar Container's desnecessários
+    # X  Container(child: Text())
+    # >> Text()
+    avoid_unnecessary_containers: true
+
+    # Utilizar SizedBox quando o Container só possuir [height/width] e [child]
+    # X  Container(height: 10, child: Text())
+    # >> SizedBox(height: 10, child: Text())
+    # X  Container(height: 10)
+    # >> SizedBox(height: 10)
+    sized_box_for_whitespace: true
+
+    # Utilizar ColoredBox quando o Container só possui [color] e [child]
+    # X  Container(color: Color(), child: Text())
+    # >> ColoredBox(color: Color(), child: Text())
+    use_colored_box: true
+
+    # Utilizar DecoratedBox quando o Container só possui [decoration] e [child]
+    # X  Container(decoration: BoxDecoration(), child: Text())
+    # >> DecoratedBox(decoration: BoxDecoration(), child: Text())
+    use_decorated_box: true
+
+    # Utilizar o operador cascata para invocar métodos sobre a mesma referência
+    # Ex: teste..fun1()..fun2()
+    cascade_invocations: true
+
+    # Utilizar concatenação adjacente para reduzir espaço horizontal
+    # X  'Hello ' + 'World'
+    # >> 'Hello ' 'World'
+    prefer_adjacent_string_concatenation: true
+
+    # Utilizar finals para otimização de compilação
+    # X  String example = 'Hello World';
+    # >> final String example = 'Hello World';
+    prefer_final_locals: true
+
+    # Evite funções lambda quando uma tear-off pode ser utilizado
+    # X  onTap: (value) => foo(value)
+    # >> onTap: foo
+    unnecessary_lambdas: true
+
+    avoid_relative_lib_imports: true
+    implementation_imports: true
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

@@ -6,14 +6,22 @@ import 'package:widgetbook/widgetbook.dart' as knobs;
 @UseCase(name: "Default", type: CwButton)
 Widget cWButtonUsecase(BuildContext context) {
   final label = context.knobs.string(label: "Label", initialValue: "Click");
-  return ThemeEditor(
-      color: Colors.black,
-      builder: (context) {
-        return Center(
-          child: CwButton(
-            label: label,
-            onPressed: () => debugPrint("pressed"),
-          ),
-        );
-      });
+  return Column(
+    children: [
+      Container(
+        height: 200,
+        width: 200,
+        decoration: BoxDecoration(
+          color: Colors.red,
+          borderRadius: 1.0.borderRadiusAll,
+        ),
+      ),
+      Center(
+        child: CwButton(
+          label: label,
+          onPressed: () => debugPrint("pressed"),
+        ),
+      ),
+    ],
+  );
 }

@@ -7,10 +7,10 @@ class CwButton extends StatelessWidget {
   final String label;
   final void Function()? onPressed;
   const CwButton({
-    Key? key,
-    this.icon,
     required this.label,
     required this.onPressed,
+    Key? key,
+    this.icon,
   }) : super(key: key);
 
   @override

@@ -19,6 +19,7 @@ import 'src/ui/overlay_loader.dart';
 //? CONTROLLERS
 export './src/core/controllers/debounce.dart';
 //? EXTENIONS
+export 'src/extensions/size_extension.dart';
 export 'src/extensions/context_extension.dart';
 export 'src/ui/shadowns.dart';
 export 'src/extensions/mask_input_extension.dart';
