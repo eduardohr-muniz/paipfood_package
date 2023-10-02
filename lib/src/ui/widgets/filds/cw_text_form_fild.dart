@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:paipfood_package/paipfood_package.dart';
 
-import '../buttons/cw_icon_tolltip.dart';
-
 class CwTextFormFild extends StatefulWidget {
   final TextEditingController? controller;
   final String? initialValue;
@@ -84,7 +82,8 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
               children: [
                 Text(widget.label, style: context.textTheme.labelMedium, maxLines: 1, overflow: TextOverflow.ellipsis),
                 widget.tooltipMessage != null
-                    ? CwIconTolltip(tooltipMessage: widget.tooltipMessage!, icon: widget.tooltipIcon, iconSize: 18)
+                    ? const SizedBox()
+                    //  CwIconTolltip(tooltipMessage: widget.tooltipMessage!, icon: widget.tooltipIcon, iconSize: 18)
                     : const SizedBox.shrink(),
               ],
             ),
