@@ -16,7 +16,8 @@ class CwTextFormFild extends StatefulWidget {
   final Widget? prefixIcon;
   final String label;
   final FocusNode? focusNode;
-  final bool expands;
+  final bool expanded;
+  final int? flex;
   final int? minLines;
   final int? maxLines;
   final String? helperText;
@@ -41,7 +42,7 @@ class CwTextFormFild extends StatefulWidget {
       this.suffixIcon,
       this.prefixIcon,
       this.focusNode,
-      this.expands = false,
+      this.expanded = false,
       this.minLines,
       this.maxLines,
       this.helperText,
@@ -53,7 +54,8 @@ class CwTextFormFild extends StatefulWidget {
       this.enabled = true,
       this.tooltipMessage,
       this.tooltipIcon,
-      this.counterText})
+      this.counterText,
+      this.flex})
       : super(key: key);
 
   @override
@@ -100,7 +102,6 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
             maxLines: widget.maxLines,
             validator: widget.validator,
             keyboardType: widget.keyboardType,
-            expands: widget.expands,
             decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 0, color: context.color.primaryBG)),
                 contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
@@ -128,7 +129,6 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
         ],
       ),
     );
-
-    return widget.expands ? Expanded(child: child) : child;
+    return widget.expanded ? Expanded(flex: widget.flex ?? 1, child: child) : child;
   }
 }

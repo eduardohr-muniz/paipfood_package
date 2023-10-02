@@ -81,7 +81,7 @@ class _CwSearchFildState extends State<CwSearchFild> {
                 suffixIcon: widget.suffixIcon,
                 controller: widget.controller,
                 onChanged: widget.onChanged,
-                expands: true,
+                expanded: true,
                 label: widget.label,
                 hintText: widget.hintText,
                 focusNode: focusNode,
