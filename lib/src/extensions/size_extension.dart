@@ -9,6 +9,9 @@ import 'package:flutter/widgets.dart';
 /// [l] = 3;
 /// [xl] = 4;
 /// [xxl] = 5;
+/// [exl] = 6;
+/// [exxl] = 7;
+/// [header] = 8;
 ///
 /// This multiplicator is multi with [spacerValue], and this [spacerValue] is:
 /// [spacerValue] = 8
