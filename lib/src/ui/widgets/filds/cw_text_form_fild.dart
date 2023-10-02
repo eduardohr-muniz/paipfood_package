@@ -33,6 +33,7 @@ class CwTextFormFild extends StatefulWidget {
   final bool enabled;
   final String? tooltipMessage;
   final IconData? tooltipIcon;
+  final String? counterText;
 
   const CwTextFormFild(
       {required this.label,
@@ -52,7 +53,7 @@ class CwTextFormFild extends StatefulWidget {
       this.expanded = false,
       this.minLines,
       this.maxLines = 1,
-      this.helperText = "",
+      this.helperText,
       this.prefixText,
       this.inputFormatters,
       this.onChanged,
@@ -61,7 +62,8 @@ class CwTextFormFild extends StatefulWidget {
       this.filled = true,
       this.enabled = true,
       this.tooltipMessage,
-      this.tooltipIcon})
+      this.tooltipIcon,
+      this.counterText})
       : super(key: key);
 
   @override
@@ -119,10 +121,9 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
                 fillColor: context.color.primaryBG,
                 enabled: widget.enabled,
                 disabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 0, color: context.color.primaryBG)),
-                // labelStyle: const TextStyle(color: Colors.grey),
                 floatingLabelStyle: TextStyle(color: context.color.primaryColor),
-                // focusColor: context.color.primaryColor,
-                // hoverColor: context.color.primaryColor.withOpacity(0.1),
+                helperText: widget.helperText,
+                counterText: widget.counterText,
                 prefixIconColor: context.color.primaryColor,
                 prefixText: widget.prefixText,
                 prefixIcon: widget.prefixIcon,
