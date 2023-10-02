@@ -20,6 +20,9 @@ class Sz {
   static double l = 3;
   static double xl = 4;
   static double xxl = 5;
+  static double exl = 6;
+  static double exxl = 7;
+  static double header = 8;
 }
 
 const double _spacerValue = 8;
