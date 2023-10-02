@@ -123,7 +123,6 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
                         icon: Icon(_obscure ? Icomoon.eye_slash : Icomoon.eye),
                       )
                     : widget.suffixIcon,
-                // labelText: widget.label,
                 hintText: widget.hintText),
           )
         ],

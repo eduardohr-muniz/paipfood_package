@@ -39,3 +39,4 @@ export 'src/ui/widgets/buttons/cw_button.dart';
 //? Exceptions
 export 'src/core/exceptions/try_functions.dart';
 export 'fonts/icomoon_icons.dart';
+export 'src/core/helpers/assets_helper.dart';

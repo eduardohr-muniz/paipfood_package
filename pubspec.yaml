@@ -5,7 +5,7 @@ publish_to: "none"
 # homepage: paipfood_package
 
 environment:
-  sdk: '>=3.0.1 <4.0.0'
+  sdk: ">=3.0.1 <4.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
@@ -13,8 +13,6 @@ dependencies:
     sdk: flutter
   paipfood_dependencies:
     git: https://github.com/eduardohr-muniz/paipfood_dependencies
-    
-  
 
 dev_dependencies:
   flutter_test:
@@ -26,10 +24,10 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # To add assets to your package, add an assets section, like this:
   assets:
     - lib/fonts/
+    - assets/images/flags/
   #   - images/a_dot_ham.jpeg
   #
   # For details regarding assets in packages, see
