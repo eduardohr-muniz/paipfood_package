@@ -85,7 +85,7 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
   Widget build(BuildContext context) {
     final double widthMediaQuery = widget.maxWidthPercent != null ? context.w * widget.maxWidthPercent! : 0;
     final Widget child = Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

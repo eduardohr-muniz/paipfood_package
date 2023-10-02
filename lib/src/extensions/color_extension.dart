@@ -47,7 +47,16 @@ class PColors extends ThemeExtension<PColors> {
   @override
   PColors lerp(PColors? other, double t) {
     if (other is! PColors) return this;
-    return t > 0.5 ? other : this;
+    return PColors(
+      primaryColor: Color.lerp(primaryColor, other.primaryColor, t)!,
+      secondaryColor: Color.lerp(secondaryColor, other.secondaryColor, t)!,
+      tertiaryColor: Color.lerp(tertiaryColor, other.tertiaryColor, t)!,
+      errorColor: Color.lerp(errorColor, other.errorColor, t)!,
+      primaryBG: Color.lerp(primaryBG, other.primaryBG, t)!,
+      secondaryBG: Color.lerp(secondaryBG, other.secondaryBG, t)!,
+      primaryText: Color.lerp(primaryText, other.primaryText, t)!,
+      secondaryText: Color.lerp(secondaryText, other.secondaryText, t)!,
+    );
   }
 
   @override
