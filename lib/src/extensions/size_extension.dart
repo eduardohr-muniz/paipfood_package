@@ -45,6 +45,7 @@ extension ExtensionFromDouble on double {
   EdgeInsets get paddingVertical => EdgeInsets.symmetric(vertical: _spacerValue * this);
 
   BorderRadius get borderRadiusTopLeft => BorderRadius.only(topLeft: Radius.circular(_spacerValue * this));
+  BorderRadius get borderRadiusTopRight => BorderRadius.only(topRight: Radius.circular(_spacerValue * this));
   BorderRadius get borderRadiusBottomLeft => BorderRadius.only(bottomLeft: Radius.circular(_spacerValue * this));
   BorderRadius get borderRadiusBottomRight => BorderRadius.only(bottomRight: Radius.circular(_spacerValue * this));
   BorderRadius get borderRadiusAll => BorderRadius.all(Radius.circular(_spacerValue * this));
