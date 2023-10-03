@@ -23,11 +23,6 @@ class MaskInputExtension {
         hint: "example@mail.com",
         textInputType: TextInputType.number,
         validator: (value) {
-          bool isValidEmail(String email) {
-            final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
-            return emailRegex.hasMatch(email);
-          }
-
           if (value == null || value.isEmpty) {
             return "E-mail obrigatório.";
           }
@@ -37,6 +32,11 @@ class MaskInputExtension {
           return null;
         },
       );
+
+  bool isValidEmail(String email) {
+    final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+    return emailRegex.hasMatch(email);
+  }
 
   MaskInputModel get password => MaskInputModel(
         hint: "Insira sua senha",
