@@ -6,6 +6,7 @@ class CwTextButton extends StatelessWidget {
   final IconData? icon;
   final String label;
   final Color? colorText;
+  final EdgeInsetsGeometry? padding;
   final void Function()? onPressed;
   const CwTextButton({
     required this.label,
@@ -13,6 +14,7 @@ class CwTextButton extends StatelessWidget {
     Key? key,
     this.icon,
     this.colorText,
+    this.padding,
   }) : super(key: key);
 
   @override
@@ -30,7 +32,8 @@ class CwTextButton extends StatelessWidget {
       ),
       onPressed: onPressed,
       style: TextButton.styleFrom(
-        minimumSize: const Size(60, 45),
+        padding: padding,
+        minimumSize: padding != null ? const Size(0, 0) : const Size(60, 45),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       ),
     );
