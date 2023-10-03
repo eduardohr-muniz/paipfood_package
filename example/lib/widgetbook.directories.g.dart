@@ -13,6 +13,8 @@ import 'package:example/src/ui/widgets/buttons/button_usecase.dart' as _i2;
 import 'package:example/src/ui/widgets/buttons/outline_button_usecase.dart'
     as _i3;
 import 'package:example/src/ui/widgets/buttons/text_button_usecase.dart' as _i4;
+import 'package:example/src/ui/widgets/dropdowns/drop_button_locale_usecase.dart'
+    as _i6;
 import 'package:example/src/ui/widgets/filds/text_form_fild_usecase.dart'
     as _i5;
 import 'package:widgetbook/widgetbook.dart' as _i1;
@@ -65,6 +67,20 @@ final directories = <_i1.WidgetbookNode>[
                   _i1.WidgetbookUseCase(
                     name: 'Default',
                     builder: _i5.cwTextFormFildUseCase,
+                  )
+                ],
+              )
+            ],
+          ),
+          _i1.WidgetbookFolder(
+            name: 'locale',
+            children: [
+              _i1.WidgetbookComponent(
+                name: 'DropButtonLocale',
+                useCases: [
+                  _i1.WidgetbookUseCase(
+                    name: 'Default',
+                    builder: _i6.dropButtonLocaleUsecase,
                   )
                 ],
               )

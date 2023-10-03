@@ -30,7 +30,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   # assets:
-  #   - assets/
+  # - packages/paipfood_package/assets/images/
 
   fonts:
     - family: icomoon
