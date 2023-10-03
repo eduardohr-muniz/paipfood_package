@@ -5,8 +5,8 @@ import 'package:paipfood_package/src/ui/widgets/locale/flags_enum.dart';
 
 class DropButtonLocale extends StatefulWidget {
   final String? tooltip;
-  final void Function(String i18n) onChanged;
-  final String? initialLocale;
+  final void Function(Locale locale) onChanged;
+  final Locale? initialLocale;
   const DropButtonLocale({
     required this.onChanged,
     Key? key,
@@ -25,8 +25,7 @@ class _DropButtonLocaleState extends State<DropButtonLocale> {
   void initState() {
     super.initState();
     currentLocale.value = FlagsEnum.values.firstWhere((flag) {
-      if (widget.initialLocale != null) return flag.i18n == widget.initialLocale;
-      return flag.i18n == Intl.systemLocale;
+      return flag.locale == widget.initialLocale;
     }, orElse: () => FlagsEnum.ptBR);
   }
 
@@ -37,13 +36,12 @@ class _DropButtonLocaleState extends State<DropButtonLocale> {
         builder: (context, flag, __) {
           return PopupMenuButton<FlagsEnum>(
             tooltip: widget.tooltip,
-            onSelected: (value) {},
             itemBuilder: (context) {
               return FlagsEnum.values
                   .map((contry) => PopupMenuItem<FlagsEnum>(
                         onTap: () {
                           currentLocale.value = contry;
-                          widget.onChanged(contry.i18n);
+                          widget.onChanged(contry.locale);
                         },
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
@@ -64,7 +62,10 @@ class _DropButtonLocaleState extends State<DropButtonLocale> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                ClipRRect(borderRadius: 0.4.borderRadiusAll, child: SvgPicture.asset(currentLocale.value!.pathFlage, package: "paipfood_package")),
+                ClipRRect(
+                  borderRadius: 0.4.borderRadiusAll,
+                  child: SvgPicture.asset(currentLocale.value!.pathFlage, package: "paipfood_package"),
+                ),
                 const Icon(Icomoon.arrow_down),
               ],
             ),
