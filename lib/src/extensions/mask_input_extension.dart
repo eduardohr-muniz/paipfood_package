@@ -19,69 +19,69 @@ class MaskInputModel {
 }
 
 class MaskInputExtension {
-  static MaskInputModel email = MaskInputModel(
-    hint: "example@mail.com",
-    textInputType: TextInputType.number,
-    validator: (value) {
-      bool isValidEmail(String email) {
-        final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
-        return emailRegex.hasMatch(email);
-      }
+  MaskInputModel get email => MaskInputModel(
+        hint: "example@mail.com",
+        textInputType: TextInputType.number,
+        validator: (value) {
+          bool isValidEmail(String email) {
+            final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+            return emailRegex.hasMatch(email);
+          }
 
-      if (value == null || value.isEmpty) {
-        return "E-mail obrigatório.";
-      }
-      if (!isValidEmail(value)) {
-        return "E-mail inválido";
-      }
-      return null;
-    },
-  );
+          if (value == null || value.isEmpty) {
+            return "E-mail obrigatório.";
+          }
+          if (!isValidEmail(value)) {
+            return "E-mail inválido";
+          }
+          return null;
+        },
+      );
 
-  static MaskInputModel password = MaskInputModel(
-    hint: "Insira sua senha",
-    textInputType: TextInputType.number,
-    validator: (value) {
-      if (value == null || value.isEmpty) {
-        return "Senha obrigatória";
-      }
-      if (value.length < 8) {
-        return "Sua senha deve conter no minimo 8 caracteres";
-      }
-      return null;
-    },
-  );
+  MaskInputModel get password => MaskInputModel(
+        hint: "Insira sua senha",
+        textInputType: TextInputType.number,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return "Senha obrigatória";
+          }
+          if (value.length < 8) {
+            return "Sua senha deve conter no minimo 8 caracteres";
+          }
+          return null;
+        },
+      );
 
-  static MaskInputModel phonePtBr = MaskInputModel(
-    mask: MaskTextInputFormatter(mask: "(##) ####-####"),
-    changeMask: (value, mask) {
-      if (value.length == 14) mask.updateMask(mask: "(##)# ####-####");
-      if (value.length == 13) mask.updateMask(mask: "(##) ####-####");
-    },
-    hint: "(00) 0 0000-0000",
-    textInputType: TextInputType.number,
-    validator: (value) {
-      if (value == null || value.isEmpty) {
-        return "Telefone obrigatório.";
-      }
-      if (value.length < 16) {
-        return "Telefone incompleto";
-      }
-      return null;
-    },
-  );
+  MaskInputModel get phonePtBr => MaskInputModel(
+        mask: MaskTextInputFormatter(mask: "(##) ####-####"),
+        changeMask: (value, mask) {
+          if (value.length == 14) mask.updateMask(mask: "(##)# ####-####");
+          if (value.length == 13) mask.updateMask(mask: "(##) ####-####");
+        },
+        hint: "(00) 0 0000-0000",
+        textInputType: TextInputType.number,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return "Telefone obrigatório.";
+          }
+          if (value.length < 16) {
+            return "Telefone incompleto";
+          }
+          return null;
+        },
+      );
 
-  static MaskInputModel cep = MaskInputModel(
-    mask: MaskTextInputFormatter(mask: "#####-###"),
-    hint: "00000-000",
-    textInputType: TextInputType.number,
-    validator: (value) {
-      if (value != null && value.length > 1 && value.length < 9) {
-        return "Cep incompleto";
-      }
-      return null;
-    },
-  );
+  MaskInputModel get cep => MaskInputModel(
+        mask: MaskTextInputFormatter(mask: "#####-###"),
+        hint: "00000-000",
+        textInputType: TextInputType.number,
+        validator: (value) {
+          if (value != null && value.length > 1 && value.length < 9) {
+            return "Cep incompleto";
+          }
+          return null;
+        },
+      );
   MaskInputModel get cnpj => MaskInputModel(
         mask: MaskTextInputFormatter(mask: "##.###.###/####-##"),
         hint: "00.000.000/0001-00",
