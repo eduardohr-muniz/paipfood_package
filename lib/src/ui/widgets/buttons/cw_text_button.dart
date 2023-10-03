@@ -19,22 +19,30 @@ class CwTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton.icon(
-      icon: icon != null
-          ? Icon(
-              icon,
-              color: context.color.primaryBG,
-            )
-          : const SizedBox.shrink(),
-      label: Text(
-        label,
-        style: TextStyle(color: colorText ?? context.color.primaryText),
-      ),
+    return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
         padding: padding,
         minimumSize: padding != null ? const Size(0, 0) : const Size(60, 45),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          icon != null
+              ? Padding(
+                  padding: const EdgeInsets.only(right: 4),
+                  child: Icon(
+                    icon,
+                    color: context.color.primaryBG,
+                  ),
+                )
+              : const SizedBox.shrink(),
+          Text(
+            label,
+            style: TextStyle(color: colorText ?? context.color.primaryText),
+          ),
+        ],
       ),
     );
   }
