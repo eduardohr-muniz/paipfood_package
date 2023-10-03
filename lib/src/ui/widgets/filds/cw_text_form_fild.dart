@@ -98,8 +98,8 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
             inputFormatters: widget.inputFormatters,
             onChanged: widget.onChanged,
             cursorColor: context.color.primaryColor,
-            minLines: widget.minLines,
-            maxLines: widget.maxLines,
+            minLines: widget.obscureText ? 1 : widget.minLines,
+            maxLines: widget.obscureText ? 1 : widget.maxLines,
             validator: widget.validator,
             keyboardType: widget.keyboardType,
             decoration: InputDecoration(
