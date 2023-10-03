@@ -30,5 +30,5 @@ class FlagModel {
   //
   static const pathUs = "assets/en.svg";
   static const labelUs = "English";
-  static const i18nUs = "en_US";
+  static const i18nUs = "en";
 }
