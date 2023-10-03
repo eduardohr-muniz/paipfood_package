@@ -1,6 +1,6 @@
 abstract class ILocalStorage {
-  Future<T?> get<T>(String boxId, {required String key});
-  Future<List<T>>? getAll<T>(String boxId);
-  Future<void> put<T>(String boxId, {required String key, required T value});
-  Future<void> delete<T>(String boxId, {required String key});
+  Future<String?> get(String boxId, {required String key});
+  Future<List<String>>? getAll(String boxId);
+  Future<void> put(String boxId, {required String key, required String value});
+  Future<void> delete(String boxId, {required String key});
 }

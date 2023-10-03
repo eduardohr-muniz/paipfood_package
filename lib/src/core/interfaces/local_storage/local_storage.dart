@@ -24,16 +24,15 @@ class LocalStorage implements ILocalStorage {
   }
 
   @override
-  Future<void> delete<T>(String boxId, {required String key}) async {
-    final box = Hive.box<T>(boxId);
+  Future<void> delete(String boxId, {required String key}) async {
+    final box = Hive.box<String>(boxId);
     await box.delete(key);
-
     _logInfos(boxId, "DELETE", key: key);
   }
 
   @override
-  Future<T?> get<T>(String boxId, {required String key}) async {
-    final box = Hive.box<T>(boxId);
+  Future<String?> get(String boxId, {required String key}) async {
+    final box = Hive.box<String>(boxId);
     final result = box.get(key);
 
     _logInfos(boxId, "GET", key: key, value: result);
@@ -41,19 +40,19 @@ class LocalStorage implements ILocalStorage {
   }
 
   @override
-  Future<void> put<T>(String boxId, {required String key, required T value}) async {
-    final box = Hive.box<T>(boxId);
+  Future<void> put(String boxId, {required String key, required String value}) async {
+    final box = Hive.box<String>(boxId);
     await box.put(key, value);
 
     _logInfos(boxId, "PUT", key: key, value: value);
   }
 
   @override
-  Future<List<T>>? getAll<T>(String boxId) async {
-    final box = Hive.box<T>(boxId);
-    List<T> resultMap = [];
+  Future<List<String>>? getAll(String boxId) async {
+    final box = Hive.box<String>(boxId);
+    List<String> resultMap = [];
     try {
-      resultMap = List<T>.from(box.values);
+      resultMap = List<String>.from(box.values);
     } catch (e) {
       for (var key in box.keys) {
         final content = box.get(key);
@@ -73,5 +72,17 @@ class LocalStorage implements ILocalStorage {
 
   void _logInfos(String box, String method, {String? key, dynamic value}) {
     logger.d('Method: $method \nBox:$box \nKey: $key \nvalue: $value');
+  }
+
+  Future<void> openBox(String name) async {
+    await Hive.openBox<String>(name);
+  }
+
+  Future<void> closeBox(String name) async {
+    final bool boxExist = await Hive.boxExists(name);
+    if (boxExist) {
+      final box = Hive.box(name);
+      await box.close();
+    }
   }
 }
