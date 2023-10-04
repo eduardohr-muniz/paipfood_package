@@ -18,7 +18,7 @@ import 'src/ui/overlay_loader.dart';
 
 //? CONTROLLERS
 export 'src/core/controllers/debounce.dart';
-export 'src/core/controllers/responsive_device_enum.dart';
+export 'src/core/controllers/device_utils_enum.dart';
 //? EXTENIONS
 export 'src/extensions/size_extension.dart';
 export 'src/extensions/context_extension.dart';
