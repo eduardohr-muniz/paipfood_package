@@ -82,9 +82,8 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
           Padding(
             padding: const EdgeInsets.only(bottom: 4),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(widget.label, style: context.textTheme.labelMedium, maxLines: 1, overflow: TextOverflow.ellipsis),
+                Expanded(child: Text(widget.label, style: context.textTheme.labelMedium, overflow: TextOverflow.ellipsis)),
                 widget.tooltipMessage != null
                     ? CwIconTolltip(tooltipMessage: widget.tooltipMessage!, icon: widget.tooltipIcon, iconSize: 18)
                     : const SizedBox.shrink(),

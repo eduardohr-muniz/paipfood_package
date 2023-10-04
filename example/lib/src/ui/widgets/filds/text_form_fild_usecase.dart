@@ -9,13 +9,16 @@ Widget cwTextFormFildUseCase(BuildContext context) {
   final obscureText = context.knobs.boolean(label: "Obscure Text", description: "Password", initialValue: false);
   return Row(
     children: [
-      SizedBox(
-        width: 400,
-        child: CwTextFormFild(
-          label: label,
-          obscureText: obscureText,
-        ),
+      CwTextFormFild(
+        label: "fjsdkfbdsjfsdn f sfhbsdbf hbshfbs dfv sdfv f vh",
+        obscureText: obscureText,
+        expanded: true,
       ),
+      Container(
+        width: 300,
+        height: 300,
+        color: Colors.red,
+      )
       // CwTextFormFild(
       //   label: label,
       //   obscureText: obscureText,
