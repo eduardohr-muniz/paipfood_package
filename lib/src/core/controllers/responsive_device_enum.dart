@@ -11,7 +11,7 @@ enum ResponsiveDevice {
   final double minWidth;
   const ResponsiveDevice(this.minWidth);
 
-  bool isPlatform(BuildContext context) {
+  bool isPlatform() {
     final device = _getPlatform();
     return device == this;
   }
