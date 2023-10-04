@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:paipfood_package/paipfood_package.dart';
 
+import '../../../core/controllers/responsive_device_enum.dart';
 import '../buttons/cw_icon_tolltip.dart';
 
 class CwTextFormFild extends StatefulWidget {
