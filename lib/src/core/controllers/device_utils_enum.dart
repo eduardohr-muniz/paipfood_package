@@ -12,7 +12,7 @@ enum DeviceUtils {
   final double minWidth;
   const DeviceUtils(this.minWidth);
 
-  bool isPlatform() {
+  bool get isPlatform {
     final device = _getPlatform();
     return device == this;
   }
