@@ -74,6 +74,7 @@ class ResponsiveProvider extends InheritedWidget {
     if (DeviceUtils.tablet._isResponsiveBreakPoint(context)) result = DeviceUtils.tablet;
     if (DeviceUtils.mobile._isResponsiveBreakPoint(context)) result = DeviceUtils.mobile;
     if (provider.device != result) {
+      debugPrint(result?.name ?? "Change device");
       WidgetsBinding.instance.addPostFrameCallback((_) {
         deviceCallBack(result!);
       });
@@ -82,7 +83,7 @@ class ResponsiveProvider extends InheritedWidget {
 
   static ResponsiveProvider of(BuildContext context) {
     final testProvider = context.dependOnInheritedWidgetOfExactType<ResponsiveProvider>();
-    assert(testProvider != null, "Device not exist in BuildContext");
+    assert(testProvider != null, "ResponsiveProvider not exist in BuildContext");
     return testProvider!;
   }
 }
@@ -100,20 +101,20 @@ class _BuildListener extends StatefulWidget {
 }
 
 class _BuildListenerState extends State<_BuildListener> {
-  DeviceUtils dev = DeviceUtils.desktop;
+  DeviceUtils device = DeviceUtils.desktop;
   @override
   void initState() {
     super.initState();
   }
 
   void modifyDevice(BuildContext context) {
-    ResponsiveProvider._modifyDevice(context, (newDevice) => setState(() => dev = newDevice));
+    ResponsiveProvider._modifyDevice(context, (newDevice) => setState(() => device = newDevice));
   }
 
   @override
   Widget build(BuildContext context) {
     return ResponsiveProvider(
-      device: dev,
+      device: device,
       child: Builder(builder: (context) {
         modifyDevice(context);
         return widget.child;
