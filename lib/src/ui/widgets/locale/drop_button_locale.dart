@@ -50,7 +50,7 @@ class _DropButtonLocaleState extends State<DropButtonLocale> {
                               borderRadius: 0.4.borderRadiusAll,
                               child: SvgPicture.asset(contry.pathFlage, package: "paipfood_package"),
                             ),
-                            Sz.s.sizedBoxW,
+                            Sz.i.sizedBoxW,
                             Text(contry.label),
                           ],
                         ),

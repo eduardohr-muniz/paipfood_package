@@ -74,7 +74,7 @@ class ResponsiveProvider extends InheritedWidget {
     if (DeviceUtils.tablet._isResponsiveBreakPoint(context)) result = DeviceUtils.tablet;
     if (DeviceUtils.mobile._isResponsiveBreakPoint(context)) result = DeviceUtils.mobile;
     if (provider.device != result) {
-      debugPrint(result?.name ?? "Change device");
+      debugPrint("--Change responsive to -> ${result?.name}");
       WidgetsBinding.instance.addPostFrameCallback((_) {
         deviceCallBack(result!);
       });

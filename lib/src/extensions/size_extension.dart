@@ -4,28 +4,28 @@ import 'package:flutter/widgets.dart';
 
 /// Variables has multiplicator:
 /// [none] = 0;
-/// [s] = 1;
-/// [m] = 2;
-/// [l] = 3;
-/// [xl] = 4;
-/// [xxl] = 5;
-/// [exl] = 6;
-/// [exxl] = 7;
-/// [header] = 8;
+/// [i] = 1;
+/// [ii] = 2;
+/// [iii] = 3;
+/// [iv] = 4;
+/// [v] = 5;
+/// [vi] = 6;
+/// [vii] = 7;
+/// [viii] = 8;
 ///
 /// This multiplicator is multi with [spacerValue], and this [spacerValue] is:
 /// [spacerValue] = 8
 class Sz {
   Sz._();
   static double none = 0;
-  static double s = 1;
-  static double m = 2;
-  static double l = 3;
-  static double xl = 4;
-  static double xxl = 5;
-  static double exl = 6;
-  static double exxl = 7;
-  static double header = 8;
+  static double i = 1;
+  static double ii = 2;
+  static double iii = 3;
+  static double iv = 4;
+  static double v = 5;
+  static double vi = 6;
+  static double vii = 7;
+  static double viii = 8;
 }
 
 const double _spacerValue = 8;
