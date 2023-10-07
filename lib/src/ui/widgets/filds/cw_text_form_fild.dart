@@ -103,7 +103,7 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
             decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 0, color: context.color.onPrimaryBG)),
                 contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
-                focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 0, color: context.color.onPrimaryBG)),
+                focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 0, color: context.color.secondaryText)),
                 filled: widget.filled,
                 isDense: true,
                 fillColor: context.color.onPrimaryBG,
