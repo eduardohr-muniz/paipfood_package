@@ -6,7 +6,7 @@ class ThemeCustom {
   static final lightTheme = ThemeData(
     fontFamily: "Roboto",
     useMaterial3: true,
-    scaffoldBackgroundColor: PColors.light.primaryBG,
+    scaffoldBackgroundColor: PColors.light.surface,
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: PColors.light.secondaryColor,
       selectionColor: PColors.light.primaryColor.withOpacity(0.5),
@@ -33,7 +33,7 @@ class ThemeCustom {
   static final darkTheme = ThemeData(
     fontFamily: "Roboto",
     useMaterial3: true,
-    scaffoldBackgroundColor: PColors.dark.primaryBG,
+    scaffoldBackgroundColor: PColors.dark.surface,
     textTheme: text,
     brightness: Brightness.dark,
     textSelectionTheme: TextSelectionThemeData(
