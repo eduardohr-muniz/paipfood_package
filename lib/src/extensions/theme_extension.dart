@@ -17,9 +17,9 @@ class ThemeCustom {
     extensions: [PColors.light],
     colorScheme: ColorScheme(
       brightness: Brightness.light,
-      background: PColors.light.primaryBG, //primaryBackGround
+      background: PColors.light.surface, //primaryBackGround
       onBackground: PColors.light.secondaryText,
-      surface: PColors.light.surface, // secondary Backgorund
+      surface: PColors.light.primaryBG, // secondary Backgorund
       onSurface: PColors.light.primaryText,
       primary: PColors.light.primaryColor,
       onPrimary: PColors.light.primaryText,
@@ -44,9 +44,9 @@ class ThemeCustom {
     extensions: [PColors.dark],
     colorScheme: ColorScheme(
       brightness: Brightness.dark,
-      background: PColors.dark.primaryBG, //primaryBackGround
+      background: PColors.dark.surface, //primaryBackGround
       onBackground: PColors.dark.secondaryText,
-      surface: PColors.dark.surface, // secondary Backgorund
+      surface: PColors.dark.primaryBG, // secondary Backgorund
       onSurface: PColors.dark.primaryText,
       primary: PColors.dark.primaryColor,
       onPrimary: PColors.dark.primaryText,
