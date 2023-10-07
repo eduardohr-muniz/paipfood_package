@@ -41,7 +41,7 @@ class PColors extends ThemeExtension<PColors> {
     secondaryColor: const Color(0xff233831),
     tertiaryColor: const Color(0xffceac5c),
     errorColor: const Color(0xffbd3634),
-    surface: const Color(0xff16171a),
+    surface: const Color.fromARGB(255, 28, 28, 32),
     primaryBG: const Color(0xff202024),
     onPrimaryBG: const Color(0xff393b3f),
     primaryText: const Color(0xffd6d6d7),
