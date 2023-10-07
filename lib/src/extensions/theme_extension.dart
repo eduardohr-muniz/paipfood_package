@@ -19,7 +19,7 @@ class ThemeCustom {
       brightness: Brightness.light,
       background: PColors.light.primaryBG, //primaryBackGround
       onBackground: PColors.light.secondaryText,
-      surface: PColors.light.secondaryBG, // secondary Backgorund
+      surface: PColors.light.surface, // secondary Backgorund
       onSurface: PColors.light.primaryText,
       primary: PColors.light.primaryColor,
       onPrimary: PColors.light.primaryText,
@@ -46,14 +46,14 @@ class ThemeCustom {
       brightness: Brightness.dark,
       background: PColors.dark.primaryBG, //primaryBackGround
       onBackground: PColors.dark.secondaryText,
-      surface: PColors.dark.secondaryBG, // secondary Backgorund
+      surface: PColors.dark.surface, // secondary Backgorund
       onSurface: PColors.dark.primaryText,
       primary: PColors.dark.primaryColor,
       onPrimary: PColors.dark.primaryText,
       secondary: PColors.dark.secondaryColor,
       onSecondary: PColors.dark.primaryText,
       error: PColors.dark.errorColor,
-      onError: PColors.dark.primaryBG,
+      onError: PColors.dark.primaryText,
     ),
   );
 

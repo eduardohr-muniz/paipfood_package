@@ -7,9 +7,9 @@ class PColors extends ThemeExtension<PColors> {
   final Color secondaryColor;
   final Color tertiaryColor;
   final Color errorColor;
-  final Color subBG;
+  final Color surface;
   final Color primaryBG;
-  final Color secondaryBG;
+  final Color onPrimaryBG;
   final Color primaryText;
   final Color secondaryText;
 
@@ -19,8 +19,8 @@ class PColors extends ThemeExtension<PColors> {
     required this.tertiaryColor,
     required this.errorColor,
     required this.primaryBG,
-    required this.subBG,
-    required this.secondaryBG,
+    required this.surface,
+    required this.onPrimaryBG,
     required this.primaryText,
     required this.secondaryText,
   });
@@ -30,9 +30,9 @@ class PColors extends ThemeExtension<PColors> {
     secondaryColor: const Color(0xff233831),
     tertiaryColor: const Color(0xffceac5c),
     errorColor: const Color(0xff7E121d),
-    subBG: const Color(0xffF5F6FA),
-    primaryBG: const Color(0xffF5F6FA),
-    secondaryBG: const Color(0xffFfffff),
+    surface: const Color(0xffF5F6FA),
+    primaryBG: const Color(0xffFFFFFF),
+    onPrimaryBG: const Color(0xffF5F6FA),
     primaryText: const Color(0xff121214),
     secondaryText: const Color(0xffababab),
   );
@@ -41,11 +41,11 @@ class PColors extends ThemeExtension<PColors> {
     secondaryColor: const Color(0xff233831),
     tertiaryColor: const Color(0xffceac5c),
     errorColor: const Color(0xffbd3634),
-    subBG: const Color(0xff0e1621),
-    primaryBG: const Color(0xff313338),
-    secondaryBG: const Color(0xff202024),
-    primaryText: const Color(0xffF5F6FA),
-    secondaryText: const Color(0xffababab),
+    surface: const Color(0xff16171a),
+    primaryBG: const Color(0xff202024),
+    onPrimaryBG: const Color(0xff393b3f),
+    primaryText: const Color(0xffd6d6d7),
+    secondaryText: const Color(0xff9a9a9c),
   );
 
   @override
@@ -57,8 +57,8 @@ class PColors extends ThemeExtension<PColors> {
       tertiaryColor: Color.lerp(tertiaryColor, other.tertiaryColor, t)!,
       errorColor: Color.lerp(errorColor, other.errorColor, t)!,
       primaryBG: Color.lerp(primaryBG, other.primaryBG, t)!,
-      subBG: Color.lerp(subBG, other.subBG, t)!,
-      secondaryBG: Color.lerp(secondaryBG, other.secondaryBG, t)!,
+      surface: Color.lerp(surface, other.surface, t)!,
+      onPrimaryBG: Color.lerp(onPrimaryBG, other.onPrimaryBG, t)!,
       primaryText: Color.lerp(primaryText, other.primaryText, t)!,
       secondaryText: Color.lerp(secondaryText, other.secondaryText, t)!,
     );
@@ -81,9 +81,9 @@ class PColors extends ThemeExtension<PColors> {
       secondaryColor: secondaryColor ?? this.secondaryColor,
       tertiaryColor: tertiaryColor ?? this.tertiaryColor,
       errorColor: errorColor ?? this.errorColor,
-      subBG: subBG ?? this.subBG,
+      surface: subBG ?? surface,
       primaryBG: primaryBG ?? this.primaryBG,
-      secondaryBG: secondaryBG ?? this.secondaryBG,
+      onPrimaryBG: secondaryBG ?? onPrimaryBG,
       primaryText: primaryText ?? this.primaryText,
       secondaryText: secondaryText ?? this.secondaryText,
     );

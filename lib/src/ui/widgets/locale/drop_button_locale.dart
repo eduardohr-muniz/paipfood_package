@@ -57,7 +57,7 @@ class _DropButtonLocaleState extends State<DropButtonLocale> {
                       ))
                   .toList();
             },
-            surfaceTintColor: context.color.secondaryBG,
+            surfaceTintColor: context.color.onPrimaryBG,
             offset: const Offset(0, 30),
             child: Row(
               mainAxisSize: MainAxisSize.min,

@@ -7,24 +7,23 @@ import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 Widget cwTextFormFildUseCase(BuildContext context) {
   final label = context.knobs.string(label: "Label", description: "String", initialValue: "Label");
   final obscureText = context.knobs.boolean(label: "Obscure Text", description: "Password", initialValue: false);
-  return Row(
-    children: [
-      CwTextFormFild(
-        label: "fjsdkfbdsjfsdn f sfhbsdbf hbshfbs dfv sdfv f vh",
-        obscureText: obscureText,
-        expanded: true,
+  return Container(
+    width: 500,
+    height: 500,
+    color: context.color.surface,
+    child: FractionallySizedBox(
+      widthFactor: 0.5,
+      child: Container(
+        color: context.color.primaryBG,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: CwTextFormFild(
+            label: "Nome*",
+            obscureText: obscureText,
+            expanded: true,
+          ),
+        ),
       ),
-
-      Container(
-        width: 300,
-        height: 300,
-        color: Colors.red,
-      )
-
-      // CwTextFormFild(
-      //   label: label,
-      //   obscureText: obscureText,
-      // ),
-    ],
+    ),
   );
 }
