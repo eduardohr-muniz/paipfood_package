@@ -6,6 +6,7 @@ import 'package:widgetbook/widgetbook.dart' as knobs;
 @UseCase(name: "Default", type: CwButton)
 Widget cWButtonUsecase(BuildContext context) {
   final label = context.knobs.string(label: "Label", initialValue: "Click");
+  final enable = context.knobs.boolean(label: "Enable", initialValue: true);
   return Column(
     children: [
       Container(
@@ -18,6 +19,7 @@ Widget cWButtonUsecase(BuildContext context) {
       ),
       Center(
         child: CwButton(
+          enable: enable,
           label: label,
           onPressed: () => debugPrint("pressed"),
         ),
