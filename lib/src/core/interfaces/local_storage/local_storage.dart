@@ -4,16 +4,9 @@ import 'i_local_storage.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 class LocalStorage implements ILocalStorage {
-  LocalStorage();
-
   final logger = Log(printer: PrettyPrinter());
 
-  static dynamic init() {
-    final hive = LocalStorage._initHive();
-    return hive;
-  }
-
-  static void _initHive() async {
+  static void init() async {
     String path = "";
     if (kIsWeb) {
       path = "/assets/db";
