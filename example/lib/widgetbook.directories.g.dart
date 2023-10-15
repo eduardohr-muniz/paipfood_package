@@ -17,6 +17,8 @@ import 'package:example/src/ui/widgets/dropdowns/drop_button_locale_usecase.dart
     as _i6;
 import 'package:example/src/ui/widgets/filds/text_form_fild_usecase.dart'
     as _i5;
+import 'package:example/src/ui/widgets/switchs/switch_light_dark_usecase.dart'
+    as _i7;
 import 'package:widgetbook/widgetbook.dart' as _i1;
 
 final directories = <_i1.WidgetbookNode>[
@@ -81,6 +83,20 @@ final directories = <_i1.WidgetbookNode>[
                   _i1.WidgetbookUseCase(
                     name: 'Default',
                     builder: _i6.dropButtonLocaleUsecase,
+                  )
+                ],
+              )
+            ],
+          ),
+          _i1.WidgetbookFolder(
+            name: 'switchs',
+            children: [
+              _i1.WidgetbookComponent(
+                name: 'CwSwitchLightDark',
+                useCases: [
+                  _i1.WidgetbookUseCase(
+                    name: 'Default',
+                    builder: _i7.cwSwitchLightDarkUsecase,
                   )
                 ],
               )
