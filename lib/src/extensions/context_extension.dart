@@ -10,8 +10,6 @@ extension ContextExtension on BuildContext {
 
   TextTheme get textTheme => Theme.of(this).textTheme;
 
-  MaskInputExtension get maskInput => MaskInputExtension();
-
   double get spacing => 20;
 
   ///Mediaquery.size.width[w]
