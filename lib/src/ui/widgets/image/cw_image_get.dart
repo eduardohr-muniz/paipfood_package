@@ -32,30 +32,37 @@ class _CwImageGetState extends State<CwImageGet> {
     return InkWell(
       onHover: (value) => setState(() => onHover = value),
       onTap: widget.onTap,
+      hoverColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
       child: SizedBox(
         height: widget.height,
         width: widget.width,
         child: Stack(
           children: [
             Padding(
-              padding: EdgeInsets.only(top: widget.padding, right: widget.padding),
-              child: Material(
+                padding: EdgeInsets.only(top: widget.padding, right: widget.padding),
+                child: Material(
                   clipBehavior: Clip.antiAlias,
                   color: context.color.primaryBG,
                   borderRadius: Sz.i.borderRadiusAll,
-                  child: widget.pathImage != null
-                      ? Image.network(
-                          widget.pathImage!,
-                          width: widget.width,
-                          height: widget.width,
-                          fit: BoxFit.cover,
-                        )
-                      : CwEmptyState(
-                          icon: Icomoon.instagram,
-                          size: widget.width,
-                          iconColor: onHover ? context.color.primaryColor : null,
-                        )),
-            ),
+                  child: InkWell(
+                      borderRadius: Sz.i.borderRadiusAll,
+                      onTap: widget.onTap,
+                      child: widget.pathImage != null
+                          ? Image.network(
+                              widget.pathImage!,
+                              width: widget.width,
+                              height: widget.width,
+                              fit: BoxFit.cover,
+                            )
+                          : CwEmptyState(
+                              icon: Icomoon.camera,
+                              size: widget.width,
+                              bgColor: false,
+                              iconColor: onHover ? context.color.primaryColor : null,
+                            )),
+                )),
             Visibility(
               visible: onHover,
               child: Align(
