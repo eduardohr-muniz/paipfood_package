@@ -14,13 +14,14 @@ import 'package:example/src/ui/widgets/buttons/outline_button_usecase.dart'
     as _i3;
 import 'package:example/src/ui/widgets/buttons/text_button_usecase.dart' as _i4;
 import 'package:example/src/ui/widgets/dropdowns/drop_button_locale_usecase.dart'
-    as _i6;
+    as _i7;
 import 'package:example/src/ui/widgets/empty_state/empty_state_usecase.dart'
-    as _i8;
+    as _i9;
 import 'package:example/src/ui/widgets/filds/text_form_fild_usecase.dart'
     as _i5;
+import 'package:example/src/ui/widgets/image/cw_image_get_usecase.dart' as _i6;
 import 'package:example/src/ui/widgets/switchs/switch_light_dark_usecase.dart'
-    as _i7;
+    as _i8;
 import 'package:widgetbook/widgetbook.dart' as _i1;
 
 final directories = <_i1.WidgetbookNode>[
@@ -77,6 +78,20 @@ final directories = <_i1.WidgetbookNode>[
             ],
           ),
           _i1.WidgetbookFolder(
+            name: 'image',
+            children: [
+              _i1.WidgetbookComponent(
+                name: 'CwImageGet',
+                useCases: [
+                  _i1.WidgetbookUseCase(
+                    name: 'Default',
+                    builder: _i6.cWImageGetUsecase,
+                  )
+                ],
+              )
+            ],
+          ),
+          _i1.WidgetbookFolder(
             name: 'locale',
             children: [
               _i1.WidgetbookComponent(
@@ -84,7 +99,7 @@ final directories = <_i1.WidgetbookNode>[
                 useCases: [
                   _i1.WidgetbookUseCase(
                     name: 'Default',
-                    builder: _i6.dropButtonLocaleUsecase,
+                    builder: _i7.dropButtonLocaleUsecase,
                   )
                 ],
               )
@@ -98,7 +113,7 @@ final directories = <_i1.WidgetbookNode>[
                 useCases: [
                   _i1.WidgetbookUseCase(
                     name: 'Default',
-                    builder: _i7.cwSwitchLightDarkUsecase,
+                    builder: _i8.cwSwitchLightDarkUsecase,
                   )
                 ],
               )
@@ -116,7 +131,7 @@ final directories = <_i1.WidgetbookNode>[
         useCases: [
           _i1.WidgetbookUseCase(
             name: 'Default',
-            builder: _i8.cWEmptyStateUsecase,
+            builder: _i9.cWEmptyStateUsecase,
           )
         ],
       )
