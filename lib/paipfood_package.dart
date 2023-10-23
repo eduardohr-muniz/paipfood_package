@@ -31,6 +31,7 @@ export 'src/core/log/log.dart';
 export 'src/core/interfaces/local_storage/local_storage.dart';
 //? UI
 export 'src/ui/widgets/buttons/cw_outline_button.dart';
+export 'src/ui/widgets/image/cw_image_get.dart';
 export 'src/ui/widgets/empty_state/cw_empty_state.dart';
 export 'src/ui/widgets/buttons/cw_text_button.dart';
 export 'src/ui/widgets/filds/cw_search_fild.dart';

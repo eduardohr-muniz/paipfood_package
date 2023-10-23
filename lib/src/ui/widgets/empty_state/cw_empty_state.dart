@@ -6,7 +6,8 @@ class CwEmptyState extends StatelessWidget {
   final double size;
   final bool bgColor;
   final IconData icon;
-  const CwEmptyState({required this.size, required this.icon, this.bgColor = true, super.key});
+  final Color? iconColor;
+  const CwEmptyState({required this.size, required this.icon, this.iconColor, this.bgColor = true, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class CwEmptyState extends StatelessWidget {
           Align(
             child: Icon(
               icon,
-              color: context.color.secondaryText,
+              color: iconColor ?? context.color.secondaryText,
               size: size * 0.55,
             ),
           ),
