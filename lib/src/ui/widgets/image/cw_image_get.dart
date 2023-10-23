@@ -43,6 +43,7 @@ class _CwImageGetState extends State<CwImageGet> {
             Padding(
                 padding: EdgeInsets.only(top: widget.padding, right: widget.padding),
                 child: Material(
+                  elevation: onHover ? 3 : 1,
                   clipBehavior: Clip.antiAlias,
                   color: context.color.primaryBG,
                   borderRadius: Sz.i.borderRadiusAll,
