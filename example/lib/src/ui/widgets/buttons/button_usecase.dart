@@ -7,23 +7,16 @@ import 'package:widgetbook/widgetbook.dart' as knobs;
 Widget cWButtonUsecase(BuildContext context) {
   final label = context.knobs.string(label: "Label", initialValue: "Click");
   final enable = context.knobs.boolean(label: "Enable", initialValue: true);
-  return Column(
-    children: [
-      Container(
-        height: 200,
-        width: 200,
-        decoration: BoxDecoration(
-          color: Colors.red,
-          borderRadius: 1.0.borderRadiusAll,
-        ),
-      ),
-      Center(
-        child: CwButton(
-          enable: enable,
-          label: label,
-          onPressed: () => debugPrint("pressed"),
-        ),
-      ),
-    ],
+  final toast = Toast.of(context);
+  return Center(
+    child: CwButton(
+        enable: enable,
+        label: label,
+        onPressed: () {
+          toast.sucess("message");
+          toast.info("message");
+          toast.error("message");
+          toast.custom("message");
+        }),
   );
 }

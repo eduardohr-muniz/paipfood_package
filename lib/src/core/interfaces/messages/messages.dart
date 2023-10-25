@@ -1,32 +1,73 @@
 import 'package:flutter/material.dart';
-
-import 'package:paipfood_package/src/extensions/context_extension.dart';
+import 'package:paipfood_package/paipfood_package.dart';
 
 import 'i_messages.dart';
 
-class Messages implements IMessages {
+class Toast implements IMessages {
   final BuildContext context;
-  Messages._(this.context);
+  Toast._(this.context);
 
-  factory Messages.of(BuildContext context) {
-    return Messages._(context);
+  factory Toast.of(BuildContext context) {
+    return Toast._(context);
   }
+  late final Toastification? toast;
 
   @override
-  void showError(String message) => _showMessage(message, context.color.tertiaryColor, Colors.white);
-
-  @override
-  void showInfo(String message) => _showMessage(message, context.color.secondaryColor, Colors.black);
-
-  @override
-  void showSucess(String message) => _showMessage(message, context.color.primaryColor, Colors.white);
-
-  void _showMessage(String message, Color color, Color colorText) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 50),
-          child: Text(message, style: TextStyle(fontSize: 22, color: colorText)),
+  void error(String message, {String? label}) => _showMessage(
+        label: label ?? "Error",
+        message: message,
+        color: context.color.errorColor,
+        icon: Icon(
+          Icomoon.close_circle,
+          color: context.color.errorColor,
         ),
-        backgroundColor: color));
+      );
+
+  @override
+  void info(String message, {String? label}) => _showMessage(
+        label: label ?? "Info",
+        message: message,
+        color: Colors.blue,
+        icon: const Icon(
+          Icomoon.info_circle,
+          color: Colors.blue,
+        ),
+      );
+
+  @override
+  void sucess(String message, {String? label}) => _showMessage(
+        label: label ?? "Sucess",
+        message: message,
+        color: context.color.primaryColor,
+        icon: Icon(Icomoon.tick_circle, color: context.color.primaryColor),
+      );
+  @override
+  void custom(String message, {String? label, Color? color, Widget? icon}) => _showMessage(
+        label: label ?? "Custom",
+        message: message,
+        color: color ?? Colors.black,
+        icon: icon ?? const Icon(Icomoon.info_circle, color: Colors.black),
+      );
+
+  void _showMessage({required String label, required String message, required Color color, Widget? icon}) {
+    toastification.show(
+        context: context,
+        title: label,
+        style: ToastificationStyle.fillColored,
+        autoCloseDuration: const Duration(seconds: 4),
+        backgroundColor: context.color.primaryBG,
+        primaryColor: color,
+        foregroundColor: context.color.primaryText,
+        borderRadius: BorderRadius.circular(4),
+        dragToClose: true,
+        showProgressBar: true,
+        description: message,
+        closeButtonShowType: CloseButtonShowType.always,
+        icon: icon,
+        pauseOnHover: true,
+        progressBarTheme: ProgressIndicatorThemeData(
+          color: color,
+          linearTrackColor: context.color.onPrimaryBG,
+        ));
   }
 }

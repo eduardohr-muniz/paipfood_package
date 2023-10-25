@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
+
 abstract class IMessages {
-  void showSucess(String message);
-  void showInfo(String message);
-  void showError(String message);
+  void sucess(String message, {String? label});
+  void info(String message, {String? label});
+  void error(String message, {String? label});
+  void custom(String message, {String? label, Color? color, Widget? icon});
 }

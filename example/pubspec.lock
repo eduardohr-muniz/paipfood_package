@@ -392,6 +392,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  iconsax_flutter:
+    dependency: transitive
+    description:
+      name: iconsax_flutter
+      sha256: "95b65699da8ea98f87c5d232f06b0debaaf1ec1332b697e4d90969ec9a93037d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   intl:
     dependency: transitive
     description:
@@ -557,7 +565,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "51272e176c80518559c62165196ee353e5ecbf25"
+      resolved-ref: "99a5b68bbc32f3bca949a3b8a89a4f71d2a10cda"
       url: "https://github.com/eduardohr-muniz/paipfood_dependencies"
     source: git
     version: "0.0.1"
@@ -636,10 +644,10 @@ packages:
     dependency: transitive
     description:
       name: pausable_timer
-      sha256: "1897e2c6a4e73b9486e4ff943bfd08585bc231400e6ae924a92f5b9fd8efc0a6"
+      sha256: "35b1f77eb2fb0f42e823360321fbed9b9a8b1c7043a07a58aeda17d01f84659a"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0+7"
+    version: "2.0.0+1"
   petitparser:
     dependency: transitive
     description:
@@ -869,6 +877,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.0"
+  sprintf:
+    dependency: transitive
+    description:
+      name: sprintf
+      sha256: "1fc9ffe69d4df602376b52949af107d8f5703b77cda567c4d7d86a0693120f23"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.0.0"
   stack_trace:
     dependency: transitive
     description:
@@ -950,13 +966,13 @@ packages:
     source: hosted
     version: "1.0.1"
   toastification:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: toastification
-      sha256: b3518bb71e61ffc19e9622e0b832c40592ea3062d8215a2121b5d544d78d01b4
+      sha256: "30b78007a34014822074a24c3222ac9a525500021a117965c3a7212437f1952d"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.3"
+    version: "1.0.2"
   typed_data:
     dependency: transitive
     description:
@@ -1049,10 +1065,10 @@ packages:
     dependency: transitive
     description:
       name: uuid
-      sha256: "648e103079f7c64a36dc7d39369cabb358d377078a051d6ae2ad3aa539519313"
+      sha256: b715b8d3858b6fa9f68f87d20d98830283628014750c2b09b6f516c1da4af2a7
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.7"
+    version: "4.1.0"
   vector_graphics:
     dependency: transitive
     description:
