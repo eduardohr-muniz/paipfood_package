@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:paipfood_package/paipfood_package.dart';
 import 'src/core/interfaces/local_storage/i_local_storage.dart';
-import 'src/core/interfaces/messages/i_messages.dart';
+import 'src/core/interfaces/messages/i_toast.dart';
 import 'src/core/log/conf_log.dart';
 import 'src/ui/overlay_loader.dart';
 
@@ -24,7 +24,7 @@ export 'src/extensions/size_extension.dart';
 export 'src/extensions/context_extension.dart';
 export 'src/ui/shadowns.dart';
 export 'src/extensions/mask_input_extension.dart';
-export 'src/core/interfaces/messages/messages.dart';
+export 'src/core/interfaces/messages/toast.dart';
 export 'src/extensions/color_extension.dart';
 export 'src/extensions/theme_extension.dart';
 export 'src/core/log/log.dart';

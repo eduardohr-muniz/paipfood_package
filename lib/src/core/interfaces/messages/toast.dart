@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:paipfood_package/paipfood_package.dart';
 
-import 'i_messages.dart';
+import 'i_toast.dart';
 
-class Toast implements IMessages {
+class Toast implements IToast {
   final BuildContext context;
   Toast._(this.context);
 

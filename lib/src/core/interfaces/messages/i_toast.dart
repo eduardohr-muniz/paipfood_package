@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-abstract class IMessages {
+abstract class IToast {
   void sucess(String message, {String? label});
   void info(String message, {String? label});
   void error(String message, {String? label});
