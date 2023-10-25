@@ -55,12 +55,22 @@ class Toast implements IToast {
         title: label,
         style: ToastificationStyle.fillColored,
         autoCloseDuration: const Duration(seconds: 4),
-        backgroundColor: context.color.primaryBG,
+        backgroundColor: context.color.onPrimaryBG,
         primaryColor: color,
         foregroundColor: context.color.primaryText,
         borderRadius: BorderRadius.circular(4),
         dragToClose: true,
         showProgressBar: true,
+        boxShadow: [
+          const BoxShadow(
+            color: Color.fromRGBO(0, 0, 0, 0.35),
+            blurRadius: 15,
+            offset: Offset(
+              0,
+              5,
+            ),
+          ),
+        ],
         description: message,
         closeButtonShowType: CloseButtonShowType.always,
         icon: icon,
