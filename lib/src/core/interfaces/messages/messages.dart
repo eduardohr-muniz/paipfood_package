@@ -6,9 +6,11 @@ import 'i_messages.dart';
 
 class Messages implements IMessages {
   final BuildContext context;
-  Messages({
-    required this.context,
-  });
+  Messages._(this.context);
+
+  factory Messages.of(BuildContext context) {
+    return Messages._(context);
+  }
 
   @override
   void showError(String message) => _showMessage(message, context.color.tertiaryColor, Colors.white);
