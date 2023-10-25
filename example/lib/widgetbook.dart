@@ -15,6 +15,7 @@ class WidgetbookApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Widgetbook.material(
+      appBuilder: ResponsiveProvider.builder,
       // Use the generated directories variable
       directories: directories,
       addons: [
