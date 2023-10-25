@@ -19,7 +19,7 @@ import 'src/ui/overlay_loader.dart';
 //? CONTROLLERS
 export 'src/core/controllers/debounce.dart';
 export 'src/core/controllers/device_utils_enum.dart';
-export 'src/core/controllers/get_variables.dart';
+export 'src/core/controllers/get_variables_dont_context.dart';
 //? EXTENIONS
 export 'src/extensions/size_extension.dart';
 export 'src/extensions/context_extension.dart';

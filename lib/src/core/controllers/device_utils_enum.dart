@@ -1,7 +1,5 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
-import 'package:paipfood_package/paipfood_package.dart';
-import 'package:paipfood_package/src/core/controllers/get_variables.dart';
 import 'package:universal_io/io.dart';
 
 //Enum
@@ -104,11 +102,9 @@ class _BuildListener extends StatefulWidget {
 
 class _BuildListenerState extends State<_BuildListener> {
   DeviceUtils device = DeviceUtils.desktop;
-  final GetVariables getVariables = Modular.get<GetVariables>();
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) => getVariables.init(context));
     super.initState();
   }
 
