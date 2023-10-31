@@ -1,4 +1,7 @@
 import 'package:paipfood_package/paipfood_package.dart';
+import 'http_exception.dart';
+import 'http_response.dart';
+import 'i_http.dart';
 
 class HttpDio implements IHttp {
   late final Dio _dio;
