@@ -1,8 +1,6 @@
-import 'package:dio/dio.dart';
-import 'package:logger/logger.dart';
+import 'package:paipfood_package/paipfood_package.dart';
 import 'package:paipfood_package/src/core/interfaces/htpp/http_exception.dart';
 import 'package:paipfood_package/src/core/interfaces/htpp/http_response.dart';
-import '../../log/log.dart';
 import 'i_http.dart';
 
 class HttpDio implements IHttp {
@@ -10,12 +8,11 @@ class HttpDio implements IHttp {
   final log = Log(printer: PrettyPrinter());
 
   HttpDio({BaseOptions? baseOptions}) {
-    _dio = Dio(baseOptions ?? _defaultOptions);
+    if (baseOptions != null) _dio = Dio(baseOptions);
+    _dio = Dio();
   }
 
-  final _defaultOptions = BaseOptions(
-    baseUrl: "https://pokeapi.co",
-  );
+  final _defaultOptions = BaseOptions();
 
   @override
   IHttp auth() {
@@ -147,11 +144,11 @@ class HttpDio implements IHttp {
     throw exception;
   }
 
-  _logInfo(String path, String methodo, {Map<String, dynamic>? queryParamters, dynamic data}) {
+  void _logInfo(String path, String methodo, {Map<String, dynamic>? queryParamters, dynamic data}) {
     log.d('METHOD: $methodo \nPATH: ${_dio.options.baseUrl}$path \nQUERYPARAMTERS: $queryParamters \nDATA: $data');
   }
 
-  _logResponse(String path, String methodo, {Response? response, String? time}) {
+  void _logResponse(String path, String methodo, {Response? response, String? time}) {
     if (response?.statusCode == 200) {
       log.d(
           '[RESPONSE]: ${response?.statusCode}\nMETHOD: $methodo \nPATH: ${_dio.options.baseUrl}$path \nTIME: 🕑$time ms \nRESPONSE: ${response?.data}');

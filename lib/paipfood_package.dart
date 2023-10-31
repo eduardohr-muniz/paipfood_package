@@ -18,7 +18,7 @@ import 'src/ui/overlay_loader.dart';
 
 //? CONTROLLERS
 export 'src/core/controllers/debounce.dart';
-export 'src/core/controllers/device_utils_enum.dart';
+export 'src/core/provider/responsive_provider.dart';
 export 'src/core/controllers/get_variables_dont_context.dart';
 //? EXTENIONS
 export 'src/extensions/size_extension.dart';
@@ -30,6 +30,8 @@ export 'src/extensions/color_extension.dart';
 export 'src/extensions/theme_extension.dart';
 export 'src/core/log/log.dart';
 export 'src/core/interfaces/local_storage/local_storage.dart';
+export 'src/core/interfaces/htpp/http_dio.dart';
+export 'src/core/provider/toast_provider.dart';
 //? UI
 export 'src/ui/widgets/buttons/cw_outline_button.dart';
 export 'src/ui/widgets/image/cw_image_get.dart';
