@@ -13,7 +13,7 @@ class Toast implements IToast {
   late final Toastification? toast;
 
   @override
-  void error(String message, {String? label}) => _showMessage(
+  void showError(String message, {String? label}) => _showMessage(
         label: label ?? "Error",
         message: message,
         color: context.color.errorColor,
@@ -24,7 +24,7 @@ class Toast implements IToast {
       );
 
   @override
-  void info(String message, {String? label}) => _showMessage(
+  void showInfo(String message, {String? label}) => _showMessage(
         label: label ?? "Info",
         message: message,
         color: Colors.blue,
@@ -35,26 +35,32 @@ class Toast implements IToast {
       );
 
   @override
-  void sucess(String message, {String? label}) => _showMessage(
+  void showSucess(String message, {String? label}) => _showMessage(
         label: label ?? "Sucess",
         message: message,
         color: context.color.primaryColor,
         icon: Icon(Icomoon.tick_circle, color: context.color.primaryColor),
       );
   @override
-  void custom(String message, {String? label, Color? color, Widget? icon}) => _showMessage(
+  void showCustom(String message, {String? label, Color? color, Widget? icon}) => _showMessage(
         label: label ?? "Custom",
         message: message,
         color: color ?? Colors.black,
         icon: icon ?? const Icon(Icomoon.info_circle, color: Colors.black),
       );
 
+  Duration calculeDuration(String message) {
+    final int miliseconds = message.length * 50;
+    if (miliseconds < 4000) return const Duration(seconds: 4);
+    return Duration(milliseconds: miliseconds);
+  }
+
   void _showMessage({required String label, required String message, required Color color, Widget? icon}) {
     toastification.show(
         context: context,
         title: label,
         style: ToastificationStyle.fillColored,
-        autoCloseDuration: const Duration(seconds: 4),
+        autoCloseDuration: calculeDuration(message),
         backgroundColor: context.color.onPrimaryBG,
         primaryColor: color,
         foregroundColor: context.color.primaryText,
@@ -65,10 +71,7 @@ class Toast implements IToast {
           const BoxShadow(
             color: Color.fromRGBO(0, 0, 0, 0.35),
             blurRadius: 15,
-            offset: Offset(
-              0,
-              5,
-            ),
+            offset: Offset(0, 5),
           ),
         ],
         description: message,
@@ -77,7 +80,7 @@ class Toast implements IToast {
         pauseOnHover: true,
         progressBarTheme: ProgressIndicatorThemeData(
           color: color,
-          linearTrackColor: context.color.onPrimaryBG,
+          linearTrackColor: Colors.grey.shade600,
         ));
   }
 }

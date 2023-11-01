@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:paipfood_package/paipfood_package.dart';
 import 'http_exception.dart';
 import 'http_response.dart';
@@ -5,9 +6,10 @@ import 'i_http.dart';
 
 class HttpDio implements IHttp {
   late final Dio _dio;
+  final bool autoToast;
   final log = Log(printer: PrettyPrinter());
 
-  HttpDio({BaseOptions? baseOptions}) {
+  HttpDio({BaseOptions? baseOptions, this.autoToast = true}) {
     if (baseOptions != null) _dio = Dio(baseOptions);
     _dio = Dio();
   }
@@ -29,6 +31,7 @@ class HttpDio implements IHttp {
   @override
   Future<HttpResponse<T>> delete<T>(String path, {data, Map<String, dynamic>? query, Map<String, dynamic>? headers}) async {
     try {
+      _logInfo(path, "DELETE", queryParamters: query, headers: headers);
       final response = await _dio.delete(
         path,
         data: data,
@@ -38,14 +41,19 @@ class HttpDio implements IHttp {
 
       return _dioResponseConverter(response);
     } on DioException catch (e) {
-      _trowRestClientException(e);
+      if (autoToast) {
+        _trowToast(e);
+        return HttpResponse();
+      } else {
+        _trowRestClientException(e);
+      }
     }
   }
 
   @override
   Future<HttpResponse<T>> get<T>(String path, {Map<String, dynamic>? query, Map<String, dynamic>? headers}) async {
     try {
-      _logInfo(path, "GET", queryParamters: query);
+      _logInfo(path, "GET", queryParamters: query, headers: headers);
       final DateTime start = DateTime.now();
       final response = await _dio.get(
         path,
@@ -56,13 +64,19 @@ class HttpDio implements IHttp {
       _logResponse(path, "GET", response: response, time: end.difference(start).inMilliseconds.toString());
       return _dioResponseConverter(response);
     } on DioException catch (e) {
-      _trowRestClientException(e);
+      if (autoToast) {
+        _trowToast(e);
+        return HttpResponse();
+      } else {
+        _trowRestClientException(e);
+      }
     }
   }
 
   @override
   Future<HttpResponse<T>> patch<T>(String path, {data, Map<String, dynamic>? query, Map<String, dynamic>? headers}) async {
     try {
+      _logInfo(path, "PATCH", queryParamters: query, headers: headers);
       final response = await _dio.patch(
         path,
         data: data,
@@ -71,13 +85,19 @@ class HttpDio implements IHttp {
       );
       return _dioResponseConverter(response);
     } on DioException catch (e) {
-      _trowRestClientException(e);
+      if (autoToast) {
+        _trowToast(e);
+        return HttpResponse();
+      } else {
+        _trowRestClientException(e);
+      }
     }
   }
 
   @override
   Future<HttpResponse<T>> post<T>(String path, {data, Map<String, dynamic>? query, Map<String, dynamic>? headers}) async {
     try {
+      _logInfo(path, "POST", queryParamters: query, headers: headers);
       final response = await _dio.post(
         path,
         data: data,
@@ -86,13 +106,19 @@ class HttpDio implements IHttp {
       );
       return _dioResponseConverter(response);
     } on DioException catch (e) {
-      _trowRestClientException(e);
+      if (autoToast) {
+        _trowToast(e);
+        return HttpResponse();
+      } else {
+        _trowRestClientException(e);
+      }
     }
   }
 
   @override
   Future<HttpResponse<T>> put<T>(String path, {data, Map<String, dynamic>? query, Map<String, dynamic>? headers}) async {
     try {
+      _logInfo(path, "PUT", queryParamters: query, headers: headers);
       final response = await _dio.put(
         path,
         data: data,
@@ -101,13 +127,19 @@ class HttpDio implements IHttp {
       );
       return _dioResponseConverter(response);
     } on DioException catch (e) {
-      _trowRestClientException(e);
+      if (autoToast) {
+        _trowToast(e);
+        return HttpResponse();
+      } else {
+        _trowRestClientException(e);
+      }
     }
   }
 
   @override
   Future<HttpResponse<T>> request<T>(String path, {data, Map<String, dynamic>? query, Map<String, dynamic>? headers}) async {
     try {
+      _logInfo(path, "REQUEST", queryParamters: query, headers: headers);
       final response = await _dio.patch(
         path,
         data: data,
@@ -116,7 +148,12 @@ class HttpDio implements IHttp {
       );
       return _dioResponseConverter(response);
     } on DioException catch (e) {
-      _trowRestClientException(e);
+      if (autoToast) {
+        _trowToast(e);
+        return HttpResponse();
+      } else {
+        _trowRestClientException(e);
+      }
     }
   }
 
@@ -126,6 +163,21 @@ class HttpDio implements IHttp {
       statusCode: response.statusCode,
       statusMessage: response.statusMessage,
     );
+  }
+
+  void _trowToast(DioException dioError) {
+    final response = dioError.response;
+
+    HttpExceptionCustom(
+      error: dioError.error,
+      message: response?.statusMessage,
+      statusCode: response?.statusCode,
+      response: HttpResponse(
+        data: response?.data,
+        statusCode: response?.statusCode,
+        statusMessage: response?.statusMessage,
+      ),
+    ).pushToast();
   }
 
   Never _trowRestClientException(DioException dioError) {
@@ -140,12 +192,12 @@ class HttpDio implements IHttp {
         statusCode: response?.statusCode,
         statusMessage: response?.statusMessage,
       ),
-    )..pushToast();
+    );
     throw exception;
   }
 
-  void _logInfo(String path, String methodo, {Map<String, dynamic>? queryParamters, dynamic data}) {
-    log.d('METHOD: $methodo \nPATH: ${_dio.options.baseUrl}$path \nQUERYPARAMTERS: $queryParamters \nDATA: $data');
+  void _logInfo(String path, String methodo, {Map<String, dynamic>? headers, Map<String, dynamic>? queryParamters, dynamic data}) {
+    log.i('METHOD: $methodo \nPATH: ${_dio.options.baseUrl}$path \nQUERYPARAMTERS: $queryParamters \nHEADERS: $headers \nDATA: $data');
   }
 
   void _logResponse(String path, String methodo, {Response? response, String? time}) {

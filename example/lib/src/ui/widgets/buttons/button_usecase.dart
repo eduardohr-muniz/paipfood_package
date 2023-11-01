@@ -8,15 +8,15 @@ Widget cWButtonUsecase(BuildContext context) {
   final label = context.knobs.string(label: "Label", initialValue: "Click");
   final enable = context.knobs.boolean(label: "Enable", initialValue: true);
   final toast = Toast.of(context);
+  final http = HttpDio();
   return Center(
     child: CwButton(
         enable: enable,
         label: label,
         onPressed: () {
-          toast.sucess("message");
-          toast.info("message");
-          toast.error("message");
-          toast.custom("message");
+          http.get("https://teste");
+          // toast.showError("message,d a dmasf,,a sf,asfjnigfabjsgaf, fajgsgvabf a,sfnjas fyatuvfa mmmahgfya fasf,adhayfaysvdg ");
+          // toast.showSucess("message");
         }),
   );
 }

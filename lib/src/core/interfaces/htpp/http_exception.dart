@@ -16,13 +16,13 @@ class HttpExceptionCustom implements Exception {
   });
 
   void pushToast() {
-    toast.error(error);
+    toast.showError(error.toString());
     if (statusCode != null) {
       final String? httpMessage = ServerException.exeptionEquals(statusCode!);
       if (httpMessage != null) {
-        toast.error(httpMessage);
+        toast.showError(httpMessage);
       } else {
-        toast.error(error);
+        toast.showError(error.toString());
       }
     }
   }

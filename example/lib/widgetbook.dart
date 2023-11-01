@@ -15,8 +15,13 @@ class WidgetbookApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Widgetbook.material(
-      appBuilder: ResponsiveProvider.builder,
-      // Use the generated directories variable
+      appBuilder: (context, child) {
+        context.color.primaryColor;
+        return ResponsiveProvider.builder(
+          context,
+          ToastProvider.builder(context, child),
+        );
+      },
       directories: directories,
       addons: [
         MaterialThemeAddon(

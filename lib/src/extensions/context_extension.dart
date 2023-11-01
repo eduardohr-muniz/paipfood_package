@@ -4,7 +4,7 @@ import '../../paipfood_package.dart';
 extension ContextExtension on BuildContext {
   bool get isDarkTheme => Theme.of(this).brightness == Brightness.dark;
   // PColors get color => Theme.of(this).brightness == Brightness.light ? PColors.light : PColors.dark;
-  PColors get color => Theme.of(this).extension<PColors>()!;
+  PColors get color => Theme.of(this).extension<PColors>() ?? (Theme.of(this).brightness == Brightness.light ? PColors.light : PColors.dark);
 
   ColorScheme get colorTheme => Theme.of(this).colorScheme;
 
