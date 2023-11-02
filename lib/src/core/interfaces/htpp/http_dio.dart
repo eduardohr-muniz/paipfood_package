@@ -172,6 +172,7 @@ class HttpDio implements IHttp {
       error: dioError.error.toString(),
       message: response?.statusMessage,
       statusCode: response?.statusCode.toString(),
+      stackTrace: dioError.stackTrace,
     );
 
     if (response?.statusCode != null) {
@@ -202,8 +203,10 @@ class HttpDio implements IHttp {
     log.i('METHOD: $methodo \nPATH: ${_dio.options.baseUrl}$path \nQUERYPARAMTERS: $queryParamters \nHEADERS: $headers \nDATA: $data');
   }
 
-  void _logError({String? error, String? message, String? statusCode}) {
-    log.e('ERROR: $error \nMESSAGE: $message \nSTATUSCODE: $statusCode');
+  void _logError({String? error, String? message, String? statusCode, StackTrace? stackTrace}) {
+    log
+      ..wtf('ERROR: $error \nMESSAGE: $message \nSTATUSCODE: $statusCode')
+      ..w('STACKTRACE: ${stackTrace.toString()}');
   }
 
   void _logResponse(String path, String methodo, {Response? response, String? time}) {
@@ -211,7 +214,7 @@ class HttpDio implements IHttp {
       log.d(
           '[RESPONSE]: ${response?.statusCode}\nMETHOD: $methodo \nPATH: ${_dio.options.baseUrl}$path \nTIME: 🕑$time ms \nRESPONSE: ${response?.data}');
     } else {
-      log.e(
+      log.wtf(
           '[RESPONSE]: ${response?.statusCode}\nMETHOD: $methodo \nPATH: ${_dio.options.baseUrl}$path \nTIME: 🕑$time ms \nRESPONSE: ${response?.data}');
     }
   }
