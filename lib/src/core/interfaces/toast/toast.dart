@@ -50,7 +50,9 @@ class Toast implements IToast {
       );
 
   Duration calculeDuration(String message) {
-    final int miliseconds = message.length * 50;
+    final int lenght = message.split(" ").length;
+
+    final int miliseconds = lenght * 400;
     if (miliseconds < 4000) return const Duration(seconds: 4);
     return Duration(milliseconds: miliseconds);
   }
