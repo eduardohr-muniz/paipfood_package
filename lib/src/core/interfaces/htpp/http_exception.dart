@@ -16,7 +16,6 @@ class HttpExceptionCustom implements Exception {
   });
 
   void pushToast() {
-    toast.showError(error.toString());
     if (statusCode != null) {
       final String? httpMessage = ServerException.exeptionEquals(statusCode!);
       if (httpMessage != null) {

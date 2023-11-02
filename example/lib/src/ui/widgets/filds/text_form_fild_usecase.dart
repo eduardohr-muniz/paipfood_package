@@ -29,9 +29,9 @@ Widget cwTextFormFildUseCase(BuildContext context) {
                 label: "Nome*",
                 obscureText: obscureText,
               ),
-              CwTextFormFild(
+              const CwTextFormFild(
                 label: "Nome*",
-                obscureText: obscureText,
+                obscureText: true,
               ),
               CwTextFormFild(
                 label: "Valido*",

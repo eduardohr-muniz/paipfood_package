@@ -33,7 +33,7 @@ class _BuildListener extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _toast = _toast ?? Toast.of(context);
+    _toast = Toast.of(context);
     return child;
   }
 }

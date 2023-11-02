@@ -7,7 +7,6 @@ import 'package:widgetbook/widgetbook.dart' as knobs;
 Widget cWButtonUsecase(BuildContext context) {
   final label = context.knobs.string(label: "Label", initialValue: "Click");
   final enable = context.knobs.boolean(label: "Enable", initialValue: true);
-  final toast = Toast.of(context);
   final http = HttpDio();
   return Center(
     child: CwButton(
@@ -16,7 +15,7 @@ Widget cWButtonUsecase(BuildContext context) {
         onPressed: () {
           http.get("https://teste");
           // toast.showError("message,d a dmasf,,a sf,asfjnigfabjsgaf, fajgsgvabf a,sfnjas fyatuvfa mmmahgfya fasf,adhayfaysvdg ");
-          // toast.showSucess("message");
+          toast.showSucess("message");
         }),
   );
 }

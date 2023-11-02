@@ -65,9 +65,10 @@ class CwTextFormFild extends StatefulWidget {
 
 class _CwTextFormFildState extends State<CwTextFormFild> {
   FocusNode? focusNode;
-  bool _obscure = false;
+  late bool _obscure;
   @override
   void initState() {
+    _obscure = widget.obscureText;
     focusNode = widget.maskInputService?.getFocusNode?.call();
     super.initState();
   }

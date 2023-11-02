@@ -15,13 +15,6 @@ class WidgetbookApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Widgetbook.material(
-      appBuilder: (context, child) {
-        context.color.primaryColor;
-        return ResponsiveProvider.builder(
-          context,
-          ToastProvider.builder(context, child),
-        );
-      },
       directories: directories,
       addons: [
         MaterialThemeAddon(
@@ -56,6 +49,15 @@ class WidgetbookApp extends StatelessWidget {
             Devices.macOS.wideMonitor,
           ],
         ),
+        BuilderAddon(
+          name: "responsive",
+          builder: (context, child) {
+            return ResponsiveProvider.builder(
+              context,
+              ToastProvider.builder(context, child),
+            );
+          },
+        )
       ],
     );
   }
