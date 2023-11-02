@@ -167,17 +167,19 @@ class HttpDio implements IHttp {
 
   void _trowToast(DioException dioError) {
     final response = dioError.response;
-
-    HttpExceptionCustom(
-      error: dioError.error,
+    String message = "";
+    _logError(
+      error: dioError.error.toString(),
       message: response?.statusMessage,
-      statusCode: response?.statusCode,
-      response: HttpResponse(
-        data: response?.data,
-        statusCode: response?.statusCode,
-        statusMessage: response?.statusMessage,
-      ),
-    ).pushToast();
+      statusCode: response?.statusCode.toString(),
+    );
+
+    if (response?.statusCode != null) {
+      message = ServerException.exeptionEquals(response!.statusCode!) ?? dioError.error.toString();
+    } else {
+      message = dioError.error.toString();
+    }
+    toast.showError(message);
   }
 
   Never _trowRestClientException(DioException dioError) {
@@ -198,6 +200,10 @@ class HttpDio implements IHttp {
 
   void _logInfo(String path, String methodo, {Map<String, dynamic>? headers, Map<String, dynamic>? queryParamters, dynamic data}) {
     log.i('METHOD: $methodo \nPATH: ${_dio.options.baseUrl}$path \nQUERYPARAMTERS: $queryParamters \nHEADERS: $headers \nDATA: $data');
+  }
+
+  void _logError({String? error, String? message, String? statusCode}) {
+    log.e('ERROR: $error \nMESSAGE: $message \nSTATUSCODE: $statusCode');
   }
 
   void _logResponse(String path, String methodo, {Response? response, String? time}) {
