@@ -42,5 +42,6 @@ export 'src/core/models/paip_models.dart';
 //?Providers
 export 'src/core/provider/responsive_provider.dart';
 export 'src/core/provider/toast_provider.dart';
+export 'src/core/provider/global_variables.dart';
 //? icons
 export 'fonts/icomoon_icons.dart';
