@@ -36,6 +36,8 @@ export 'src/ui/widgets/switchs/cw_switch_light_dark.dart';
 export 'src/core/interfaces/toast/toast.dart';
 export 'src/core/interfaces/htpp/http_dio.dart';
 export 'src/core/interfaces/local_storage/local_storage.dart';
+//? Models
+export 'src/core/models/paip_models.dart';
 
 //?Providers
 export 'src/core/provider/responsive_provider.dart';
