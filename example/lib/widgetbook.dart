@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:paipfood_package/paipfood_package.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
-
 // Import the generated directories variable
 import 'widgetbook.directories.g.dart';
 
@@ -14,6 +13,8 @@ class WidgetbookApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("------------------------");
+    print(Env.supaApiKey);
     return Widgetbook.material(
       directories: directories,
       addons: [

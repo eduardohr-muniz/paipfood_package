@@ -2,11 +2,12 @@
 
 library paipfood_package;
 
-export 'package:paipfood_dependencies/paipfood_dependencies.dart';
+export 'paipfood_dependencies.dart';
 // dependencies
-
+export 'src/core/repositories/zz_repositories_export.dart';
 //? CONTROLLERS
 export 'src/core/controllers/debounce.dart';
+export 'env.dart';
 
 //? EXTENIONS
 export 'src/extensions/size_extension.dart';

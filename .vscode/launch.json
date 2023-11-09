@@ -8,7 +8,11 @@
             "name": "widgetbook",
             "cwd": "example",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": [
+                "--dart-define-from-file",
+                ".env"
+            ]
         },
     ]
 }
