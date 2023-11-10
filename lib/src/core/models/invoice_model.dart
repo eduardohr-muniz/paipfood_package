@@ -81,19 +81,19 @@ class InvoiceModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'created_at': createdAt?.millisecondsSinceEpoch,
-      'updated_at': updatedAt?.millisecondsSinceEpoch,
+      'created_at': createdAt?.toIso8601String(),
+      'updated_at': updatedAt?.toIso8601String(),
       'establishment_id': establishmentId ?? slug,
       'id': id,
       'plan': plan?.toMap(),
       'plan_price': planPrice,
-      'due_date': dueDate?.millisecondsSinceEpoch,
+      'due_date': dueDate?.toIso8601String(),
       'status': status,
       'tax': tax,
       'amount': amount,
-      'renegotiation_date': renegotiationDate?.millisecondsSinceEpoch,
+      'renegotiation_date': renegotiationDate?.toIso8601String(),
       'custom_plan_price': customPlanPrice,
-      'payment_date': paymentDate?.millisecondsSinceEpoch,
+      'payment_date': paymentDate?.toIso8601String(),
       'payment_method': paymentMethod,
       'transaction_id': transactionId,
     };
@@ -101,19 +101,19 @@ class InvoiceModel {
 
   factory InvoiceModel.fromMap(Map<String, dynamic> map) {
     return InvoiceModel(
-      createdAt: map['created_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['created_at']) : null,
-      updatedAt: map['updated_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['updated_at']) : null,
+      createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
+      updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
       establishmentId: map['establishment_id'],
       id: map['id']?.toInt(),
       plan: map['plan'] != null ? PlansModel.fromMap(map['plan']) : null,
       planPrice: map['plan_price']?.toDouble(),
-      dueDate: map['due_date'] != null ? DateTime.fromMillisecondsSinceEpoch(map['due_date']) : null,
+      dueDate: map['due_date'] != null ? DateTime.parse(map['due_date']) : null,
       status: map['status'],
       tax: map['tax']?.toDouble(),
       amount: map['amount']?.toDouble(),
-      renegotiationDate: map['renegotiation_date'] != null ? DateTime.fromMillisecondsSinceEpoch(map['renegotiation_date']) : null,
+      renegotiationDate: map['renegotiation_date'] != null ? DateTime.parse(map['renegotiation_date']) : null,
       customPlanPrice: map['custom_plan_price']?.toDouble(),
-      paymentDate: map['payment_date'] != null ? DateTime.fromMillisecondsSinceEpoch(map['payment_date']) : null,
+      paymentDate: map['payment_date'] != null ? DateTime.parse(map['payment_date']) : null,
       paymentMethod: map['payment_method'],
       transactionId: map['transaction_id'],
     );

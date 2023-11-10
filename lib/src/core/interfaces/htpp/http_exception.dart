@@ -1,31 +1,52 @@
-import 'package:paipfood_package/src/core/interfaces/htpp/http_response.dart';
-import 'package:paipfood_package/src/core/provider/toast_provider.dart';
-import '../../exceptions/exception.dart';
+import 'package:paipfood_package/paipfood_package.dart';
 
 class HttpExceptionCustom implements Exception {
-  String? message;
-  int? statusCode;
-  dynamic error;
-  HttpResponse response;
-
+  final RequestOptions requestOptions;
+  final Response? response;
+  final DioExceptionType type;
+  final Object? error;
+  final StackTrace stackTrace;
+  final String? message;
+  final String? msg;
   HttpExceptionCustom({
-    required this.error,
-    required this.response,
+    required this.requestOptions,
+    required this.type,
+    required this.stackTrace,
+    this.response,
+    this.error,
     this.message,
-    this.statusCode,
+    this.msg,
   });
+  HttpExceptionCustom copyWith({
+    RequestOptions? requestOptions,
+    Response? response,
+    DioExceptionType? type,
+    Object? error,
+    StackTrace? stackTrace,
+    String? message,
+  }) {
+    return HttpExceptionCustom(
+      requestOptions: requestOptions ?? this.requestOptions,
+      response: response ?? this.response,
+      type: type ?? this.type,
+      error: error ?? this.error,
+      stackTrace: stackTrace ?? this.stackTrace,
+      message: message ?? this.message,
+    );
+  }
 
   @override
   String toString() {
-    final String defaul = '⚠️ERROR: \n$error';
-    if (statusCode != null) {
-      final String? httpMessage = ServerException.exeptionEquals(statusCode!);
-      if (httpMessage != null) {
-        return httpMessage;
-      } else {
-        return defaul;
-      }
+    String result = msg ?? '$message';
+
+    if (response?.statusCode != null) {
+      final int? statusCode = response!.statusCode;
+      final messageStatusCode = ServerException.exeptionEquals(statusCode ?? 0);
+      result = "$statusCode-$msg ${messageStatusCode != null ? "\n$messageStatusCode" : ""}";
     }
-    return defaul;
+
+    if (error != null) result += '\nError: $error';
+
+    return result;
   }
 }

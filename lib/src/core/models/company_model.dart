@@ -44,8 +44,8 @@ class CompanyModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'created_at': createdAt?.millisecondsSinceEpoch,
-      'updated_at': updatedAt?.millisecondsSinceEpoch,
+      'created_at': createdAt?.toIso8601String(),
+      'updated_at': updatedAt?.toIso8601String(),
       'id': id,
       'name': name,
       'user_adm_id': userAdmId,
@@ -55,8 +55,8 @@ class CompanyModel {
 
   factory CompanyModel.fromMap(Map<String, dynamic> map) {
     return CompanyModel(
-      createdAt: map['created_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['created_at']) : null,
-      updatedAt: map['updated_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['updated_at']) : null,
+      createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
+      updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
       id: map['id']?.toInt(),
       name: map['name'],
       userAdmId: map['user_adm_id'],

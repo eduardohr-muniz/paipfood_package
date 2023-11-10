@@ -21,13 +21,13 @@ class PlansModel {
   String? banner;
   String status;
   PlansModel({
-    this.id,
     required this.createdAt,
+    required this.countryId,
+    this.id,
     this.name = '',
     this.price = 0.0,
     this.promotionalPrice,
     this.promotionDurationMounths,
-    required this.countryId,
     this.autoRenew = true,
     this.discountCoupon,
     this.discountValue,
@@ -74,7 +74,7 @@ class PlansModel {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'created_at': createdAt.millisecondsSinceEpoch,
+      'created_at': createdAt.toIso8601String(),
       'name': name,
       'price': price,
       'promotional_price': promotionalPrice,
@@ -93,7 +93,7 @@ class PlansModel {
   factory PlansModel.fromMap(Map<String, dynamic> map) {
     return PlansModel(
       id: map['id']?.toInt(),
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['created_at']),
+      createdAt: DateTime.parse(map['created_at']),
       name: map['name'] ?? '',
       price: map['price']?.toDouble() ?? 0.0,
       promotionalPrice: map['promotional_price']?.toDouble(),

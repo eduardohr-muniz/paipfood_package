@@ -35,7 +35,9 @@ String generateRandomStringTry(int length) {
 String maskToStringTry(String text, TextInputFormatter textInputFormatter) {
   final ec = TextEditingController(text: text);
   ec.value = textInputFormatter.formatEditUpdate(ec.value, ec.value);
-  return ec.text;
+  final result = ec.text;
+  ec.dispose();
+  return result;
 }
 
 String rgxOnlyNumbersTry(String text) {

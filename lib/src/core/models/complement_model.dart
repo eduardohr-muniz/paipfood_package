@@ -77,8 +77,8 @@ class ComplementModel {
   Map<String, dynamic> toMap() {
     return {
       'index': index,
-      'created_at': createdAt?.millisecondsSinceEpoch,
-      'updated_at': updatedAt?.millisecondsSinceEpoch,
+      'created_at': createdAt?.toIso8601String(),
+      'updated_at': updatedAt?.toIso8601String(),
       'establishment_id': establishmentId ?? slug,
       'id': id,
       'name': name,
@@ -95,8 +95,8 @@ class ComplementModel {
   factory ComplementModel.fromMap(Map<String, dynamic> map) {
     return ComplementModel(
       index: map['index'],
-      createdAt: map['created_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['created_at']) : null,
-      updatedAt: map['updated_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['updated_at']) : null,
+      createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
+      updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
       establishmentId: map['establishment_id'],
       id: map['id']?.toInt(),
       name: map['name'] ?? '',

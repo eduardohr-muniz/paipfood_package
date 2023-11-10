@@ -125,8 +125,8 @@ class EstablishmentModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'created_at': createdAt?.millisecondsSinceEpoch,
-      'updated_At': updatedAt?.millisecondsSinceEpoch,
+      'created_at': createdAt?.toIso8601String(),
+      'updated_At': updatedAt?.toIso8601String(),
       'to_update': toUpdate,
       'slug': slug,
       'fantasy_name': fantasyName,
@@ -152,8 +152,8 @@ class EstablishmentModel {
 
   factory EstablishmentModel.fromMap(Map<String, dynamic> map) {
     return EstablishmentModel(
-      createdAt: map['created_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['created_at']) : null,
-      updatedAt: map['updated_At'] != null ? DateTime.fromMillisecondsSinceEpoch(map['updated_At']) : null,
+      createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
+      updatedAt: map['updated_At'] != null ? DateTime.parse(map['updated_At']) : null,
       toUpdate: map['to_update'] ?? false,
       slug: map['slug'] ?? '',
       fantasyName: map['fantasy_name'] ?? '',

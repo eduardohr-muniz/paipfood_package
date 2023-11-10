@@ -78,8 +78,8 @@ class AddressModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'created_at': createdAt?.millisecondsSinceEpoch,
-      'updated-at': updatedAt?.millisecondsSinceEpoch,
+      'created_at': createdAt?.toIso8601String(),
+      'updated-at': updatedAt?.toIso8601String(),
       'establishment_id': establishmentId ?? slug,
       'id': id,
       'street': street,
@@ -98,8 +98,8 @@ class AddressModel {
 
   factory AddressModel.fromMap(Map<String, dynamic> map) {
     return AddressModel(
-      createdAt: map['created_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['created_at']) : null,
-      updatedAt: map['updated_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['updated_at']) : null,
+      createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
+      updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
       toUpdate: map['to_update'] ?? false,
       establishmentId: map['establishment_id'],
       id: map['id']?.toInt(),

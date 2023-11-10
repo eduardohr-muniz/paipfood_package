@@ -6,7 +6,7 @@ export 'paipfood_dependencies.dart';
 // dependencies
 export 'src/core/repositories/zz_repositories_export.dart';
 //? CONTROLLERS
-export 'src/core/controllers/debounce.dart';
+export 'src/core/controllers/zz_controllers_exports.dart';
 export 'env.dart';
 
 //? EXTENIONS

@@ -71,8 +71,8 @@ class DeliveryAreasModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'created_at': createdAt?.millisecondsSinceEpoch,
-      'updated_at': updatedAt?.millisecondsSinceEpoch,
+      'created_at': createdAt?.toIso8601String(),
+      'updated_at': updatedAt?.toIso8601String(),
       'establishment_id': establishmentId ?? slug,
       'id': id,
       'color': color,
@@ -89,8 +89,8 @@ class DeliveryAreasModel {
 
   factory DeliveryAreasModel.fromMap(Map<String, dynamic> map) {
     return DeliveryAreasModel(
-      createdAt: map['created_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['created_at']) : null,
-      updatedAt: map['updated_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['updated_at']) : null,
+      createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
+      updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
       establishmentId: map['establishment_id'],
       id: map['id']?.toInt(),
       color: map['color'] ?? '',

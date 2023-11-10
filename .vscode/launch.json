@@ -14,5 +14,35 @@
                 ".env"
             ]
         },
+        {
+            "name": "test",
+            "cwd": "test",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--dart-define-from-file",
+                ".env"
+            ]
+        },
+        {
+            "name": "Test",
+            "type": "dart",
+            "request": "launch",
+            "codeLens": {
+              "for": [
+                "run-test",
+                "run-test-file",
+                "debug-test",
+                "debug-test-file"
+              ],
+              "path": "test",
+              "title": "${debugType}"
+            },
+            "args": [
+                "--dart-define-from-file",
+                "example/.env"
+            ]
+        },
+       
     ]
 }

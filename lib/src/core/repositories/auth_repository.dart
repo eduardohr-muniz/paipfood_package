@@ -11,12 +11,27 @@ class AuthRepository implements IAuthRepository {
     final request = await http.post(
       "auth/v1/signup",
       data: {"email": email, "password": password},
+    );
+    final AuthModel authModel = AuthModel.fromMap(request.data);
+    await http.post(
+      "rest/v1/users_",
+      data: authModel.user?.toJsonUsers_(),
+      headers: {"Authorization": "Bearer ${authModel.accessToken}"},
+    );
+    return authModel;
+  }
+
+  @override
+  Future<AuthModel> signUpByPhone({required String phone}) async {
+    final request = await http.post(
+      "auth/v1/signup",
+      data: {"phone": phone, "password": Env.passwordDefault},
       headers: {"Authorization": "Bearer ${Env.supaApiKey}"},
     );
     final AuthModel authModel = AuthModel.fromMap(request.data);
     await http.post(
       "rest/v1/users_",
-      data: authModel.toJson(),
+      data: authModel.user?.toJsonUsers_(),
       headers: {"Authorization": "Bearer ${authModel.accessToken}"},
     );
     return authModel;
@@ -52,22 +67,6 @@ class AuthRepository implements IAuthRepository {
       data: {"refresh_token": auth.refreshToken},
     );
     return AuthModel.fromMap(request.data);
-  }
-
-  @override
-  Future<AuthModel> signUpByPhone({required String phone}) async {
-    final request = await http.post(
-      "auth/v1/signup",
-      data: {"phone": phone, "password": Env.passwordDefault},
-      headers: {"Authorization": "Bearer ${Env.supaApiKey}"},
-    );
-    final AuthModel authModel = AuthModel.fromMap(request.data);
-    await http.post(
-      "rest/v1/users_",
-      data: authModel.toJson(),
-      headers: {"Authorization": "Bearer ${authModel.accessToken}"},
-    );
-    return authModel;
   }
 
   @override

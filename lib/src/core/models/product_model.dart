@@ -100,8 +100,8 @@ class ProductModel {
   Map<String, dynamic> toMap() {
     return {
       'index': index,
-      'created_at': createdAt?.millisecondsSinceEpoch,
-      'updated_at': updatedAt?.millisecondsSinceEpoch,
+      'created_at': createdAt?.toIso8601String(),
+      'updated_at': updatedAt?.toIso8601String(),
       'toUpdate': toUpdate,
       'establishment_id': establishmentId ?? slug,
       'id': id,
@@ -122,8 +122,8 @@ class ProductModel {
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
       index: map['index'],
-      createdAt: map['created_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['created_at']) : null,
-      updatedAt: map['updated_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['updated_at']) : null,
+      createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
+      updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
       toUpdate: map['toUpdate'] ?? false,
       establishmentId: map['establishment_id'],
       id: map['id']?.toInt(),
