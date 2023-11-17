@@ -1,65 +1,84 @@
 import 'dart:convert';
 
-import 'package:flutter/widgets.dart';
-
 import 'paip_models.dart';
 
+class RangeModel {
+  int offSet;
+  int limit;
+  RangeModel({
+    this.offSet = 0,
+    this.limit = 9,
+  });
+
+  Map<String, dynamic> toMap() {
+    return {"Range": "$offSet-$limit"};
+  }
+
+  @override
+  String toString() => '$offSet-$limit';
+}
+
 class CompanyModel {
+  final String? slug;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final bool toUpdate;
-  final int? id;
   final String? name;
-  final String? userAdmId;
+  final String? userAdminId;
+  final int? establishmentDefaultId;
   final List<EstablishmentModel> establishments;
   CompanyModel({
+    this.slug,
     this.createdAt,
     this.updatedAt,
     this.toUpdate = false,
-    this.id,
     this.name,
-    this.userAdmId,
+    this.userAdminId,
+    this.establishmentDefaultId,
     this.establishments = const [],
   });
 
   CompanyModel copyWith({
-    ValueGetter<DateTime?>? createdAt,
-    ValueGetter<DateTime?>? updatedAt,
+    String? slug,
+    DateTime? createdAt,
+    DateTime? updatedAt,
     bool? toUpdate,
-    ValueGetter<int?>? id,
-    ValueGetter<String?>? name,
-    ValueGetter<String?>? userAdmId,
+    String? name,
+    String? userAdmId,
+    int? establishmentDefaultId,
     List<EstablishmentModel>? establishments,
   }) {
     return CompanyModel(
-      createdAt: createdAt?.call() ?? this.createdAt,
-      updatedAt: updatedAt?.call() ?? this.updatedAt,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
       toUpdate: toUpdate ?? this.toUpdate,
-      id: id?.call() ?? this.id,
-      name: name?.call() ?? this.name,
-      userAdmId: userAdmId?.call() ?? this.userAdmId,
+      slug: slug ?? this.slug,
+      name: name ?? this.name,
+      userAdminId: userAdmId ?? userAdminId,
+      establishmentDefaultId: establishmentDefaultId ?? this.establishmentDefaultId,
       establishments: establishments ?? this.establishments,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'created_at': createdAt?.toIso8601String(),
+      'slug': slug,
       'updated_at': updatedAt?.toIso8601String(),
-      'id': id,
       'name': name,
-      'user_adm_id': userAdmId,
+      'user_admin_id': userAdminId,
+      'establishment_default_id': establishmentDefaultId,
       'establishments': establishments.map((x) => x.toMap()).toList(),
     };
   }
 
   factory CompanyModel.fromMap(Map<String, dynamic> map) {
     return CompanyModel(
+      slug: map['slug'],
       createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
       updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
-      id: map['id']?.toInt(),
       name: map['name'],
-      userAdmId: map['user_adm_id'],
+      establishmentDefaultId: map['establishment_default_id'],
+      userAdminId: map['user_admin_id'],
       establishments: List<EstablishmentModel>.from(map['establishments']?.map(EstablishmentModel.fromMap) ?? const []),
     );
   }

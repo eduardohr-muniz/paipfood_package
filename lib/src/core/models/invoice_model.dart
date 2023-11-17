@@ -9,7 +9,7 @@ class InvoiceModel {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final bool toUpdate;
-  final String? establishmentId;
+  final int? establishmentId;
   final int? id;
   final PlansModel? plan;
   final double? planPrice;
@@ -42,40 +42,40 @@ class InvoiceModel {
   });
 
   InvoiceModel copyWith({
-    ValueGetter<DateTime?>? createdAt,
-    ValueGetter<DateTime?>? updatedAt,
+    DateTime? createdAt,
+    DateTime? updatedAt,
     bool? toUpdate,
-    ValueGetter<String?>? establishmentId,
-    ValueGetter<int?>? id,
-    ValueGetter<PlansModel?>? plan,
-    ValueGetter<double?>? planPrice,
-    ValueGetter<DateTime?>? dueDate,
-    ValueGetter<String?>? status,
-    ValueGetter<double?>? tax,
-    ValueGetter<double?>? amount,
-    ValueGetter<DateTime?>? renegotiationDate,
-    ValueGetter<double?>? customPlanPrice,
-    ValueGetter<DateTime?>? paymentDate,
-    ValueGetter<String?>? paymentMethod,
-    ValueGetter<String?>? transactionId,
+    int? establishmentId,
+    int? id,
+    PlansModel? plan,
+    double? planPrice,
+    DateTime? dueDate,
+    String? status,
+    double? tax,
+    double? amount,
+    DateTime? renegotiationDate,
+    double? customPlanPrice,
+    DateTime? paymentDate,
+    String? paymentMethod,
+    String? transactionId,
   }) {
     return InvoiceModel(
-      createdAt: createdAt?.call() ?? this.createdAt,
-      updatedAt: updatedAt?.call() ?? this.updatedAt,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
       toUpdate: toUpdate ?? this.toUpdate,
-      establishmentId: establishmentId?.call() ?? this.establishmentId,
-      id: id?.call() ?? this.id,
-      plan: plan?.call() ?? this.plan,
-      planPrice: planPrice?.call() ?? this.planPrice,
-      dueDate: dueDate?.call() ?? this.dueDate,
-      status: status?.call() ?? this.status,
-      tax: tax?.call() ?? this.tax,
-      amount: amount?.call() ?? this.amount,
-      renegotiationDate: renegotiationDate?.call() ?? this.renegotiationDate,
-      customPlanPrice: customPlanPrice?.call() ?? this.customPlanPrice,
-      paymentDate: paymentDate?.call() ?? this.paymentDate,
-      paymentMethod: paymentMethod?.call() ?? this.paymentMethod,
-      transactionId: transactionId?.call() ?? this.transactionId,
+      establishmentId: establishmentId ?? this.establishmentId,
+      id: id ?? this.id,
+      plan: plan ?? this.plan,
+      planPrice: planPrice ?? this.planPrice,
+      dueDate: dueDate ?? this.dueDate,
+      status: status ?? this.status,
+      tax: tax ?? this.tax,
+      amount: amount ?? this.amount,
+      renegotiationDate: renegotiationDate ?? this.renegotiationDate,
+      customPlanPrice: customPlanPrice ?? this.customPlanPrice,
+      paymentDate: paymentDate ?? this.paymentDate,
+      paymentMethod: paymentMethod ?? this.paymentMethod,
+      transactionId: transactionId ?? this.transactionId,
     );
   }
 

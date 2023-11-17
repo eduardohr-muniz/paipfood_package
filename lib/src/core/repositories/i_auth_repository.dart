@@ -9,4 +9,8 @@ abstract class IAuthRepository {
   Future<void> logout();
   Future<bool> userExists({required String value});
   Future<AuthModel> updateUser({required AuthModel auth});
+  Future<void> updateEmail({required AuthModel auth, required String newEmail});
+  Future<void> forgotPassword({required String email});
+  Future<void> updatePassword({required AuthModel auth, required String newPassword});
+  Future<UserModel> getUser({required AuthModel auth});
 }

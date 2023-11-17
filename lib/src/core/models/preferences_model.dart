@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:paipfood_package/src/core/provider/global_variables.dart';
 
 class PreferencesModel {
-  final String? establishmentId;
+  final int? establishmentId;
   final bool? isDarkMode;
   final String? languageCode;
   final String? countryCode;
@@ -38,7 +38,7 @@ class PreferencesModel {
   factory PreferencesModel.fromJson(String source) => PreferencesModel.fromMap(json.decode(source));
 
   PreferencesModel copyWith({
-    String? establishmentId,
+    int? establishmentId,
     bool? isDarkMode,
     String? languageCode,
     String? countryCode,

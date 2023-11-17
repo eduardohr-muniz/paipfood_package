@@ -8,7 +8,7 @@ class ItemModel {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final bool toUpdate;
-  final String? establishmentId;
+  final int? establishmentId;
   final int? id;
   final String name;
   final String nickName;
@@ -44,7 +44,7 @@ class ItemModel {
     DateTime? createdAt,
     DateTime? updatedAt,
     bool? toUpdate,
-    String? establishmentId,
+    int? establishmentId,
     int? id,
     String? name,
     String? nickName,

@@ -37,7 +37,7 @@ class HttpDio implements IHttp {
   @override
   Future<HttpResponse<T>> delete<T>(String path, {data, Map<String, dynamic>? query, Map<String, dynamic>? headers}) async {
     try {
-      _logInfo(path, "DELETE", queryParamters: query, headers: headers, baseOptions: _dio.options.headers);
+      _logInfo(path, "DELETE", queryParamters: query, headers: headers, baseOptions: _dio.options.headers, data: data);
       final DateTime start = DateTime.now();
       final response = await _dio.delete(
         path,
@@ -84,7 +84,7 @@ class HttpDio implements IHttp {
   @override
   Future<HttpResponse<T>> patch<T>(String path, {data, Map<String, dynamic>? query, Map<String, dynamic>? headers}) async {
     try {
-      _logInfo(path, "PATCH", queryParamters: query, headers: headers, baseOptions: _dio.options.headers);
+      _logInfo(path, "PATCH", queryParamters: query, headers: headers, baseOptions: _dio.options.headers, data: data);
       final DateTime start = DateTime.now();
       final response = await _dio.patch(
         path,
@@ -132,7 +132,7 @@ class HttpDio implements IHttp {
   @override
   Future<HttpResponse<T>> put<T>(String path, {data, Map<String, dynamic>? query, Map<String, dynamic>? headers}) async {
     try {
-      _logInfo(path, "PUT", queryParamters: query, headers: headers, baseOptions: _dio.options.headers);
+      _logInfo(path, "PUT", queryParamters: query, headers: headers, baseOptions: _dio.options.headers, data: data);
       final DateTime start = DateTime.now();
       final response = await _dio.put(
         path,
@@ -156,7 +156,7 @@ class HttpDio implements IHttp {
   @override
   Future<HttpResponse<T>> request<T>(String path, {data, Map<String, dynamic>? query, Map<String, dynamic>? headers}) async {
     try {
-      _logInfo(path, "REQUEST", queryParamters: query, headers: headers, baseOptions: _dio.options.headers);
+      _logInfo(path, "REQUEST", queryParamters: query, headers: headers, baseOptions: _dio.options.headers, data: data);
       final DateTime start = DateTime.now();
       final response = await _dio.patch(
         path,
@@ -210,7 +210,7 @@ class HttpDio implements IHttp {
         requestOptions: dioError.requestOptions,
         stackTrace: dioError.stackTrace,
         type: dioError.type,
-        msg: dioError.response?.data['msg']);
+        msg: dioError.response?.data['msg'].toString());
     _logError(
         error: exception.error.toString(),
         stackTrace: exception.stackTrace,

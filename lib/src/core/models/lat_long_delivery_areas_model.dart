@@ -1,14 +1,11 @@
 import 'dart:convert';
-
-import 'package:flutter/widgets.dart';
 import 'package:paipfood_package/paipfood_package.dart';
-import 'package:paipfood_package/src/core/provider/global_variables.dart';
 
 class LatLongDeliveryAreasModel {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final bool toUpdate;
-  final String? establishmentId;
+  final int? establishmentId;
   final int? id;
   final double latitude;
   final double longitude;
@@ -18,7 +15,7 @@ class LatLongDeliveryAreasModel {
     this.createdAt,
     this.updatedAt,
     this.toUpdate = false,
-    this.establishmentId = '',
+    this.establishmentId,
     this.id,
     this.latitude = 0.0,
     this.longitude = 0.0,
@@ -27,22 +24,22 @@ class LatLongDeliveryAreasModel {
   });
 
   LatLongDeliveryAreasModel copyWith({
-    ValueGetter<DateTime?>? createdAt,
-    ValueGetter<DateTime?>? updatedAt,
+    DateTime? createdAt,
+    DateTime? updatedAt,
     bool? toUpdate,
-    ValueGetter<String?>? establishmentId,
-    ValueGetter<int?>? id,
+    int? establishmentId,
+    int? id,
     double? latitude,
     double? longitude,
     int? deleveryAreaId,
     LatLng? latLng,
   }) {
     return LatLongDeliveryAreasModel(
-      createdAt: createdAt?.call() ?? this.createdAt,
-      updatedAt: updatedAt?.call() ?? this.updatedAt,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
       toUpdate: toUpdate ?? this.toUpdate,
-      establishmentId: establishmentId?.call() ?? this.establishmentId,
-      id: id?.call() ?? this.id,
+      establishmentId: establishmentId ?? this.establishmentId,
+      id: id ?? this.id,
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
       deleveryAreaId: deleveryAreaId ?? this.deleveryAreaId,

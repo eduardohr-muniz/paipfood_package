@@ -26,10 +26,11 @@ enum PaymentsType {
 
 // preferenceTheme: PreferenceTheme.values.firstWhere((element) => element.name == map['preference_theme']),
 class EstablishmentModel {
+  final int? id;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final bool toUpdate;
-  final String slug;
+  final String companySlug;
   final String fantasyName;
   final String? corporateName;
   final String? description;
@@ -38,23 +39,26 @@ class EstablishmentModel {
   final bool isOpen;
   final bool isBlocked;
   final double? pendingRate;
-  final bool isHiguerPricePizza;
-  final CompanyModel company;
+  final bool isHigherPricePizza;
+  final int? companyId;
   final List<PaymentTypeModel> paymentTypesEstablishment;
   final List<PaymentTypeModel> paymentTypesDelivered;
   final String? logo;
   final String? banner;
-  final AddressModel address;
+  final int? addressId;
+  final AddressModel? address;
   final CulinaryStyleModel? culinaryStyle;
   final double? minimunOrder;
   final int dueDate;
   EstablishmentModel({
-    required this.company,
-    required this.address,
+    this.id,
+    this.companyId,
+    this.addressId,
+    this.address,
     this.createdAt,
     this.updatedAt,
     this.toUpdate = false,
-    this.slug = '',
+    this.companySlug = '',
     this.fantasyName = '',
     this.corporateName,
     this.description,
@@ -63,7 +67,7 @@ class EstablishmentModel {
     this.isOpen = false,
     this.isBlocked = false,
     this.pendingRate,
-    this.isHiguerPricePizza = false,
+    this.isHigherPricePizza = false,
     this.paymentTypesEstablishment = const [],
     this.paymentTypesDelivered = const [],
     this.logo,
@@ -74,10 +78,11 @@ class EstablishmentModel {
   });
 
   EstablishmentModel copyWith({
+    int? id,
     DateTime? createdAt,
     DateTime? updatedAt,
     bool? toUpdate,
-    String? slug,
+    String? companySlug,
     String? fantasyName,
     String? corporateName,
     String? description,
@@ -86,22 +91,24 @@ class EstablishmentModel {
     bool? isOpen,
     bool? isBlocked,
     double? pendingRate,
-    bool? isHiguerPricePizza,
+    bool? isHigherPricePizza,
     CompanyModel? company,
     List<PaymentTypeModel>? paymentTypesEstablishment,
     List<PaymentTypeModel>? paymentTypesDelivered,
     String? logo,
     String? banner,
     AddressModel? address,
+    int? addressId,
     CulinaryStyleModel? culinaryStyle,
     double? minimunOrder,
     int? dueDate,
   }) {
     return EstablishmentModel(
+      id: id ?? this.id,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       toUpdate: toUpdate ?? this.toUpdate,
-      slug: slug ?? this.slug,
+      companySlug: companySlug ?? this.companySlug,
       fantasyName: fantasyName ?? this.fantasyName,
       corporateName: corporateName ?? this.corporateName,
       description: description ?? this.description,
@@ -110,12 +117,13 @@ class EstablishmentModel {
       isOpen: isOpen ?? this.isOpen,
       isBlocked: isBlocked ?? this.isBlocked,
       pendingRate: pendingRate ?? this.pendingRate,
-      isHiguerPricePizza: isHiguerPricePizza ?? this.isHiguerPricePizza,
-      company: company ?? this.company,
+      isHigherPricePizza: isHigherPricePizza ?? this.isHigherPricePizza,
+      companyId: companyId ?? companyId,
       paymentTypesEstablishment: paymentTypesEstablishment ?? this.paymentTypesEstablishment,
       paymentTypesDelivered: paymentTypesDelivered ?? this.paymentTypesDelivered,
       logo: logo ?? this.logo,
       banner: banner ?? this.banner,
+      addressId: addressId ?? this.addressId,
       address: address ?? this.address,
       culinaryStyle: culinaryStyle ?? this.culinaryStyle,
       minimunOrder: minimunOrder ?? this.minimunOrder,
@@ -125,10 +133,8 @@ class EstablishmentModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'created_at': createdAt?.toIso8601String(),
-      'updated_At': updatedAt?.toIso8601String(),
-      'to_update': toUpdate,
-      'slug': slug,
+      'updated_at': updatedAt?.toIso8601String(),
+      'company_slug': companySlug,
       'fantasy_name': fantasyName,
       'corporate_name': corporateName,
       'description': description,
@@ -137,25 +143,26 @@ class EstablishmentModel {
       'is_open': isOpen,
       'is_blocked': isBlocked,
       'pending_rate': pendingRate,
-      'is_higuer_price_pizza': isHiguerPricePizza,
-      'company': company.toMap(),
+      'is_higher_price_pizza': isHigherPricePizza,
+      'company_id': companyId,
       'payment_types_establishment': paymentTypesEstablishment.map((x) => x.toMap()).toList(),
       'payment_types_delivered': paymentTypesDelivered.map((x) => x.toMap()).toList(),
       'logo': logo,
       'banner': banner,
-      'address': address.toMap(),
       'culinary_style': culinaryStyle?.toMap(),
       'minimun_order': minimunOrder,
+      'address_id': addressId,
       'due_date': dueDate,
     };
   }
 
   factory EstablishmentModel.fromMap(Map<String, dynamic> map) {
     return EstablishmentModel(
+      id: map['id'],
       createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
-      updatedAt: map['updated_At'] != null ? DateTime.parse(map['updated_At']) : null,
+      updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_At']) : null,
       toUpdate: map['to_update'] ?? false,
-      slug: map['slug'] ?? '',
+      companySlug: map['company_slug'] ?? '',
       fantasyName: map['fantasy_name'] ?? '',
       corporateName: map['corporate_name'],
       description: map['description'],
@@ -164,13 +171,13 @@ class EstablishmentModel {
       isOpen: map['is_open'] ?? false,
       isBlocked: map['is_blocked'] ?? false,
       pendingRate: map['pending_rate']?.toDouble(),
-      isHiguerPricePizza: map['is_higuer_price_pizza'] ?? false,
-      company: CompanyModel.fromMap(map['company']),
+      isHigherPricePizza: map['is_higher_price_pizza'] ?? false,
+      companyId: map['company_id'],
       paymentTypesEstablishment: List<PaymentTypeModel>.from(map['payment_types_establishment']?.map(PaymentTypeModel.fromMap) ?? const []),
       paymentTypesDelivered: List<PaymentTypeModel>.from(map['payment_types_delivered']?.map(PaymentTypeModel.fromMap) ?? const []),
       logo: map['logo'],
       banner: map['banner'],
-      address: AddressModel.fromMap(map['address']),
+      addressId: map['address_id'],
       culinaryStyle: map['culinary_style'] != null ? CulinaryStyleModel.fromMap(map['culinary_style']) : null,
       minimunOrder: map['minimun_order']?.toDouble(),
       dueDate: map['due_date']?.toInt() ?? 0,

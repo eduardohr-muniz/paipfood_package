@@ -15,12 +15,12 @@ class CountryModel {
   CountryModel copyWith({
     String? name,
     String? languageCode,
-    ValueGetter<String?>? countryCode,
+    String? countryCode,
   }) {
     return CountryModel(
       name: name ?? this.name,
       languageCode: languageCode ?? this.languageCode,
-      countryCode: countryCode?.call() ?? this.countryCode,
+      countryCode: countryCode ?? this.countryCode,
     );
   }
 

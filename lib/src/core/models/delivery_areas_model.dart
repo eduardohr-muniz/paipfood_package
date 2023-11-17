@@ -6,7 +6,7 @@ import 'lat_long_delivery_areas_model.dart';
 class DeliveryAreasModel {
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final String? establishmentId;
+  final int? establishmentId;
   final bool toUpdate;
   final int? id;
   final String color;
@@ -36,32 +36,32 @@ class DeliveryAreasModel {
   });
 
   DeliveryAreasModel copyWith({
-    ValueGetter<DateTime?>? createdAt,
-    ValueGetter<DateTime?>? updatedAt,
-    ValueGetter<String?>? establishmentId,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    int? establishmentId,
     bool? toUpdate,
-    ValueGetter<int?>? id,
+    int? id,
     String? color,
     String? state,
     String? country,
-    ValueGetter<double?>? latitude,
-    ValueGetter<double?>? longitude,
+    double? latitude,
+    double? longitude,
     List<LatLongDeliveryAreasModel>? latLongDeliveryAreasModel,
     String? label,
     double? price,
     String? city,
   }) {
     return DeliveryAreasModel(
-      createdAt: createdAt?.call() ?? this.createdAt,
-      updatedAt: updatedAt?.call() ?? this.updatedAt,
-      establishmentId: establishmentId?.call() ?? this.establishmentId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      establishmentId: establishmentId ?? this.establishmentId,
       toUpdate: toUpdate ?? this.toUpdate,
-      id: id?.call() ?? this.id,
+      id: id ?? this.id,
       color: color ?? this.color,
       state: state ?? this.state,
       country: country ?? this.country,
-      latitude: latitude?.call() ?? this.latitude,
-      longitude: longitude?.call() ?? this.longitude,
+      latitude: latitude ?? this.latitude,
+      longitude: longitude ?? this.longitude,
       latLongDeliveryAreasModel: latLongDeliveryAreasModel ?? this.latLongDeliveryAreasModel,
       label: label ?? this.label,
       price: price ?? this.price,

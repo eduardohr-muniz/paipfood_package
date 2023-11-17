@@ -1,5 +1,10 @@
 import 'dart:convert';
 
+enum Permissions {
+  admin,
+  cashier;
+}
+
 class UserModel {
   final String? id;
   final String? email;
@@ -12,19 +17,22 @@ class UserModel {
   final DateTime? updatedAt;
   final String? name;
   final String? surname;
-  UserModel({
-    this.id,
-    this.email,
-    this.emailConfirmedAt,
-    this.phone,
-    this.phoneConfirmedAt,
-    this.confirmedAt,
-    this.lastSignInAt,
-    this.createdAt,
-    this.updatedAt,
-    this.name,
-    this.surname,
-  });
+  final List<Permissions>? permissions;
+  final String? companySlug;
+  UserModel(
+      {this.id,
+      this.email,
+      this.emailConfirmedAt,
+      this.phone,
+      this.phoneConfirmedAt,
+      this.confirmedAt,
+      this.lastSignInAt,
+      this.createdAt,
+      this.updatedAt,
+      this.name,
+      this.surname,
+      this.permissions,
+      this.companySlug});
 
   UserModel copyWith({
     String? id,
@@ -38,6 +46,8 @@ class UserModel {
     DateTime? updatedAt,
     String? name,
     String? surname,
+    List<Permissions>? permissions,
+    String? companySlug,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -51,32 +61,33 @@ class UserModel {
       updatedAt: updatedAt ?? this.updatedAt,
       name: name ?? this.name,
       surname: surname ?? this.surname,
+      permissions: permissions ?? this.permissions,
+      companySlug: companySlug ?? this.companySlug,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      'updated_at': updatedAt?.toIso8601String(),
       'email': email,
       'email_confirmed_at': emailConfirmedAt?.toIso8601String(),
       'phone': phone,
       'confirmed_at': confirmedAt?.toIso8601String(),
       'phone_confirmed_at': confirmedAt?.toIso8601String(),
       'last_sign_in_at': lastSignInAt?.toIso8601String(),
-      'created_at': createdAt?.toIso8601String(),
-      'updated_at': updatedAt?.toIso8601String(),
     };
   }
 
   Map<String, dynamic> toMapUsers_() {
     return {
       'id': id,
-      'created_at': createdAt?.toIso8601String(),
       'updated_at': updatedAt?.toIso8601String(),
       'email': email,
       'phone': phone,
       'name': name,
       'surname': surname,
+      'permissions': permissions,
+      'company_slug': companySlug,
     };
   }
 
@@ -93,6 +104,14 @@ class UserModel {
       updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
       name: map['name'],
       surname: map['surname'],
+      // permissions: map['permissions'] != null
+      //     ? List<Permissions>.from(
+      //         map['permissions']?.map((permission) => Permissions.values.firstWhere((element) => element.name == permission)).toList())
+      //     : null,
+      permissions: map['permissions'] != null
+          ? (map['permissions'] as List).map((permission) => Permissions.values.firstWhere((element) => element.name == permission)).toList()
+          : null,
+      companySlug: map['company_slug'],
     );
   }
 

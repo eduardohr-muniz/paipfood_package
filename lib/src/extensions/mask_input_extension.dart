@@ -28,16 +28,22 @@ class MaskInputController {
   });
 
   MaskInputController copyWith({
-    ValueGetter<FormFieldValidator<String>?>? validator,
-    ValueGetter<List<TextInputFormatter>?>? inpuFormatters,
-    ValueGetter<String?>? hint,
-    ValueGetter<TextInputType?>? textInputType,
+    FormFieldValidator<String>? validator,
+    List<TextInputFormatter>? inpuFormatters,
+    String? hint,
+    TextInputType? textInputType,
+    FocusNode? Function()? getFocusNode,
+    MaskTextInputFormatter? mask,
+    Function(String value, MaskTextInputFormatter mask)? changeMask,
   }) {
     return MaskInputController(
-      validator: validator != null ? validator() : this.validator,
-      inpuFormatters: inpuFormatters != null ? inpuFormatters() : this.inpuFormatters,
-      hint: hint != null ? hint() : this.hint,
-      textInputType: textInputType != null ? textInputType() : this.textInputType,
+      validator: validator ?? this.validator,
+      inpuFormatters: inpuFormatters ?? this.inpuFormatters,
+      hint: hint ?? this.hint,
+      textInputType: textInputType ?? this.textInputType,
+      getFocusNode: getFocusNode ?? this.getFocusNode,
+      mask: mask ?? this.mask,
+      changeMask: changeMask ?? this.changeMask,
     );
   }
 }

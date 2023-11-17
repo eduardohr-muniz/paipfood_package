@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:paipfood_package/paipfood_package.dart';
 
 class AuthRepository implements IAuthRepository {
@@ -43,16 +45,24 @@ class AuthRepository implements IAuthRepository {
       "auth/v1/token?grant_type=password",
       data: {"email": email, "password": password},
     );
-    return AuthModel.fromMap(request.data);
+    AuthModel auth = AuthModel.fromMap(request.data);
+    final user = await getUser(auth: auth);
+    auth = auth.copyWith(user: user);
+    return auth;
   }
 
   @override
   Future<AuthModel> loginByPhone({required String phone}) async {
     final request = await http.post(
       "auth/v1/token?grant_type=password",
-      data: {"email": phone, "password": Env.passwordDefault},
+      data: {"phone": phone, "password": Env.passwordDefault},
     );
-    return AuthModel.fromMap(request.data);
+
+    AuthModel auth = AuthModel.fromMap(request.data);
+    final user = await getUser(auth: auth);
+    auth = auth.copyWith(user: user);
+
+    return auth;
   }
 
   @override
@@ -66,26 +76,45 @@ class AuthRepository implements IAuthRepository {
       "auth/v1/token?grant_type=refresh_token",
       data: {"refresh_token": auth.refreshToken},
     );
-    return AuthModel.fromMap(request.data);
+
+    final AuthModel authModel = AuthModel.fromMap(request.data);
+
+    final reqUser_ = await http.get(
+      "rest/v1/users_?id=eq.${authModel.user!.id}&select=*",
+      headers: {"Authorization": "Bearer ${authModel.accessToken}"},
+    );
+    final List<UserModel> user_ = reqUser_.data.map<UserModel>((user) {
+      return UserModel.fromMap(user);
+    }).toList();
+
+    if (authModel.user!.email != user_.first.email) {
+      await updateUser(auth: authModel);
+    }
+    AuthModel result = authModel.copyWith(
+      user: user_.first.copyWith(email: authModel.user!.email),
+    );
+    result = result.copyWith(user: user_.first);
+    return result;
   }
 
   @override
   Future<AuthModel> updateUser({required AuthModel auth}) async {
+    await http.put(
+      "auth/v1/user",
+      data: auth.user!.toJson(),
+      headers: {"Authorization": "Bearer ${auth.accessToken}"},
+    );
+
     final request = await http.patch(
       "rest/v1/users_?id=eq.${auth.user?.id}",
-      data: auth.toJson(),
+      data: auth.user!.toJsonUsers_(),
       headers: {"Authorization": "Bearer ${auth.accessToken}"},
     );
+    final List<UserModel> result = request.data.map<UserModel>((user) {
+      return UserModel.fromMap(user);
+    }).toList();
 
-    final AuthModel authModel = AuthModel.fromMap(request.data);
-    auth = authModel;
-
-    await http.patch(
-      "auth/v1/user",
-      data: auth.toJson(),
-      headers: {"Authorization": "Bearer ${auth.accessToken}"},
-    );
-
+    auth = auth.copyWith(user: result.first);
     return auth;
   }
 
@@ -97,5 +126,38 @@ class AuthRepository implements IAuthRepository {
       data: {"body": value},
     );
     return request.data;
+  }
+
+  @override
+  Future<void> updateEmail({required AuthModel auth, required String newEmail}) async {
+    await http.put(
+      "auth/v1/user",
+      data: {"email": newEmail},
+      headers: {"Authorization": "Bearer ${auth.accessToken}"},
+    );
+  }
+
+  @override
+  Future<void> forgotPassword({required String email}) async {
+    await http.post("auth/v1/recover", data: {'email': email});
+  }
+
+  @override
+  Future<void> updatePassword({required AuthModel auth, required String newPassword}) async {
+    await http.put(
+      "auth/v1/user",
+      data: {"password": newPassword},
+      headers: {"Authorization": "Bearer ${auth.accessToken}"},
+    );
+  }
+
+  @override
+  Future<UserModel> getUser({required AuthModel auth}) async {
+    final request = await http.get("rest/v1/users_?id=eq.${auth.user!.id}");
+
+    final List<UserModel> user = request.data.map<UserModel>((user) {
+      return UserModel.fromMap(user);
+    }).toList();
+    return user.first;
   }
 }

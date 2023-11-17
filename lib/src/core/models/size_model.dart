@@ -7,7 +7,7 @@ class SizeModel {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final bool toUpdate;
-  final String? establishmentId;
+  final int? establishmentId;
   final int? id;
   final int? itemId;
   final int? productId;
@@ -33,7 +33,7 @@ class SizeModel {
     DateTime? createdAt,
     DateTime? updatedAt,
     bool? toUpdate,
-    String? establishmentId,
+    int? establishmentId,
     int? id,
     int? itemId,
     int? productId,

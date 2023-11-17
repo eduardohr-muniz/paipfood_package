@@ -23,7 +23,7 @@ class ProductModel {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final bool toUpdate;
-  final String? establishmentId;
+  final int? establishmentId;
   final int? id;
   final QtyFlavorsPizza? qtyFlavorsPizza;
   final String name;
@@ -62,7 +62,7 @@ class ProductModel {
     DateTime? createdAt,
     DateTime? updatedAt,
     bool? toUpdate,
-    String? establishmentId,
+    int? establishmentId,
     int? id,
     QtyFlavorsPizza? qtyFlavorsPizza,
     String? name,

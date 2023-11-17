@@ -12,7 +12,7 @@ class CategoryModel {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final bool toUpdate;
-  final String? establishmentId;
+  final int? establishmentId;
   final int? id;
   final String name;
   final String description;
@@ -40,7 +40,7 @@ class CategoryModel {
     DateTime? createdAt,
     DateTime? updatedAt,
     bool? toUpdate,
-    String? establishmentId,
+    int? establishmentId,
     int? id,
     String? name,
     String? description,
