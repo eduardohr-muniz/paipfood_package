@@ -50,9 +50,11 @@ enum DeviceUtils {
 ///Add [ResponsiveProvider.builder] in appWidget.
 class ResponsiveProvider extends InheritedWidget {
   final DeviceUtils device;
+  final Size? size;
   const ResponsiveProvider({
     required this.device,
     required Widget child,
+    this.size,
     super.key,
   }) : super(child: child);
 
@@ -66,6 +68,8 @@ class ResponsiveProvider extends InheritedWidget {
   bool get isMobile => device == DeviceUtils.mobile;
   bool get isTablet => device == DeviceUtils.tablet;
   bool get isDesktop => device == DeviceUtils.desktop;
+  double? get h => size?.height;
+  double? get w => size?.width;
 
   static void _modifyDevice(BuildContext context, void Function(DeviceUtils) deviceCallBack) {
     final provider = ResponsiveProvider.of(context);
@@ -77,6 +81,16 @@ class ResponsiveProvider extends InheritedWidget {
       debugPrint("--Change responsive to -> ${result?.name}");
       WidgetsBinding.instance.addPostFrameCallback((_) {
         deviceCallBack(result!);
+      });
+    }
+  }
+
+  static void _modifySize(BuildContext context, void Function(Size) sizeCallBack) {
+    final provider = ResponsiveProvider.of(context);
+    final Size size = MediaQuery.sizeOf(context);
+    if (provider.size != size) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        sizeCallBack(size);
       });
     }
   }
@@ -102,6 +116,7 @@ class _BuildListener extends StatefulWidget {
 
 class _BuildListenerState extends State<_BuildListener> {
   DeviceUtils device = DeviceUtils.desktop;
+  Size? size;
 
   @override
   void initState() {
@@ -110,12 +125,14 @@ class _BuildListenerState extends State<_BuildListener> {
 
   void modifyDevice(BuildContext context) {
     ResponsiveProvider._modifyDevice(context, (newDevice) => setState(() => device = newDevice));
+    ResponsiveProvider._modifySize(context, (newSize) => setState(() => size = newSize));
   }
 
   @override
   Widget build(BuildContext context) {
     return ResponsiveProvider(
       device: device,
+      size: size,
       child: Builder(builder: (context) {
         modifyDevice(context);
         return widget.child;

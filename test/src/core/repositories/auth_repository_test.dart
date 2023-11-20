@@ -11,7 +11,7 @@ void main() {
   test('userExsits', () async {
     //Arrange
     //Act
-    final result = await repository.userExists(value: "5535984091567");
+    final result = await repository.userExists(value: email);
     //Assert
     expect(result, isA<bool>());
   });

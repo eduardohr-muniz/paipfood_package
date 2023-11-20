@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'paip_models.dart';
+import 'zz_models_export.dart';
 
 class RangeModel {
   int offSet;
@@ -27,6 +27,7 @@ class CompanyModel {
   final String? userAdminId;
   final int? establishmentDefaultId;
   final List<EstablishmentModel> establishments;
+  final List<PaymentMethodsModel> paymentMethods;
   CompanyModel({
     this.slug,
     this.createdAt,
@@ -36,6 +37,7 @@ class CompanyModel {
     this.userAdminId,
     this.establishmentDefaultId,
     this.establishments = const [],
+    this.paymentMethods = const [],
   });
 
   CompanyModel copyWith({
@@ -47,6 +49,7 @@ class CompanyModel {
     String? userAdmId,
     int? establishmentDefaultId,
     List<EstablishmentModel>? establishments,
+    List<PaymentMethodsModel>? paymentMethods,
   }) {
     return CompanyModel(
       createdAt: createdAt ?? this.createdAt,
@@ -57,6 +60,7 @@ class CompanyModel {
       userAdminId: userAdmId ?? userAdminId,
       establishmentDefaultId: establishmentDefaultId ?? this.establishmentDefaultId,
       establishments: establishments ?? this.establishments,
+      paymentMethods: paymentMethods ?? this.paymentMethods,
     );
   }
 
@@ -67,20 +71,25 @@ class CompanyModel {
       'name': name,
       'user_admin_id': userAdminId,
       'establishment_default_id': establishmentDefaultId,
-      'establishments': establishments.map((x) => x.toMap()).toList(),
     };
   }
 
   factory CompanyModel.fromMap(Map<String, dynamic> map) {
     return CompanyModel(
-      slug: map['slug'],
-      createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
-      updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
-      name: map['name'],
-      establishmentDefaultId: map['establishment_default_id'],
-      userAdminId: map['user_admin_id'],
-      establishments: List<EstablishmentModel>.from(map['establishments']?.map(EstablishmentModel.fromMap) ?? const []),
-    );
+        slug: map['slug'],
+        createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
+        updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
+        name: map['name'],
+        establishmentDefaultId: map['establishment_default_id'],
+        userAdminId: map['user_admin_id'],
+        establishments: List<EstablishmentModel>.from(map['establishments']?.map((establishments) {
+              return EstablishmentModel.fromMap(establishments);
+            }).toList() ??
+            const []),
+        paymentMethods: List<PaymentMethodsModel>.from(map['payment_methods']?.map((paymentMethod) {
+              return PaymentMethodsModel.fromMap(paymentMethod);
+            }).toList() ??
+            []));
   }
 
   String toJson() => json.encode(toMap());

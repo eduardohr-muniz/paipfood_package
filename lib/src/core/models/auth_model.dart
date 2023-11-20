@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'paip_models.dart';
+import 'zz_models_export.dart';
 
 class AuthModel {
   final String? accessToken;

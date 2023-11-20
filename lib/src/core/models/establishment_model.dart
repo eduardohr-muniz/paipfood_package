@@ -1,30 +1,10 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
-import 'paip_models.dart';
+import 'package:paipfood_package/src/core/enums/zz_enums_export.dart';
+import 'zz_models_export.dart';
 
-enum PreferenceTheme {
-  mars(Colors.red),
-  star(Color(0xffffab00)),
-  eclipse(Color(0xffef6c00)),
-  cosmos(Color(0xff1a237e)),
-  andromeda(Color(0xff00acc1)),
-  celest(Color(0xff00695c)),
-  paip(Color(0xff49A568)),
-  galactica(Color(0xff7b1fa2)),
-  sweet(Color(0xffff4081)),
-  meteor(Color(0xff4e342e)),
-  blackHole(Colors.black);
+// preferenceTheme: PreferenceTheme.values.firstWhere((eleiment) => element.name == map['preference_theme']),
+const List<CheckPointEnum> checkPointsDef = [CheckPointEnum.establishment, CheckPointEnum.delivery];
 
-  final Color color;
-
-  const PreferenceTheme(this.color);
-}
-
-enum PaymentsType {
-  pix;
-}
-
-// preferenceTheme: PreferenceTheme.values.firstWhere((element) => element.name == map['preference_theme']),
 class EstablishmentModel {
   final int? id;
   final DateTime? createdAt;
@@ -40,20 +20,16 @@ class EstablishmentModel {
   final bool isBlocked;
   final double? pendingRate;
   final bool isHigherPricePizza;
-  final int? companyId;
-  final List<PaymentTypeModel> paymentTypesEstablishment;
-  final List<PaymentTypeModel> paymentTypesDelivered;
   final String? logo;
   final String? banner;
-  final int? addressId;
   final AddressModel? address;
-  final CulinaryStyleModel? culinaryStyle;
+  final CulinaryStyleEnum? culinaryStyle;
   final double? minimunOrder;
   final int dueDate;
+  final List<CheckPointEnum> checkPoints;
+  final ThemeEnum theme;
   EstablishmentModel({
     this.id,
-    this.companyId,
-    this.addressId,
     this.address,
     this.createdAt,
     this.updatedAt,
@@ -68,13 +44,13 @@ class EstablishmentModel {
     this.isBlocked = false,
     this.pendingRate,
     this.isHigherPricePizza = false,
-    this.paymentTypesEstablishment = const [],
-    this.paymentTypesDelivered = const [],
     this.logo,
     this.banner,
     this.culinaryStyle,
     this.minimunOrder,
     this.dueDate = 10,
+    this.checkPoints = checkPointsDef,
+    this.theme = ThemeEnum.paip,
   });
 
   EstablishmentModel copyWith({
@@ -92,16 +68,14 @@ class EstablishmentModel {
     bool? isBlocked,
     double? pendingRate,
     bool? isHigherPricePizza,
-    CompanyModel? company,
-    List<PaymentTypeModel>? paymentTypesEstablishment,
-    List<PaymentTypeModel>? paymentTypesDelivered,
     String? logo,
     String? banner,
     AddressModel? address,
-    int? addressId,
-    CulinaryStyleModel? culinaryStyle,
+    CulinaryStyleEnum? culinaryStyle,
     double? minimunOrder,
     int? dueDate,
+    List<CheckPointEnum>? checkPoints,
+    ThemeEnum? theme,
   }) {
     return EstablishmentModel(
       id: id ?? this.id,
@@ -118,22 +92,20 @@ class EstablishmentModel {
       isBlocked: isBlocked ?? this.isBlocked,
       pendingRate: pendingRate ?? this.pendingRate,
       isHigherPricePizza: isHigherPricePizza ?? this.isHigherPricePizza,
-      companyId: companyId ?? companyId,
-      paymentTypesEstablishment: paymentTypesEstablishment ?? this.paymentTypesEstablishment,
-      paymentTypesDelivered: paymentTypesDelivered ?? this.paymentTypesDelivered,
       logo: logo ?? this.logo,
       banner: banner ?? this.banner,
-      addressId: addressId ?? this.addressId,
       address: address ?? this.address,
       culinaryStyle: culinaryStyle ?? this.culinaryStyle,
       minimunOrder: minimunOrder ?? this.minimunOrder,
       dueDate: dueDate ?? this.dueDate,
+      checkPoints: checkPoints ?? this.checkPoints,
+      theme: theme ?? this.theme,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'updated_at': updatedAt?.toIso8601String(),
+      'updated_at': DateTime.now().toIso8601String(),
       'company_slug': companySlug,
       'fantasy_name': fantasyName,
       'corporate_name': corporateName,
@@ -144,15 +116,13 @@ class EstablishmentModel {
       'is_blocked': isBlocked,
       'pending_rate': pendingRate,
       'is_higher_price_pizza': isHigherPricePizza,
-      'company_id': companyId,
-      'payment_types_establishment': paymentTypesEstablishment.map((x) => x.toMap()).toList(),
-      'payment_types_delivered': paymentTypesDelivered.map((x) => x.toMap()).toList(),
       'logo': logo,
       'banner': banner,
-      'culinary_style': culinaryStyle?.toMap(),
+      'culinary_style': culinaryStyle?.name,
       'minimun_order': minimunOrder,
-      'address_id': addressId,
       'due_date': dueDate,
+      'check_points': checkPoints.map((e) => e.name).toList(),
+      'theme': theme.name
     };
   }
 
@@ -160,7 +130,7 @@ class EstablishmentModel {
     return EstablishmentModel(
       id: map['id'],
       createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
-      updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_At']) : null,
+      updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
       toUpdate: map['to_update'] ?? false,
       companySlug: map['company_slug'] ?? '',
       fantasyName: map['fantasy_name'] ?? '',
@@ -172,15 +142,16 @@ class EstablishmentModel {
       isBlocked: map['is_blocked'] ?? false,
       pendingRate: map['pending_rate']?.toDouble(),
       isHigherPricePizza: map['is_higher_price_pizza'] ?? false,
-      companyId: map['company_id'],
-      paymentTypesEstablishment: List<PaymentTypeModel>.from(map['payment_types_establishment']?.map(PaymentTypeModel.fromMap) ?? const []),
-      paymentTypesDelivered: List<PaymentTypeModel>.from(map['payment_types_delivered']?.map(PaymentTypeModel.fromMap) ?? const []),
       logo: map['logo'],
       banner: map['banner'],
-      addressId: map['address_id'],
-      culinaryStyle: map['culinary_style'] != null ? CulinaryStyleModel.fromMap(map['culinary_style']) : null,
+      culinaryStyle: map['culinary_style'] != null ? CulinaryStyleEnum.fromMap(map['culinary_style']) : null,
       minimunOrder: map['minimun_order']?.toDouble(),
       dueDate: map['due_date']?.toInt() ?? 0,
+      checkPoints: List<CheckPointEnum>.from(map['check_points']?.map((checkPoint) {
+            return CheckPointEnum.values.firstWhere((element) => element.name == checkPoint);
+          }).toList() ??
+          []),
+      theme: ThemeEnum.values.firstWhere((element) => element.name == map['theme'], orElse: () => ThemeEnum.paip),
     );
   }
 

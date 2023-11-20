@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:paipfood_package/src/core/provider/global_variables.dart';
 
-import 'paip_models.dart';
+import 'zz_models_export.dart';
 
 class SizeModel {
   final DateTime? createdAt;

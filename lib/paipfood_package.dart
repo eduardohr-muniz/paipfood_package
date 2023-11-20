@@ -4,7 +4,6 @@ library paipfood_package;
 
 export 'paipfood_dependencies.dart';
 // dependencies
-export 'src/core/repositories/zz_repositories_export.dart';
 //? CONTROLLERS
 export 'src/core/controllers/zz_controllers_exports.dart';
 export 'env.dart';
@@ -16,7 +15,7 @@ export 'src/ui/shadowns.dart';
 export 'src/extensions/mask_input_extension.dart';
 export 'src/extensions/color_extension.dart';
 export 'src/extensions/theme_extension.dart';
-export 'src/core/exceptions/try_functions.dart';
+export 'src/core/utils/utils.dart';
 //? exceptions
 export 'src/core/exceptions/exception.dart';
 export 'src/core/log/log.dart';
@@ -38,7 +37,6 @@ export 'src/core/interfaces/toast/toast.dart';
 export 'src/core/interfaces/htpp/http_dio.dart';
 export 'src/core/interfaces/local_storage/local_storage.dart';
 //? Models
-export 'src/core/models/paip_models.dart';
 
 //?Providers
 export 'src/core/provider/responsive_provider.dart';
@@ -46,3 +44,8 @@ export 'src/core/provider/toast_provider.dart';
 export 'src/core/provider/global_variables.dart';
 //? icons
 export 'fonts/icomoon_icons.dart';
+
+//!exports
+export 'src/core/models/zz_models_export.dart';
+export 'src/core/repositories/zz_repositories_export.dart';
+export 'src/core/enums/zz_enums_export.dart';

@@ -1,13 +1,10 @@
 import 'dart:convert';
 
-import '../provider/global_variables.dart';
-
 class AddressModel {
+  final int? id;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final bool toUpdate;
-  final int? establishmentId;
-  final int? id;
+  final bool? toUpdate;
   final String street;
   final String number;
   final String neighborhood;
@@ -19,11 +16,14 @@ class AddressModel {
   final String address;
   final String city;
   final String country;
+  final String? userId;
+  final int? establishmentId;
   AddressModel({
+    required this.latitude,
+    required this.longitude,
     this.createdAt,
     this.updatedAt,
     this.toUpdate = false,
-    this.establishmentId,
     this.id,
     this.street = '',
     this.number = '',
@@ -31,18 +31,17 @@ class AddressModel {
     this.complement = '',
     this.zipCode = '',
     this.state = '',
-    this.latitude = 0.0,
-    this.longitude = 0.0,
     this.address = '',
     this.city = '',
     this.country = '',
+    this.userId,
+    this.establishmentId,
   });
 
   AddressModel copyWith({
     DateTime? createdAt,
     DateTime? updatedAt,
     bool? toUpdate,
-    int? establishmentId,
     int? id,
     String? street,
     String? number,
@@ -55,12 +54,13 @@ class AddressModel {
     String? address,
     String? city,
     String? country,
+    String? userId,
+    int? establishmentId,
   }) {
     return AddressModel(
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       toUpdate: toUpdate ?? this.toUpdate,
-      establishmentId: establishmentId ?? this.establishmentId,
       id: id ?? this.id,
       street: street ?? this.street,
       number: number ?? this.number,
@@ -73,15 +73,14 @@ class AddressModel {
       address: address ?? this.address,
       city: city ?? this.city,
       country: country ?? this.country,
+      userId: userId ?? this.userId,
+      establishmentId: establishmentId ?? this.establishmentId,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'created_at': createdAt?.toIso8601String(),
-      'updated-at': updatedAt?.toIso8601String(),
-      'establishment_id': establishmentId ?? slug,
-      'id': id,
+      'updated-at': DateTime.now().toIso8601String(),
       'street': street,
       'number': number,
       'neighborhood': neighborhood,
@@ -93,6 +92,8 @@ class AddressModel {
       'address': address,
       'city': city,
       'country': country,
+      'user_id': userId,
+      'establishment_id': establishmentId,
     };
   }
 
@@ -101,7 +102,6 @@ class AddressModel {
       createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
       updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
       toUpdate: map['to_update'] ?? false,
-      establishmentId: map['establishment_id'],
       id: map['id']?.toInt(),
       street: map['street'] ?? '',
       number: map['number'] ?? '',
@@ -114,6 +114,8 @@ class AddressModel {
       address: map['address'] ?? '',
       city: map['city'] ?? '',
       country: map['country'] ?? '',
+      userId: map['user_id'],
+      establishmentId: map['establishment_id'],
     );
   }
 

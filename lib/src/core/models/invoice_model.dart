@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 
 import '../provider/global_variables.dart';
-import 'paip_models.dart';
+import 'zz_models_export.dart';
 
 class InvoiceModel {
   final DateTime? createdAt;

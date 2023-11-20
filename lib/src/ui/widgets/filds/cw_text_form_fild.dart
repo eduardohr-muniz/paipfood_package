@@ -1,5 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:paipfood_package/paipfood_package.dart';
@@ -30,6 +28,7 @@ class CwTextFormFild extends StatefulWidget {
   final String? tooltipMessage;
   final IconData? tooltipIcon;
   final String? counterText;
+  final AutovalidateMode? autovalidateMode;
 
   const CwTextFormFild({
     required this.label,
@@ -57,6 +56,7 @@ class CwTextFormFild extends StatefulWidget {
     this.counterText,
     this.flex,
     this.maskInputService,
+    this.autovalidateMode,
   }) : super(key: key);
 
   @override
@@ -110,6 +110,7 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
             validator: widget.maskInputService?.validator ?? widget.validator,
             keyboardType: widget.maskInputService?.textInputType ?? widget.keyboardType,
             initialValue: widget.initialValue,
+            autovalidateMode: widget.autovalidateMode,
             decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 0, color: context.color.onPrimaryBG)),
                 contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),

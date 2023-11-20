@@ -9,8 +9,7 @@ class HttpDio implements IHttp {
   final log = Log(printer: PrettyPrinter());
 
   HttpDio({BaseOptions? baseOptions, this.autoToast = true}) {
-    if (baseOptions != null) _dio = Dio(baseOptions);
-    _dio = Dio(_defaultOptions);
+    baseOptions != null ? _dio = Dio(baseOptions) : _dio = Dio(_defaultOptions);
   }
 
   final _defaultOptions = BaseOptions(
