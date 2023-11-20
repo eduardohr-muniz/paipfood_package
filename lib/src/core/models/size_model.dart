@@ -62,7 +62,7 @@ class SizeModel {
       'created_at': createdAt?.toIso8601String(),
       'updated_at': updatedAt?.toIso8601String(),
       'toUpdate': toUpdate,
-      'establishment_id': establishmentId ?? slug,
+      'establishment_id': establishmentId,
       'id': id,
       'item_id': itemId,
       'product_id': productId,

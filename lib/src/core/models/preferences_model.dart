@@ -17,7 +17,7 @@ class PreferencesModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'establishment_id': establishmentId ?? slug,
+      'establishment_id': establishmentId,
       'is_dark_mode': isDarkMode,
       'language_code': languageCode,
       'country_code': countryCode,

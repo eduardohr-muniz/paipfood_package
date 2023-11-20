@@ -7,6 +7,7 @@ import '../../../core/mask_input_controller.dart';
 
 @UseCase(name: "Default", type: CwTextFormFild)
 Widget cwTextFormFildUseCase(BuildContext context) {
+  final passwordEC = TextEditingController();
   final label = context.knobs.string(label: "Label", description: "String", initialValue: "Label");
   final obscureText = context.knobs.boolean(label: "Obscure Text", description: "Password", initialValue: false);
   final form = GlobalKey<FormState>();
@@ -23,7 +24,6 @@ Widget cwTextFormFildUseCase(BuildContext context) {
               CwTextFormFild(
                 label: "Valido 1*",
                 obscureText: obscureText,
-                maskInputService: MaskIC.cRequired(context),
               ),
               CwTextFormFild(
                 label: "Nome*",
@@ -35,11 +35,15 @@ Widget cwTextFormFildUseCase(BuildContext context) {
               ),
               CwTextFormFild(
                 label: "Valido*",
-                maskInputService: MaskIC.email(context),
+                // maskUtils: MaskIC.email(context),
                 obscureText: obscureText,
               ),
               CwTextFormFild(
-                label: "Nome*",
+                label: "Password*",
+                controller: passwordEC,
+                maskUtils: MaskUtils.password(context, customValidate: (value) {
+                  return null;
+                }),
                 obscureText: obscureText,
               ),
               CwTextFormFild(

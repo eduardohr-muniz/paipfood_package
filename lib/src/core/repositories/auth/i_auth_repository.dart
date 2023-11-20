@@ -6,7 +6,7 @@ abstract class IAuthRepository {
   Future<AuthModel> signUpByPhone({required String phone});
   Future<AuthModel> loginByPhone({required String phone});
   Future<AuthModel> refreshToken({required AuthModel auth});
-  Future<void> logout();
+  Future<void> logout({required AuthModel auth});
   Future<bool> userExists({required String value});
   Future<AuthModel> updateUser({required AuthModel auth});
   Future<void> updateEmail({required AuthModel auth, required String newEmail});

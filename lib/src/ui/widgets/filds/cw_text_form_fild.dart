@@ -4,7 +4,7 @@ import 'package:paipfood_package/paipfood_package.dart';
 import '../buttons/cw_icon_tolltip.dart';
 
 class CwTextFormFild extends StatefulWidget {
-  final MaskInputController? maskInputService;
+  final MaskInputController? maskUtils;
   final TextEditingController? controller;
   final String? initialValue;
   final String? Function(String?)? validator;
@@ -55,7 +55,7 @@ class CwTextFormFild extends StatefulWidget {
     this.tooltipIcon,
     this.counterText,
     this.flex,
-    this.maskInputService,
+    this.maskUtils,
     this.autovalidateMode,
   }) : super(key: key);
 
@@ -69,7 +69,7 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
   @override
   void initState() {
     _obscure = widget.obscureText;
-    focusNode = widget.maskInputService?.getFocusNode?.call();
+    focusNode = widget.maskUtils?.getFocusNode?.call();
     super.initState();
   }
 
@@ -102,13 +102,13 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
             focusNode: widget.focusNode ?? focusNode,
             controller: widget.controller,
             obscureText: _obscure,
-            inputFormatters: widget.maskInputService?.inpuFormatters ?? widget.inputFormatters,
+            inputFormatters: widget.maskUtils?.inpuFormatters ?? widget.inputFormatters,
             onChanged: widget.onChanged,
             cursorColor: context.color.primaryColor,
             minLines: widget.obscureText ? 1 : widget.minLines,
             maxLines: widget.obscureText ? 1 : widget.maxLines,
-            validator: widget.maskInputService?.validator ?? widget.validator,
-            keyboardType: widget.maskInputService?.textInputType ?? widget.keyboardType,
+            validator: widget.maskUtils?.validator ?? widget.validator,
+            keyboardType: widget.maskUtils?.textInputType ?? widget.keyboardType,
             initialValue: widget.initialValue,
             autovalidateMode: widget.autovalidateMode,
             decoration: InputDecoration(
@@ -134,7 +134,7 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
                         icon: Icon(_obscure ? Icomoon.eye_slash : Icomoon.eye),
                       )
                     : widget.suffixIcon,
-                hintText: widget.maskInputService?.hint ?? widget.hintText),
+                hintText: widget.maskUtils?.hint ?? widget.hintText),
           )
         ],
       ),

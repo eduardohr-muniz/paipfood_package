@@ -1,14 +1,14 @@
 import 'package:paipfood_package/src/core/models/auth_model.dart';
 
-String? _slug;
+AuthModel? _auth;
 
-String get slug {
-  if (_slug == null) {
-    assert(_slug != null, "Slug is null");
+Map<String, dynamic> mapI18n = {};
+
+AuthModel get auth_ {
+  if (_auth == null) {
+    assert(_auth != null, "Slug is null");
   }
-  return _slug!;
+  return _auth!;
 }
 
-set slug(String value) => _slug = value;
-
-AuthModel? authModel;
+set auth_(AuthModel value) => _auth = value;

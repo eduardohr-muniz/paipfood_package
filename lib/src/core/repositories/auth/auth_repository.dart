@@ -66,8 +66,8 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<void> logout() async {
-    await http.post("auth/v1/logout", headers: {"Authorization": "Bearer ${authModel?.accessToken}"});
+  Future<void> logout({required AuthModel auth}) async {
+    await http.post("auth/v1/logout", headers: {"Authorization": "Bearer ${auth.accessToken}"});
   }
 
   @override

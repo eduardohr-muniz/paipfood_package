@@ -82,7 +82,7 @@ class ItemModel {
       'index': index,
       'created_at': createdAt?.toIso8601String(),
       'updated_at': updatedAt?.toIso8601String(),
-      'establishment_id': establishmentId ?? slug,
+      'establishment_id': establishmentId,
       'id': id,
       'name': name,
       'nick_name': nickName,

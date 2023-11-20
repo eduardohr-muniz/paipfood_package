@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:paipfood_package/src/extensions/context_extension.dart';
+import 'package:paipfood_package/src/core/extensions/context_extension.dart';
 
 class PColors extends ThemeExtension<PColors> {
   final Color primaryColor;
