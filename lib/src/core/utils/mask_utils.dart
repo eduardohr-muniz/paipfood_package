@@ -40,7 +40,6 @@ class MaskUtils {
         focusNode = focusNode ?? FocusNode();
         return focusNode!;
       },
-      hint: "example@mail.com",
       validator: (value) {
         if (value == null || value.isEmpty) {
           focusNode?.requestFocus();
@@ -69,7 +68,6 @@ class MaskUtils {
         focusNode = focusNode ?? FocusNode();
         return focusNode;
       },
-      hint: "Insira sua senha",
       validator: (value) {
         if (value == null || value.isEmpty) {
           focusNode?.requestFocus();
@@ -107,8 +105,7 @@ class MaskUtils {
         }
         if (value.length >= 15) textEditingController.value = maskFormatter.updateMask(mask: "(##)# ####-####");
       },
-      hint: "(00)0 0000-0000",
-      textInputType: TextInputType.number,
+      keyboardType: TextInputType.number,
       validator: (value) {
         if (value == null || value.isEmpty) {
           focusNode?.requestFocus();
@@ -131,8 +128,7 @@ class MaskUtils {
         return focusNode;
       },
       inpuFormatters: [MaskTextInputFormatter(mask: "#####-###")],
-      hint: "00000-000",
-      textInputType: TextInputType.number,
+      keyboardType: TextInputType.number,
       validator: (value) {
         if (value != null && value.length > 1 && value.length < 9) {
           return "Cep incompleto";
@@ -150,7 +146,6 @@ class MaskUtils {
         return focusNode;
       },
       inpuFormatters: [MaskTextInputFormatter(mask: "##.###.###/####-##")],
-      hint: "00.000.000/0001-00",
       validator: (value) {
         if (value == null || value.isEmpty) {
           return "Cnpj obrigatório.";
@@ -205,8 +200,7 @@ class MaskUtils {
         return focusNode;
       },
       inpuFormatters: [MaskTextInputFormatter(mask: "###.###.###-##")],
-      hint: "000.000.000-00",
-      textInputType: TextInputType.number,
+      keyboardType: TextInputType.number,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return "Cpf obrigatório.";

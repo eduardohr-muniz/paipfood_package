@@ -83,7 +83,7 @@ class MaskIC {
       //   if (value.length == 13) mask.updateMask(mask: "(##) ####-####");
       // },
       hint: "(00) 0 0000-0000",
-      textInputType: TextInputType.number,
+      keyboardType: TextInputType.number,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return "Telefone obrigatório.";
@@ -101,7 +101,7 @@ class MaskIC {
       getFocusNode: () => null,
       inpuFormatters: [MaskTextInputFormatter(mask: "#####-###")],
       hint: "00000-000",
-      textInputType: TextInputType.number,
+      keyboardType: TextInputType.number,
       validator: (value) {
         if (value != null && value.length > 1 && value.length < 9) {
           return "Cep incompleto";
@@ -166,7 +166,7 @@ class MaskIC {
     return MaskInputController(
       inpuFormatters: [MaskTextInputFormatter(mask: "###.###.###-##")],
       hint: "000.000.000-00",
-      textInputType: TextInputType.number,
+      keyboardType: TextInputType.number,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return "Cpf obrigatório.";

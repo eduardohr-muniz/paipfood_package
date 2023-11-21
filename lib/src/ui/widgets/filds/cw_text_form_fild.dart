@@ -107,7 +107,7 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
             focusNode: widget.focusNode ?? focusNode,
             controller: widget.controller,
             obscureText: _obscure,
-            inputFormatters: widget.maskUtils?.inpuFormatters ?? widget.inputFormatters,
+            inputFormatters: widget.inputFormatters ?? widget.maskUtils?.inpuFormatters,
             onChanged: () {
               if (widget.maskUtils != null && widget.maskUtils?.onChanged != null) {
                 return (value) {
@@ -123,8 +123,8 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
             cursorColor: context.color.primaryColor,
             minLines: widget.obscureText ? 1 : widget.minLines,
             maxLines: widget.obscureText ? 1 : widget.maxLines,
-            validator: widget.maskUtils?.validator ?? widget.validator,
-            keyboardType: widget.maskUtils?.textInputType ?? widget.keyboardType,
+            validator: widget.validator ?? widget.maskUtils?.validator,
+            keyboardType: widget.keyboardType ?? widget.maskUtils?.keyboardType,
             initialValue: widget.initialValue,
             autovalidateMode: widget.autovalidateMode,
             decoration: InputDecoration(
@@ -150,7 +150,7 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
                         icon: Icon(_obscure ? Icomoon.eye_slash : Icomoon.eye),
                       )
                     : widget.suffixIcon,
-                hintText: widget.maskUtils?.hint ?? widget.hintText),
+                hintText: widget.hintText ?? widget.maskUtils?.hint),
           )
         ],
       ),

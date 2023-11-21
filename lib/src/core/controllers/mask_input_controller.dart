@@ -8,7 +8,7 @@ class MaskInputController {
   final FormFieldValidator<String>? validator;
   final List<TextInputFormatter>? inpuFormatters;
   final String? hint;
-  final TextInputType? textInputType;
+  final TextInputType? keyboardType;
   final FocusNode? Function()? getFocusNode;
   final void Function(String value)? onChanged;
 
@@ -20,7 +20,7 @@ class MaskInputController {
   MaskInputController({
     this.getFocusNode,
     this.hint,
-    this.textInputType,
+    this.keyboardType,
     this.mask,
     this.validator,
     this.inpuFormatters,
@@ -40,7 +40,7 @@ class MaskInputController {
       validator: validator ?? this.validator,
       inpuFormatters: inpuFormatters ?? this.inpuFormatters,
       hint: hint ?? this.hint,
-      textInputType: textInputType ?? this.textInputType,
+      keyboardType: textInputType ?? this.keyboardType,
       getFocusNode: getFocusNode ?? this.getFocusNode,
       onChanged: onChanged ?? this.onChanged,
       mask: mask ?? this.mask,
