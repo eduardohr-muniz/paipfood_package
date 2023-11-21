@@ -42,6 +42,11 @@ Widget cwTextFormFildUseCase(BuildContext context) {
                 controller: textEditingController,
                 label: "Phone",
               ),
+              TextButton(
+                  onPressed: () {
+                    form.currentState?.validate();
+                  },
+                  child: const Text("data"))
             ],
           ),
         ),

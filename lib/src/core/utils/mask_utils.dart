@@ -95,7 +95,10 @@ class MaskUtils {
     FocusNode? focusNode;
     final maskFormatter = MaskTextInputFormatter(mask: "(##) ####-####");
     return MaskInputController(
-      getFocusNode: () => null,
+      getFocusNode: () {
+        focusNode = focusNode ?? FocusNode();
+        return focusNode;
+      },
       inpuFormatters: [maskFormatter],
       onChanged: (value) {
         final lenght = value.length;
@@ -108,11 +111,11 @@ class MaskUtils {
       textInputType: TextInputType.number,
       validator: (value) {
         if (value == null || value.isEmpty) {
-          focusNode!.requestFocus();
+          focusNode?.requestFocus();
           return "Telefone obrigatório.";
         }
         if (value.length < 16) {
-          focusNode!.requestFocus();
+          focusNode?.requestFocus();
           return "Telefone incompleto";
         }
         return null;
@@ -121,8 +124,12 @@ class MaskUtils {
   }
 
   static MaskInputController cep(BuildContext context) {
+    FocusNode? focusNode;
     return MaskInputController(
-      getFocusNode: () => null,
+      getFocusNode: () {
+        focusNode = focusNode ?? FocusNode();
+        return focusNode;
+      },
       inpuFormatters: [MaskTextInputFormatter(mask: "#####-###")],
       hint: "00000-000",
       textInputType: TextInputType.number,
@@ -136,8 +143,12 @@ class MaskUtils {
   }
 
   static MaskInputController cnpj(BuildContext context) {
+    FocusNode? focusNode;
     return MaskInputController(
-      getFocusNode: () => null,
+      getFocusNode: () {
+        focusNode = focusNode ?? FocusNode();
+        return focusNode;
+      },
       inpuFormatters: [MaskTextInputFormatter(mask: "##.###.###/####-##")],
       hint: "00.000.000/0001-00",
       validator: (value) {
@@ -187,7 +198,12 @@ class MaskUtils {
   }
 
   static MaskInputController cpf(BuildContext context) {
+    FocusNode? focusNode;
     return MaskInputController(
+      getFocusNode: () {
+        focusNode = focusNode ?? FocusNode();
+        return focusNode;
+      },
       inpuFormatters: [MaskTextInputFormatter(mask: "###.###.###-##")],
       hint: "000.000.000-00",
       textInputType: TextInputType.number,
