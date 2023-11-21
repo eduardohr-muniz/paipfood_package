@@ -34,3 +34,4 @@ export 'src/core/provider/zz_providers_export.dart';
 export 'src/core/repositories/zz_repositories_export.dart';
 export 'src/core/utils/zz_utils_export.dart';
 export 'src/core/themes/zz_themes_export.dart';
+export 'src/ui/zz_widgets_export.dart';

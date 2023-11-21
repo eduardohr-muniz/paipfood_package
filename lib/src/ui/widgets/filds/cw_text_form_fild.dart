@@ -9,10 +9,12 @@ class CwTextFormFild extends StatefulWidget {
   final String? initialValue;
   final String? Function(String?)? validator;
   final String? hintText;
+  final bool? autofocus;
+  final bool? autocorrect;
   final bool obscureText;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
-  final String label;
+  final String? label;
   final FocusNode? focusNode;
   final bool expanded;
   final int? flex;
@@ -31,8 +33,8 @@ class CwTextFormFild extends StatefulWidget {
   final AutovalidateMode? autovalidateMode;
 
   const CwTextFormFild({
-    required this.label,
     Key? key,
+    this.label,
     this.controller,
     this.initialValue,
     this.validator,
@@ -57,6 +59,8 @@ class CwTextFormFild extends StatefulWidget {
     this.flex,
     this.maskUtils,
     this.autovalidateMode,
+    this.autofocus = false,
+    this.autocorrect = false,
   }) : super(key: key);
 
   @override
@@ -87,23 +91,26 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 4),
-            child: Row(
-              children: [
-                Expanded(child: Text(widget.label, style: context.textTheme.labelMedium, overflow: TextOverflow.ellipsis)),
-                widget.tooltipMessage != null
-                    ? CwIconTolltip(tooltipMessage: widget.tooltipMessage!, icon: widget.tooltipIcon, iconSize: 18)
-                    : const SizedBox.shrink(),
-              ],
+          if (widget.label != null)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: Row(
+                children: [
+                  Expanded(child: Text(widget.label!, style: context.textTheme.labelMedium, overflow: TextOverflow.ellipsis)),
+                  widget.tooltipMessage != null
+                      ? CwIconTolltip(tooltipMessage: widget.tooltipMessage!, icon: widget.tooltipIcon, iconSize: 18)
+                      : const SizedBox.shrink(),
+                ],
+              ),
             ),
-          ),
           TextFormField(
             focusNode: widget.focusNode ?? focusNode,
             controller: widget.controller,
             obscureText: _obscure,
             inputFormatters: widget.maskUtils?.inpuFormatters ?? widget.inputFormatters,
             onChanged: widget.onChanged,
+            autofocus: widget.autofocus!,
+            autocorrect: widget.autocorrect!,
             cursorColor: context.color.primaryColor,
             minLines: widget.obscureText ? 1 : widget.minLines,
             maxLines: widget.obscureText ? 1 : widget.maxLines,

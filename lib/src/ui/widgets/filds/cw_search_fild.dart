@@ -19,7 +19,7 @@ import 'cw_text_form_fild.dart';
 /// [onChanged] é uma função de retorno de chamada que será chamada quando o texto do campo de pesquisa for alterado.
 class CwSearchFild extends StatefulWidget {
   final void Function(dynamic)? onSelectedCallBack;
-  final MenuController? menuController;
+  final MenuController? menuController; 
   final bool? obscureText;
   final Widget? suffixIcon;
   final Widget? prefixIcon;

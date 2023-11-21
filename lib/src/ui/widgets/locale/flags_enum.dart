@@ -22,15 +22,15 @@ class FlagModel {
     required this.i18n,
   });
 
-  static const pathPTbr = "assets/pt_BR.svg";
+  static const pathPTbr = "assets/flags/BR.png";
   static const labelPTbr = "Português BR";
   static const localePTbr = Locale("pt", "BR");
   //
-  static const pathPT = "assets/pt.svg";
+  static const pathPT = "assets/flags/PT.png";
   static const labelPT = "Português";
   static const localePT = Locale("pt");
   //
-  static const pathUs = "assets/en.svg";
+  static const pathUs = "assets/flags/US.png";
   static const labelUs = "English";
   static const localeUs = Locale("en");
 }
