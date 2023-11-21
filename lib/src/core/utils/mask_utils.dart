@@ -91,7 +91,7 @@ class MaskUtils {
     );
   }
 
-  static MaskInputController phonePtBr(BuildContext context, {required TextEditingController textEditingController}) {
+  static MaskInputController phonePtBr(BuildContext context, {required TextEditingController textEditingController, required int minLenght}) {
     FocusNode? focusNode;
     final maskFormatter = MaskTextInputFormatter(mask: "(##) ####-####");
     return MaskInputController(
@@ -114,7 +114,7 @@ class MaskUtils {
           focusNode?.requestFocus();
           return "Telefone obrigatório.";
         }
-        if (value.length < 16) {
+        if (Utils.onlyNumbersRgx(value).length < minLenght) {
           focusNode?.requestFocus();
           return "Telefone incompleto";
         }
