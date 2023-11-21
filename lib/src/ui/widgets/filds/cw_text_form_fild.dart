@@ -108,7 +108,16 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
             controller: widget.controller,
             obscureText: _obscure,
             inputFormatters: widget.maskUtils?.inpuFormatters ?? widget.inputFormatters,
-            onChanged: widget.onChanged,
+            onChanged: () {
+              if (widget.maskUtils != null && widget.maskUtils?.onChanged != null) {
+                return (value) {
+                  widget.maskUtils!.onChanged!.call(value);
+                  widget.onChanged?.call(value);
+                };
+              }
+              return widget.onChanged;
+            }(),
+            //  widget.onChanged,
             autofocus: widget.autofocus!,
             autocorrect: widget.autocorrect!,
             cursorColor: context.color.primaryColor,

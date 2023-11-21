@@ -11,8 +11,8 @@ class FlagCountrySelector extends StatefulWidget {
   final String? initialCountryCode;
   final String languageCode;
   final String searchText;
+  final double maxheight;
   final ValueChanged<Country>? onCountryChanged;
-
   final bool enabled;
   const FlagCountrySelector({
     Key? key,
@@ -21,7 +21,8 @@ class FlagCountrySelector extends StatefulWidget {
     this.languageCode = 'pt_BR',
     this.searchText = '',
     this.onCountryChanged,
-    this.enabled = false,
+    this.enabled = true,
+    this.maxheight = 250,
   }) : super(key: key);
 
   @override
@@ -80,8 +81,8 @@ class _FlagCountrySelectorState extends State<FlagCountrySelector> {
           surfaceTintColor: MaterialStatePropertyAll<Color>(context.color.primaryBG)),
       menuChildren: [
         SizedBox(
-          height: max(min(filteredCountries.length * 70 + 50, 500), 100),
-          width: 130,
+          height: max(min(filteredCountries.length * 70 + 50, widget.maxheight), 100),
+          width: 125,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

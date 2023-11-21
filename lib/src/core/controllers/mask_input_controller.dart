@@ -10,12 +10,12 @@ class MaskInputController {
   final String? hint;
   final TextInputType? textInputType;
   final FocusNode? Function()? getFocusNode;
+  final void Function(String value)? onChanged;
 
   /// implementar [mask]
   final MaskTextInputFormatter? mask;
 
   /// implementar [changeMask]
-  final Function(String value, MaskTextInputFormatter mask)? changeMask;
 
   MaskInputController({
     this.getFocusNode,
@@ -24,7 +24,7 @@ class MaskInputController {
     this.mask,
     this.validator,
     this.inpuFormatters,
-    this.changeMask,
+    this.onChanged,
   });
 
   MaskInputController copyWith({
@@ -33,8 +33,8 @@ class MaskInputController {
     String? hint,
     TextInputType? textInputType,
     FocusNode? Function()? getFocusNode,
+    void Function(String value)? onChanged,
     MaskTextInputFormatter? mask,
-    Function(String value, MaskTextInputFormatter mask)? changeMask,
   }) {
     return MaskInputController(
       validator: validator ?? this.validator,
@@ -42,8 +42,8 @@ class MaskInputController {
       hint: hint ?? this.hint,
       textInputType: textInputType ?? this.textInputType,
       getFocusNode: getFocusNode ?? this.getFocusNode,
+      onChanged: onChanged ?? this.onChanged,
       mask: mask ?? this.mask,
-      changeMask: changeMask ?? this.changeMask,
     );
   }
 }

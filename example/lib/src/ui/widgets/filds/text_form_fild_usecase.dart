@@ -9,6 +9,8 @@ Widget cwTextFormFildUseCase(BuildContext context) {
   final label = context.knobs.string(label: "Label", description: "String", initialValue: "Label");
   final obscureText = context.knobs.boolean(label: "Obscure Text", description: "Password", initialValue: false);
   final form = GlobalKey<FormState>();
+  var textEditingController = TextEditingController();
+  var maskFormatter = MaskTextInputFormatter(mask: '(##) ####-####');
   return Form(
     key: form,
     // autovalidateMode: AutovalidateMode.always,
@@ -19,12 +21,25 @@ Widget cwTextFormFildUseCase(BuildContext context) {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              // CwTextFormFild(
+              //   inputFormatters: [maskFormatter],
+              //   controller: textEditingController,
+              //   onChanged: (value) {
+              //     final lenght = value.length;
+              //     if (lenght >= 13 && lenght < 15) {
+              //       textEditingController.value = maskFormatter.updateMask(mask: lenght == 13 ? "(##) ####-#####" : "(##) ####-#####");
+              //     }
+              //     if (value.length >= 15) textEditingController.value = maskFormatter.updateMask(mask: "(##)# ####-#####");
+              //   },
+              //   prefixIcon: Padding(
+              //     padding: 0.5.paddingHorizontal,
+              //     child: const FlagCountrySelector(enabled: true),
+              //   ),
+              //   label: "Phone",
+              // ),
               CwTextFormFild(
-                maskUtils: MaskUtils.phonePtBr(context),
-                prefixIcon: Padding(
-                  padding: 0.5.paddingHorizontal,
-                  child: const FlagCountrySelector(enabled: true),
-                ),
+                maskUtils: MaskUtils.phonePtBr(context, textEditingController: textEditingController),
+                controller: textEditingController,
                 label: "Phone",
               ),
             ],

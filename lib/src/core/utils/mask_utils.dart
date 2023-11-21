@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:paipfood_package/paipfood_package.dart';
 
@@ -89,22 +91,28 @@ class MaskUtils {
     );
   }
 
-  static MaskInputController phonePtBr(BuildContext context) {
+  static MaskInputController phonePtBr(BuildContext context, {required TextEditingController textEditingController}) {
+    FocusNode? focusNode;
+    final maskFormatter = MaskTextInputFormatter(mask: "(##) ####-####");
     return MaskInputController(
       getFocusNode: () => null,
-      inpuFormatters: [MaskTextInputFormatter(mask: "(##) ####-####")],
-      // mask: MaskTextInputFormatter(mask: "(##) ####-####"),
-      // changeMask: (value, mask) {
-      //   if (value.length == 14) mask.updateMask(mask: "(##)# ####-####");
-      //   if (value.length == 13) mask.updateMask(mask: "(##) ####-####");
-      // },
-      hint: "(00) 0 0000-0000",
+      inpuFormatters: [maskFormatter],
+      onChanged: (value) {
+        final lenght = value.length;
+        if (lenght == min(13, 14)) {
+          textEditingController.value = maskFormatter.updateMask(mask: lenght == 13 ? "(##) ####-#####" : "(##) ####-#####");
+        }
+        if (value.length >= 15) textEditingController.value = maskFormatter.updateMask(mask: "(##)# ####-####");
+      },
+      hint: "(00)0 0000-0000",
       textInputType: TextInputType.number,
       validator: (value) {
         if (value == null || value.isEmpty) {
+          focusNode!.requestFocus();
           return "Telefone obrigatório.";
         }
         if (value.length < 16) {
+          focusNode!.requestFocus();
           return "Telefone incompleto";
         }
         return null;
