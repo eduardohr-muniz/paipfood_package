@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:paipfood_package/paipfood_package.dart';
 
-class PreferencesService extends ChangeNotifier {
+class PreferencesServices extends ChangeNotifier {
   final LocalStorage localStorage;
-  PreferencesService(this.localStorage) {
+  PreferencesServices(this.localStorage) {
     _getPreferences();
   }
 

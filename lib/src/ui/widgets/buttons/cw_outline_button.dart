@@ -5,11 +5,13 @@ class CwOutlineButton extends StatelessWidget {
   final IconData? icon;
   final String label;
   final void Function()? onPressed;
+  final Color color;
   const CwOutlineButton({
     required this.label,
     required this.onPressed,
     Key? key,
     this.icon,
+    this.color = PColors.primaryColor_,
   }) : super(key: key);
 
   @override
@@ -18,19 +20,19 @@ class CwOutlineButton extends StatelessWidget {
       icon: icon != null
           ? Icon(
               icon,
-              color: context.color.primaryBG,
+              color: color,
             )
           : const SizedBox.shrink(),
       label: Text(
         label,
-        style: TextStyle(color: context.color.primaryColor),
+        style: TextStyle(color: color),
       ),
       onPressed: onPressed,
       style: OutlinedButton.styleFrom(
-        // backgroundColor: context.color.primaryColor,
+        // backgroundColor: color,
         minimumSize: const Size(60, 45),
         side: BorderSide(
-          color: context.color.primaryColor,
+          color: color,
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       ),

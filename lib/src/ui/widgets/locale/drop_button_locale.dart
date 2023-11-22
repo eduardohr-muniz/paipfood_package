@@ -48,7 +48,7 @@ class _DropButtonLocaleState extends State<DropButtonLocale> {
                           children: [
                             ClipRRect(
                               borderRadius: 0.4.borderRadiusAll,
-                              child: SvgPicture.asset(contry.pathFlage, package: "paipfood_package"),
+                              child: Image.asset(contry.pathFlage, package: "paipfood_package"),
                             ),
                             Sz.i.sizedBoxW,
                             Text(contry.label),

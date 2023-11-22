@@ -12,6 +12,7 @@ Widget cWButtonUsecase(BuildContext context) {
     child: CwButton(
         enable: enable,
         label: label,
+        color: PColors.secondaryColor_,
         onPressed: () {
           http.get("https://teste");
           // toast.showError("message,d a dmasf,,a sf,asfjnigfabjsgaf, fajgsgvabf a,sfnjas fyatuvfa mmmahgfya fasf,adhayfaysvdg ");

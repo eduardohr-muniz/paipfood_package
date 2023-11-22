@@ -31,6 +31,7 @@ class CwTextFormFild extends StatefulWidget {
   final IconData? tooltipIcon;
   final String? counterText;
   final AutovalidateMode? autovalidateMode;
+  final void Function(String)? onFieldSubmitted;
 
   const CwTextFormFild({
     Key? key,
@@ -61,6 +62,7 @@ class CwTextFormFild extends StatefulWidget {
     this.autovalidateMode,
     this.autofocus = false,
     this.autocorrect = false,
+    this.onFieldSubmitted,
   }) : super(key: key);
 
   @override
@@ -119,6 +121,7 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
             }(),
             //  widget.onChanged,
             autofocus: widget.autofocus!,
+            onFieldSubmitted: widget.onFieldSubmitted,
             autocorrect: widget.autocorrect!,
             cursorColor: context.color.primaryColor,
             minLines: widget.obscureText ? 1 : widget.minLines,
