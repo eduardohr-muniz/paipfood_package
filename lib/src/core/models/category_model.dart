@@ -1,5 +1,4 @@
 import 'dart:convert';
-import '../provider/global_variables.dart';
 import 'product_model.dart';
 
 enum CategoryType {
@@ -68,16 +67,13 @@ class CategoryModel {
   Map<String, dynamic> toMap() {
     return {
       'index': index,
-      'created_at': createdAt?.toIso8601String(),
       'updated_at': updatedAt?.toIso8601String(),
       'establishment_id': establishmentId,
-      'id': id,
       'name': name,
       'description': description,
       'visible': visible,
       'image': image,
-      'category_type': categoryType,
-      'products': products?.map((x) => x.toMap()).toList(),
+      'category_type': categoryType.name,
     };
   }
 
@@ -92,7 +88,7 @@ class CategoryModel {
       description: map['description'] ?? '',
       visible: map['visible'] ?? false,
       image: map['image'] ?? '',
-      categoryType: CategoryType.values.firstWhere((element) => map['category_type'], orElse: () => CategoryType.product),
+      categoryType: CategoryType.values.firstWhere((element) => element.name == map['category_type'], orElse: () => CategoryType.product),
       products: map['products'] != null ? List<ProductModel>.from(map['products']?.map(ProductModel.fromMap)) : null,
     );
   }

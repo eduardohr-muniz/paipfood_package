@@ -4,6 +4,8 @@ AuthModel? _auth;
 
 Map<String, dynamic> mapI18n = {};
 
+const String stringEmpty = " -- ";
+
 AuthModel get auth_ {
   if (_auth == null) {
     assert(_auth != null, "Slug is null");

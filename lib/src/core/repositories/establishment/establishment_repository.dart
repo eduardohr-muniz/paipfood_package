@@ -9,7 +9,7 @@ class EstablishmentRepository implements IEstablishmentRepository {
   });
 
   @override
-  Future<CompanyModel> createCompany({required CompanyModel company, required AuthModel auth}) async {
+  Future<CompanyModel> insertCompany({required CompanyModel company, required AuthModel auth}) async {
     company = company.copyWith(userAdmId: auth.user!.id);
 
     final request = await http.post(
@@ -28,7 +28,7 @@ class EstablishmentRepository implements IEstablishmentRepository {
   }
 
   @override
-  Future<EstablishmentModel> createEstablishment(
+  Future<EstablishmentModel> insertEstablishment(
       {required EstablishmentModel establishment, required AuthModel auth, required String companySlug}) async {
     establishment = establishment.copyWith(companySlug: companySlug);
 
@@ -143,5 +143,15 @@ class EstablishmentRepository implements IEstablishmentRepository {
         })
         .toList()
         .first;
+  }
+
+  @override
+  Future<bool> slugExists(String slug) async {
+    final request = await http.post(
+      "rest/v1/rpc/slug_exists",
+      headers: {"Authorization": "Bearer ${Env.supaApiKey}"},
+      data: {"slug_company": Utils.onlyAlphanumeric(slug, undereline: true)},
+    );
+    return request.data;
   }
 }

@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:paipfood_package/paipfood_package.dart';
 
 import '../cw_sized_box.dart';
 import 'cw_text_form_fild.dart';
@@ -19,7 +22,10 @@ import 'cw_text_form_fild.dart';
 /// [onChanged] é uma função de retorno de chamada que será chamada quando o texto do campo de pesquisa for alterado.
 class CwSearchFild extends StatefulWidget {
   final void Function(dynamic)? onSelectedCallBack;
-  final MenuController? menuController; 
+  final String? initialValue;
+  final MenuController menuController;
+  final double maxheight;
+  final double heightChild;
   final bool? obscureText;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
@@ -28,23 +34,28 @@ class CwSearchFild extends StatefulWidget {
   final String? hintText;
   final List<dynamic> list;
   final List<TextInputFormatter>? inputFormatters;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final void Function(String)? onChanged;
+  final MaskInputController? maskUtils;
 
   const CwSearchFild({
     required this.label,
     required this.children,
     required this.list,
-    required this.controller,
+    required this.menuController,
     Key? key,
+    this.initialValue,
+    this.controller,
     this.onSelectedCallBack,
-    this.menuController,
     this.obscureText = false,
     this.suffixIcon,
     this.prefixIcon,
     this.hintText,
     this.inputFormatters,
     this.onChanged,
+    this.maskUtils,
+    this.maxheight = 350,
+    this.heightChild = 50,
   }) : super(key: key);
 
   @override
@@ -57,7 +68,7 @@ class _CwSearchFildState extends State<CwSearchFild> {
   void initState() {
     super.initState();
     focusNode.addListener(() {
-      if (focusNode.hasFocus) widget.menuController?.open();
+      if (focusNode.hasFocus) widget.menuController.open();
     });
   }
 
@@ -65,30 +76,34 @@ class _CwSearchFildState extends State<CwSearchFild> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        return Column(
-          children: [
-            MenuAnchor(
-              alignmentOffset: const Offset(0, 1),
-              menuChildren: [
-                SizedBox(width: constraints.maxWidth),
-                Column(
-                  children: widget.children ?? [],
-                )
-              ],
-              controller: widget.menuController,
-              child: CwTextFormFild(
-                prefixIcon: widget.prefixIcon,
-                suffixIcon: widget.suffixIcon,
-                controller: widget.controller,
-                onChanged: widget.onChanged,
-                expanded: true,
-                label: widget.label,
-                hintText: widget.hintText,
-                focusNode: focusNode,
+        return MenuAnchor(
+          alignmentOffset: const Offset(0, -7),
+          menuChildren: [
+            Material(
+              elevation: 8,
+              child: SizedBox(
+                height: max(min((widget.children?.length ?? 0) * widget.heightChild, widget.maxheight), 0),
+                width: constraints.maxWidth,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: widget.children ?? [],
+                  ),
+                ),
               ),
-            ),
-            const CwSizedBox()
+            )
           ],
+          controller: widget.menuController,
+          child: CwTextFormFild(
+            initialValue: widget.initialValue,
+            maskUtils: widget.maskUtils,
+            prefixIcon: widget.prefixIcon,
+            suffixIcon: widget.suffixIcon,
+            controller: widget.controller,
+            onChanged: widget.onChanged,
+            label: widget.label,
+            hintText: widget.hintText,
+            focusNode: focusNode,
+          ),
         );
       },
     );

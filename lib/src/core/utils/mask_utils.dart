@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:paipfood_package/paipfood_package.dart';
 
 class MaskUtils {
@@ -10,7 +11,7 @@ class MaskUtils {
   //* - functions
   ///[isValidEmail]--[isValidCnpj]--[isValidCpf]
   //
-  static MaskInputController cRequired(BuildContext context) {
+  static MaskInputController cRequired({String? Function(String value)? customValidate}) {
     FocusNode? focusNode;
 
     return MaskInputController(
@@ -23,12 +24,18 @@ class MaskUtils {
           focusNode?.requestFocus();
           return "Campo obrigatório";
         }
+        if (customValidate != null) {
+          final String? text = customValidate.call(value);
+          focusNode?.requestFocus();
+          return text;
+        }
+
         return null;
       },
     );
   }
 
-  static MaskInputController email(BuildContext context, {String? Function(String value)? customValidate}) {
+  static MaskInputController email({String? Function(String value)? customValidate}) {
     FocusNode? focusNode;
     bool isValidEmail(String email) {
       final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
@@ -61,7 +68,7 @@ class MaskUtils {
     );
   }
 
-  static MaskInputController password(BuildContext context, {String? Function(String value)? customValidate}) {
+  static MaskInputController password({String? Function(String value)? customValidate}) {
     FocusNode? focusNode;
     return MaskInputController(
       getFocusNode: () {
@@ -89,7 +96,7 @@ class MaskUtils {
     );
   }
 
-  static MaskInputController phonePtBr(BuildContext context, {required TextEditingController textEditingController, required int minLenght}) {
+  static MaskInputController phonePtBr({required TextEditingController textEditingController, required int minLenght}) {
     FocusNode? focusNode;
     final maskFormatter = MaskTextInputFormatter(mask: "(##) ####-####");
     return MaskInputController(
@@ -120,7 +127,7 @@ class MaskUtils {
     );
   }
 
-  static MaskInputController cep(BuildContext context) {
+  static MaskInputController cep() {
     FocusNode? focusNode;
     return MaskInputController(
       getFocusNode: () {
@@ -138,7 +145,7 @@ class MaskUtils {
     );
   }
 
-  static MaskInputController cnpj(BuildContext context) {
+  static MaskInputController cnpj() {
     FocusNode? focusNode;
     return MaskInputController(
       getFocusNode: () {
@@ -192,7 +199,7 @@ class MaskUtils {
     return digito1 == int.parse(cnpj[12]) && digito2 == int.parse(cnpj[13]);
   }
 
-  static MaskInputController cpf(BuildContext context) {
+  static MaskInputController cpf() {
     FocusNode? focusNode;
     return MaskInputController(
       getFocusNode: () {
@@ -255,5 +262,15 @@ class MaskUtils {
     }
     // CPF válido
     return true;
+  }
+}
+
+class AlphaNumericInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    return TextEditingValue(
+      text: Utils.onlyAlphanumeric(newValue.text, undereline: true),
+      selection: newValue.selection,
+    );
   }
 }

@@ -1,27 +1,23 @@
 // part of 'package:paipfood_package/paipfood_package.dart';
 import 'dart:async';
-import 'package:flutter/material.dart';
 
 class Debounce {
   int? miliseconds;
 
-  TextEditingController textEditingController;
   Timer? _timer;
 
-  Debounce({required this.textEditingController, this.miliseconds = 500}) {
-    textEditingController.addListener(
-      () {},
-    );
-  }
+  Debounce({this.miliseconds = 500});
 
   void dispose() {
     _timer?.cancel();
   }
 
-  void startTimer(VoidCallback? onTap) {
+  void startTimer({required String value, required void Function() onTap, required int lenght}) {
     _timer?.cancel();
     _timer = Timer(Duration(milliseconds: miliseconds!), () {
-      if (textEditingController.text.length >= 7) onTap;
+      if (value.length >= lenght) {
+        onTap.call();
+      }
     });
   }
 }

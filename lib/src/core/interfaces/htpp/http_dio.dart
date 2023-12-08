@@ -191,25 +191,30 @@ class HttpDio implements IHttp {
         requestOptions: dioError.requestOptions,
         stackTrace: dioError.stackTrace,
         type: dioError.type,
-        msg: dioError.response?.data['msg']);
+        msg: getErrorMessage(dioError) ?? dioError.response?.data['msg']);
     _logError(
       error: dioError.error.toString(),
-      message: "MESSAGE:${exception.msg} NERROR: ${dioError.message}",
+      message: "MESSAGE:${exception.msg} ERROR: ${dioError.message}",
       statusCode: dioError.response?.statusCode.toString(),
       stackTrace: dioError.stackTrace,
     );
     toast.showError(exception.toString());
   }
 
+  String? getErrorMessage(DioException dioError) {
+    return dioError.response?.data['message'];
+  }
+
   Never _trowRestClientException(DioException dioError) {
     final exception = HttpExceptionCustom(
-        error: dioError.error,
-        message: dioError.message,
-        response: dioError.response,
-        requestOptions: dioError.requestOptions,
-        stackTrace: dioError.stackTrace,
-        type: dioError.type,
-        msg: dioError.response?.data['msg'].toString());
+      error: dioError.error,
+      message: dioError.message,
+      response: dioError.response,
+      requestOptions: dioError.requestOptions,
+      stackTrace: dioError.stackTrace,
+      type: dioError.type,
+      msg: getErrorMessage(dioError) ?? dioError.response?.data['msg'],
+    );
     _logError(
         error: exception.error.toString(),
         stackTrace: exception.stackTrace,

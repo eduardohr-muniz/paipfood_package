@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:paipfood_package/paipfood_package.dart';
 
@@ -51,7 +53,7 @@ void main() {
     //Arrange
     final user = await authRepository.loginByEmail(email: email, password: Env.passwordDefault);
     //Act
-    final request = await repository.createCompany(auth: user, company: companyMock);
+    final request = await repository.insertCompany(auth: user, company: companyMock);
     //Assert
     expect(request, isA<CompanyModel>());
   });
@@ -70,7 +72,7 @@ void main() {
     //Arrange
     final user = await authRepository.loginByEmail(email: email, password: Env.passwordDefault);
     //Act
-    final request = await repository.createEstablishment(auth: user, companySlug: companyMock.slug!, establishment: establishmentMock);
+    final request = await repository.insertEstablishment(auth: user, companySlug: companyMock.slug!, establishment: establishmentMock);
     //Assert
     expect(request, isA<EstablishmentModel>());
   });
@@ -97,5 +99,15 @@ void main() {
     //Act
     await repository.deleteCompany(auth: user, company: companyMock);
     //Assert
+  });
+
+  test('slugExists', () async {
+    //Arrange
+    //Act
+    final request = await repository.slugExists("paipfood");
+    final requestF = await repository.slugExists("paipfoodTeste");
+    //Assert
+    expect(request, true);
+    expect(requestF, false);
   });
 }

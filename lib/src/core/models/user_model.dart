@@ -15,8 +15,8 @@ class UserModel {
   final DateTime? lastSignInAt;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final String? name;
-  final String? surname;
+  final String name;
+  final String surname;
   final List<Permissions>? permissions;
   final String? companySlug;
   UserModel(
@@ -29,8 +29,8 @@ class UserModel {
       this.lastSignInAt,
       this.createdAt,
       this.updatedAt,
-      this.name,
-      this.surname,
+      this.name = "",
+      this.surname = "",
       this.permissions,
       this.companySlug});
 
@@ -102,8 +102,8 @@ class UserModel {
       lastSignInAt: map['last_sign_in_at'] != null ? DateTime.parse(map['last_sign_in_at']) : null,
       createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
       updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
-      name: map['name'],
-      surname: map['surname'],
+      name: map['name'] ?? "",
+      surname: map['surname'] ?? "",
       // permissions: map['permissions'] != null
       //     ? List<Permissions>.from(
       //         map['permissions']?.map((permission) => Permissions.values.firstWhere((element) => element.name == permission)).toList())

@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -53,5 +52,24 @@ class Utils {
   static bool validatePassword(String value) {
     final RegExp regex = RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#\$%^&*(),.?":{}|<>]).{7,}$');
     return regex.hasMatch(value);
+  }
+
+  static String onlyAlphanumeric(String value, {bool undereline = false}) {
+    if (undereline) return value.replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '').toLowerCase();
+    return value.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '').toLowerCase();
+  }
+
+  static Map<String, dynamic> convertMapKeysToCamelCase(Map<String, dynamic> input) {
+    final Map<String, dynamic> map = Map.from(input);
+    final List<String> keys = map.keys.toList();
+    for (String key in keys) {
+      final String keyCamelCase = key.replaceAllMapped(
+        RegExp(r'_[a-z]'),
+        (match) => match[0]![1].toUpperCase(),
+      );
+      map[keyCamelCase] = map[key];
+      map.remove(key);
+    }
+    return map;
   }
 }

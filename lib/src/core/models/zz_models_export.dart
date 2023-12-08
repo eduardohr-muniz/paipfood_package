@@ -17,3 +17,4 @@ export 'preferences_model.dart';
 export 'product_model.dart';
 export 'size_model.dart';
 export 'user_model.dart';
+export 'route_modular_model.dart';

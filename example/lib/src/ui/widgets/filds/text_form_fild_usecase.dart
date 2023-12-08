@@ -38,7 +38,7 @@ Widget cwTextFormFildUseCase(BuildContext context) {
               //   label: "Phone",
               // ),
               CwTextFormFild(
-                maskUtils: MaskUtils.phonePtBr(context, textEditingController: textEditingController, minLenght: 9),
+                maskUtils: MaskUtils.phonePtBr(textEditingController: textEditingController, minLenght: 9),
                 controller: textEditingController,
                 label: "Phone",
               ),

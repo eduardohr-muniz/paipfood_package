@@ -4,18 +4,14 @@ import 'package:paipfood_package/src/core/provider/global_variables.dart';
 import 'complement_model.dart';
 
 enum QtyFlavorsPizza {
-  one(1),
-  two(2),
-  tree(3),
-  four(4);
+  one(1, "umSabor"),
+  two(2, "doisSabores"),
+  tree(3, "tresSabores"),
+  four(4, "quatroSabores");
 
   final int qty;
-  const QtyFlavorsPizza(this.qty);
-}
-
-enum ProductType {
-  product,
-  pizza;
+  final String desc;
+  const QtyFlavorsPizza(this.qty, this.desc);
 }
 
 class ProductModel {
@@ -31,11 +27,11 @@ class ProductModel {
   final double price;
   final double promotionalPrice;
   final bool isPromotional;
-  final bool isVisible;
-  final ProductType productType;
+  final bool visible;
   final String? image;
   final int? categoryId;
   final List<ComplementModel>? complements;
+  final int? complementPizzaId;
 
   ProductModel({
     this.index,
@@ -50,11 +46,11 @@ class ProductModel {
     this.price = 0.0,
     this.promotionalPrice = 0.0,
     this.isPromotional = false,
-    this.isVisible = true,
-    this.productType = ProductType.product,
+    this.visible = true,
     this.image,
     this.categoryId,
     this.complements,
+    this.complementPizzaId,
   });
 
   ProductModel copyWith({
@@ -70,11 +66,11 @@ class ProductModel {
     double? price,
     double? promotionalPrice,
     bool? isPromotional,
-    bool? isVisible,
-    ProductType? productType,
+    bool? visible,
     String? image,
     int? categoryId,
     List<ComplementModel>? complements,
+    int? complementPizzaId,
   }) {
     return ProductModel(
       index: index ?? this.index,
@@ -89,33 +85,29 @@ class ProductModel {
       price: price ?? this.price,
       promotionalPrice: promotionalPrice ?? this.promotionalPrice,
       isPromotional: isPromotional ?? this.isPromotional,
-      isVisible: isVisible ?? this.isVisible,
-      productType: productType ?? this.productType,
+      visible: visible ?? this.visible,
       image: image ?? this.image,
       categoryId: categoryId ?? this.categoryId,
       complements: complements ?? this.complements,
+      complementPizzaId: complementPizzaId ?? this.complementPizzaId,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       'index': index,
-      'created_at': createdAt?.toIso8601String(),
       'updated_at': updatedAt?.toIso8601String(),
-      'toUpdate': toUpdate,
       'establishment_id': establishmentId,
-      'id': id,
-      'qty_flavors_pizza': qtyFlavorsPizza,
+      'qty_flavors_pizza': qtyFlavorsPizza?.qty,
       'name': name,
       'description': description,
       'price': price,
       'promotional_price': promotionalPrice,
       'is_promotional': isPromotional,
-      'is_visible': isVisible,
-      'product_type': productType,
+      'visible': visible,
       'image': image,
       'category_id': categoryId,
-      'complements': complements?.map((x) => x.toMap()).toList(),
+      'complement_pizza_id': complementPizzaId,
     };
   }
 
@@ -127,17 +119,18 @@ class ProductModel {
       toUpdate: map['toUpdate'] ?? false,
       establishmentId: map['establishment_id'],
       id: map['id']?.toInt(),
-      qtyFlavorsPizza: map['qty_flavors_pizza'] != null ? QtyFlavorsPizza.values.firstWhere((element) => map['qty_flavors_pizza']) : null,
+      qtyFlavorsPizza:
+          map['qty_flavors_pizza'] != null ? QtyFlavorsPizza.values.firstWhere((element) => element.index == map['qty_flavors_pizza']) : null,
       name: map['name'] ?? '',
       description: map['description'] ?? '',
       price: map['price']?.toDouble() ?? 0.0,
       promotionalPrice: map['promotional_price']?.toDouble() ?? 0.0,
       isPromotional: map['is_promotional'] ?? false,
-      isVisible: map['is_visible'] ?? false,
-      productType: ProductType.values.firstWhere((element) => map['product_type']),
+      visible: map['visible'] ?? false,
       image: map['image'],
       categoryId: map['category_id']?.toInt(),
       complements: map['complements'] != null ? List<ComplementModel>.from(map['complements']?.map(ComplementModel.fromMap)) : null,
+      complementPizzaId: map['complement_pizza_id'],
     );
   }
 

@@ -7,11 +7,13 @@ class DropButtonLocale extends StatefulWidget {
   final String? tooltip;
   final void Function(Locale locale) onChanged;
   final Locale? initialLocale;
+  final double size;
   const DropButtonLocale({
     required this.onChanged,
     Key? key,
     this.tooltip,
     this.initialLocale,
+    this.size = 30,
   }) : super(key: key);
 
   @override
@@ -48,7 +50,7 @@ class _DropButtonLocaleState extends State<DropButtonLocale> {
                           children: [
                             ClipRRect(
                               borderRadius: 0.4.borderRadiusAll,
-                              child: Image.asset(contry.pathFlage, package: "paipfood_package"),
+                              child: Image.asset(contry.pathFlage, package: "paipfood_package", width: widget.size, height: widget.size),
                             ),
                             Sz.i.sizedBoxW,
                             Text(contry.label),
@@ -64,7 +66,7 @@ class _DropButtonLocaleState extends State<DropButtonLocale> {
               children: [
                 ClipRRect(
                   borderRadius: 0.4.borderRadiusAll,
-                  child: SvgPicture.asset(currentLocale.value!.pathFlage, package: "paipfood_package"),
+                  child: Image.asset(currentLocale.value!.pathFlage, package: "paipfood_package", width: widget.size, height: widget.size),
                 ),
                 const Icon(Icomoon.arrow_down),
               ],

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:paipfood_package/paipfood_package.dart';
+
 import 'zz_models_export.dart';
 
 class RangeModel {
@@ -66,7 +68,7 @@ class CompanyModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'slug': slug,
+      'slug': slug != null ? Utils.onlyAlphanumeric(slug!, undereline: true) : null,
       'updated_at': updatedAt?.toIso8601String(),
       'name': name,
       'user_admin_id': userAdminId,

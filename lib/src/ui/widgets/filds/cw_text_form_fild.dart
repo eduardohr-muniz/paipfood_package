@@ -4,9 +4,12 @@ import 'package:paipfood_package/paipfood_package.dart';
 import '../buttons/cw_icon_tolltip.dart';
 
 class CwTextFormFild extends StatefulWidget {
+  final String? label;
+  final String? initialValue;
+  final void Function(String)? onChanged;
+  final void Function(String)? onFieldSubmitted;
   final MaskInputController? maskUtils;
   final TextEditingController? controller;
-  final String? initialValue;
   final String? Function(String?)? validator;
   final String? hintText;
   final bool? autofocus;
@@ -14,7 +17,6 @@ class CwTextFormFild extends StatefulWidget {
   final bool obscureText;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
-  final String? label;
   final FocusNode? focusNode;
   final bool expanded;
   final int? flex;
@@ -23,7 +25,6 @@ class CwTextFormFild extends StatefulWidget {
   final String? helperText;
   final String? prefixText;
   final List<TextInputFormatter>? inputFormatters;
-  final void Function(String)? onChanged;
   final TextInputType? keyboardType;
   final bool filled;
   final bool enabled;
@@ -31,13 +32,15 @@ class CwTextFormFild extends StatefulWidget {
   final IconData? tooltipIcon;
   final String? counterText;
   final AutovalidateMode? autovalidateMode;
-  final void Function(String)? onFieldSubmitted;
+  final bool validateUserInteractor;
 
   const CwTextFormFild({
     Key? key,
     this.label,
-    this.controller,
     this.initialValue,
+    this.onChanged,
+    this.onFieldSubmitted,
+    this.controller,
     this.validator,
     this.hintText,
     this.obscureText = false,
@@ -50,7 +53,6 @@ class CwTextFormFild extends StatefulWidget {
     this.helperText,
     this.prefixText,
     this.inputFormatters,
-    this.onChanged,
     this.keyboardType,
     this.filled = true,
     this.enabled = true,
@@ -62,7 +64,7 @@ class CwTextFormFild extends StatefulWidget {
     this.autovalidateMode,
     this.autofocus = false,
     this.autocorrect = false,
-    this.onFieldSubmitted,
+    this.validateUserInteractor = false,
   }) : super(key: key);
 
   @override
@@ -129,7 +131,11 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
             validator: widget.validator ?? widget.maskUtils?.validator,
             keyboardType: widget.keyboardType ?? widget.maskUtils?.keyboardType,
             initialValue: widget.initialValue,
-            autovalidateMode: widget.autovalidateMode,
+            autovalidateMode: () {
+              if (widget.autovalidateMode != null) return widget.autovalidateMode;
+              if (widget.validateUserInteractor) return AutovalidateMode.onUserInteraction;
+              return null;
+            }(),
             decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 0, color: context.color.onPrimaryBG)),
                 contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),

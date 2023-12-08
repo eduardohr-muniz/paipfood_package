@@ -6,3 +6,5 @@ export 'auth/auth_repository.dart';
 export 'auth/i_auth_repository.dart';
 export 'establishment/establishment_repository.dart';
 export 'establishment/i_establishment_repository.dart';
+export 'products/i_products_repository.dart';
+export 'products/products_repository.dart';

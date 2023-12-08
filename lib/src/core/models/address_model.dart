@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:paipfood_package/paipfood_package.dart';
+
 class AddressModel {
   final int? id;
   final DateTime? createdAt;
@@ -11,46 +13,46 @@ class AddressModel {
   final String complement;
   final String zipCode;
   final String state;
-  final double latitude;
-  final double longitude;
+  final double? lat;
+  final double? lon;
   final String address;
   final String city;
   final String country;
   final String? userId;
   final int? establishmentId;
   AddressModel({
-    required this.latitude,
-    required this.longitude,
+    this.lat,
+    this.lon,
     this.createdAt,
     this.updatedAt,
     this.toUpdate = false,
     this.id,
-    this.street = '',
-    this.number = '',
-    this.neighborhood = '',
-    this.complement = '',
-    this.zipCode = '',
-    this.state = '',
-    this.address = '',
-    this.city = '',
-    this.country = '',
+    this.street = "",
+    this.number = "",
+    this.neighborhood = "",
+    this.complement = "",
+    this.zipCode = "",
+    this.state = "",
+    this.address = "",
+    this.city = "",
+    this.country = "",
     this.userId,
     this.establishmentId,
   });
 
   AddressModel copyWith({
+    int? id,
     DateTime? createdAt,
     DateTime? updatedAt,
     bool? toUpdate,
-    int? id,
     String? street,
     String? number,
     String? neighborhood,
     String? complement,
     String? zipCode,
     String? state,
-    double? latitude,
-    double? longitude,
+    double? lat,
+    double? lon,
     String? address,
     String? city,
     String? country,
@@ -58,18 +60,18 @@ class AddressModel {
     int? establishmentId,
   }) {
     return AddressModel(
+      id: id ?? this.id,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       toUpdate: toUpdate ?? this.toUpdate,
-      id: id ?? this.id,
       street: street ?? this.street,
       number: number ?? this.number,
       neighborhood: neighborhood ?? this.neighborhood,
       complement: complement ?? this.complement,
       zipCode: zipCode ?? this.zipCode,
       state: state ?? this.state,
-      latitude: latitude ?? this.latitude,
-      longitude: longitude ?? this.longitude,
+      lat: lat ?? this.lat,
+      lon: lon ?? this.lon,
       address: address ?? this.address,
       city: city ?? this.city,
       country: country ?? this.country,
@@ -80,15 +82,15 @@ class AddressModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'updated-at': DateTime.now().toIso8601String(),
+      'updated_at': DateTime.now().toIso8601String(),
       'street': street,
       'number': number,
       'neighborhood': neighborhood,
       'complement': complement,
       'zip_code': zipCode,
       'state': state,
-      'latitude': latitude,
-      'longitude': longitude,
+      'lat': lat,
+      'lon': lon,
       'address': address,
       'city': city,
       'country': country,
@@ -103,17 +105,17 @@ class AddressModel {
       updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
       toUpdate: map['to_update'] ?? false,
       id: map['id']?.toInt(),
-      street: map['street'] ?? '',
-      number: map['number'] ?? '',
-      neighborhood: map['neighborhood'] ?? '',
-      complement: map['complement'] ?? '',
-      zipCode: map['zipCode'] ?? '',
-      state: map['state'] ?? '',
-      latitude: map['latitude']?.toDouble() ?? 0.0,
-      longitude: map['longitude']?.toDouble() ?? 0.0,
-      address: map['address'] ?? '',
-      city: map['city'] ?? '',
-      country: map['country'] ?? '',
+      street: map['street'] ?? "",
+      number: map['number'] ?? "",
+      neighborhood: map['neighborhood'] ?? "",
+      complement: map['complement'] ?? "",
+      zipCode: map['zipCode'] ?? "",
+      state: map['state'] ?? "",
+      lat: map['lat']?.toDouble() ?? 0.0,
+      lon: map['lon']?.toDouble() ?? 0.0,
+      address: map['address'] ?? "",
+      city: map['city'] ?? "",
+      country: map['country'] ?? "",
       userId: map['user_id'],
       establishmentId: map['establishment_id'],
     );
