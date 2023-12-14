@@ -49,7 +49,7 @@ class CwTextFormFild extends StatefulWidget {
     this.focusNode,
     this.expanded = false,
     this.minLines,
-    this.maxLines,
+    this.maxLines = 1,
     this.helperText,
     this.prefixText,
     this.inputFormatters,
@@ -130,7 +130,9 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
             maxLines: widget.obscureText ? 1 : widget.maxLines,
             validator: widget.validator ?? widget.maskUtils?.validator,
             keyboardType: widget.keyboardType ?? widget.maskUtils?.keyboardType,
-            initialValue: widget.initialValue,
+            initialValue: (widget.maskUtils != null && widget.initialValue != null)
+                ? Utils.maskUltisToString(widget.initialValue!, widget.maskUtils!)
+                : widget.initialValue,
             autovalidateMode: () {
               if (widget.autovalidateMode != null) return widget.autovalidateMode;
               if (widget.validateUserInteractor) return AutovalidateMode.onUserInteraction;

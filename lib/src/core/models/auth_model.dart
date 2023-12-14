@@ -42,7 +42,7 @@ class AuthModel {
       'expires_in': expiresIn,
       'expires_at': expiresAt,
       'refresh_token': refreshToken,
-      'user': user?.toMap(),
+      'user': user?.toMapUsers_(),
     };
   }
 

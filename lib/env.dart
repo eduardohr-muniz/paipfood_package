@@ -9,7 +9,9 @@ class Env {
 
   static String geoapifyApiKey = const String.fromEnvironment('GEOAPIFY_API_KEY');
 
-  static String mapboxBaseUrl = const String.fromEnvironment('MAPBOX_BASE_URL');
+  static String mapboxlight = const String.fromEnvironment('MAPBOX_LIGHT');
+
+  static String mapboxDark = const String.fromEnvironment('MAPBOX_DARK');
 
   static String mapboxApiKey = const String.fromEnvironment('MAPBOX_API_KEY');
 }

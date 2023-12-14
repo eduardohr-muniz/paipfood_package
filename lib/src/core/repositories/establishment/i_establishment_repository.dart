@@ -10,6 +10,6 @@ abstract interface class IEstablishmentRepository {
   Future<EstablishmentModel> updateEstablishment({required EstablishmentModel establishment, required AuthModel auth});
   Future<void> deleteEstablishment({required EstablishmentModel establishment, required AuthModel auth});
   Future<EstablishmentModel?> getEstablishmentById({required int id});
-  Future<List<EstablishmentModel>> getEstablishments({RangeModel? range});
+  Future<List<EstablishmentModel>> getEstablishmentsBySlug(String slug);
   Future<bool> slugExists(String slug);
 }

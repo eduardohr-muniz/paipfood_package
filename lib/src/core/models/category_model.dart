@@ -65,7 +65,7 @@ class CategoryModel {
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    final map = {
       'index': index,
       'updated_at': updatedAt?.toIso8601String(),
       'establishment_id': establishmentId,
@@ -75,6 +75,8 @@ class CategoryModel {
       'image': image,
       'category_type': categoryType.name,
     };
+    if (id != null) map.addAll({'id': id});
+    return map;
   }
 
   factory CategoryModel.fromMap(Map<String, dynamic> map) {

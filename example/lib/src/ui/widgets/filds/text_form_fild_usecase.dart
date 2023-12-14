@@ -11,6 +11,8 @@ Widget cwTextFormFildUseCase(BuildContext context) {
   final form = GlobalKey<FormState>();
   var textEditingController = TextEditingController();
   var maskFormatter = MaskTextInputFormatter(mask: '(##) ####-####');
+  final focus = List.generate(10, (index) => FocusNode());
+
   return Form(
     key: form,
     // autovalidateMode: AutovalidateMode.always,
@@ -21,32 +23,93 @@ Widget cwTextFormFildUseCase(BuildContext context) {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // CwTextFormFild(
-              //   inputFormatters: [maskFormatter],
-              //   controller: textEditingController,
-              //   onChanged: (value) {
-              //     final lenght = value.length;
-              //     if (lenght >= 13 && lenght < 15) {
-              //       textEditingController.value = maskFormatter.updateMask(mask: lenght == 13 ? "(##) ####-#####" : "(##) ####-#####");
-              //     }
-              //     if (value.length >= 15) textEditingController.value = maskFormatter.updateMask(mask: "(##)# ####-#####");
-              //   },
-              //   prefixIcon: Padding(
-              //     padding: 0.5.paddingHorizontal,
-              //     child: const FlagCountrySelector(enabled: true),
-              //   ),
-              //   label: "Phone",
-              // ),
               CwTextFormFild(
-                maskUtils: MaskUtils.phonePtBr(textEditingController: textEditingController, minLenght: 9),
-                controller: textEditingController,
-                label: "Phone",
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(),
+              ),
+              CwTextFormFild(
+                maskUtils: MaskUtils.cRequired(isFinal: true),
               ),
               TextButton(
                   onPressed: () {
                     form.currentState?.validate();
                   },
-                  child: const Text("data"))
+                  child: const Text("validar"))
             ],
           ),
         ),

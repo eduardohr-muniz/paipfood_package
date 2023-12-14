@@ -58,17 +58,16 @@ class SizeModel {
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'created_at': createdAt?.toIso8601String(),
+    final map = {
       'updated_at': updatedAt?.toIso8601String(),
-      'toUpdate': toUpdate,
       'establishment_id': establishmentId,
-      'id': id,
       'item_id': itemId,
       'product_id': productId,
       'price': price,
       'promotional_price': promotionalPrice,
     };
+    if (id != null) map.addAll({'id': id});
+    return map;
   }
 
   factory SizeModel.fromMap(Map<String, dynamic> map) {

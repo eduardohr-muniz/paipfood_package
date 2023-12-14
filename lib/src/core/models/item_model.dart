@@ -1,7 +1,11 @@
 import 'dart:convert';
-import 'package:paipfood_package/src/core/provider/global_variables.dart';
 
 import 'size_model.dart';
+
+enum Itemtype {
+  item,
+  pizza;
+}
 
 class ItemModel {
   final int? index;
@@ -20,6 +24,7 @@ class ItemModel {
   final int complementId;
   final bool visible;
   final List<SizeModel>? sizes;
+  final Itemtype itemtype;
   ItemModel({
     this.index,
     this.createdAt,
@@ -37,6 +42,7 @@ class ItemModel {
     this.complementId = 0,
     this.visible = false,
     this.sizes,
+    this.itemtype = Itemtype.item,
   });
 
   ItemModel copyWith({
@@ -56,6 +62,7 @@ class ItemModel {
     int? complementId,
     bool? visible,
     List<SizeModel>? sizes,
+    Itemtype? itemtype,
   }) {
     return ItemModel(
       index: index ?? this.index,
@@ -74,16 +81,15 @@ class ItemModel {
       complementId: complementId ?? this.complementId,
       visible: visible ?? this.visible,
       sizes: sizes ?? this.sizes,
+      itemtype: itemtype ?? this.itemtype,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    final map = {
       'index': index,
-      'created_at': createdAt?.toIso8601String(),
       'updated_at': updatedAt?.toIso8601String(),
       'establishment_id': establishmentId,
-      'id': id,
       'name': name,
       'nick_name': nickName,
       'description': description,
@@ -93,8 +99,11 @@ class ItemModel {
       'is_pre_selected': isPreSelected,
       'complement_id': complementId,
       'visible': visible,
-      'sizes': sizes?.map((x) => x.toMap()).toList(),
+      'item_type': itemtype.name,
     };
+    if (id != null) map.addAll({'id': id});
+
+    return map;
   }
 
   factory ItemModel.fromMap(Map<String, dynamic> map) {
@@ -115,6 +124,7 @@ class ItemModel {
       complementId: map['complement_id']?.toInt() ?? 0,
       visible: map['visible'] ?? false,
       sizes: map['sizes'] != null ? List<SizeModel>.from(map['sizes']?.map(SizeModel.fromMap)) : null,
+      itemtype: Itemtype.values.firstWhere((element) => element.name == map['item_type'], orElse: () => Itemtype.item),
     );
   }
 

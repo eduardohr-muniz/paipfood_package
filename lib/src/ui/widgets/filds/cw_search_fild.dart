@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:paipfood_package/paipfood_package.dart';
 
-import '../cw_sized_box.dart';
-import 'cw_text_form_fild.dart';
-
 /// Cria um campo de pesquisa personalizado.
 ///
 /// [children] suaLista.map((value) => ListTile()).toList()

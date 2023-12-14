@@ -12,7 +12,7 @@ class InsertUserCompanyEstablishmentUsecase {
   Future<void> call({required UserModel user, required String password, required CompanyModel company, required AddressModel address}) async {
     AuthModel auth = await authRepo.signUpByEmail(email: user.email!, password: password);
 
-    company = company.copyWith(userAdmId: auth.user!.id);
+    company = company.copyWith(userAdminId: auth.user!.id);
     final company_ = await establishmentRepo.insertCompany(company: company, auth: auth);
     auth = auth.copyWith(user: user.copyWith(companySlug: company.slug, id: auth.user!.id));
     await authRepo.updateUser(auth: auth);

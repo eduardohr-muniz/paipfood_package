@@ -1,5 +1,7 @@
 import 'dart:convert';
+
 import 'package:paipfood_package/src/core/enums/zz_enums_export.dart';
+
 import 'zz_models_export.dart';
 
 // preferenceTheme: PreferenceTheme.values.firstWhere((eleiment) => element.name == map['preference_theme']),
@@ -12,22 +14,24 @@ class EstablishmentModel {
   final bool toUpdate;
   final String companySlug;
   final String fantasyName;
-  final String? corporateName;
-  final String? description;
+  final String corporateName;
+  final String description;
   final String personalDocument;
-  final String? businessDocument;
+  final String businessDocument;
   final bool isOpen;
   final bool isBlocked;
-  final double? pendingRate;
+  final double pendingRate;
   final bool isHigherPricePizza;
   final String? logo;
   final String? banner;
   final AddressModel? address;
-  final CulinaryStyleEnum? culinaryStyle;
-  final double? minimunOrder;
+  final CulinaryStyleEnum culinaryStyle;
+  final double minimunOrder;
   final int dueDate;
   final List<CheckPointEnum> checkPoints;
   final ThemeEnum theme;
+  final String phone;
+  final String phoneCountryCode;
   EstablishmentModel({
     this.id,
     this.address,
@@ -36,21 +40,23 @@ class EstablishmentModel {
     this.toUpdate = false,
     this.companySlug = '',
     this.fantasyName = '',
-    this.corporateName,
-    this.description,
+    this.corporateName = '',
+    this.description = '',
     this.personalDocument = '',
-    this.businessDocument,
+    this.businessDocument = '',
     this.isOpen = false,
     this.isBlocked = false,
-    this.pendingRate,
+    this.pendingRate = 0.0,
     this.isHigherPricePizza = false,
     this.logo,
     this.banner,
-    this.culinaryStyle,
-    this.minimunOrder,
+    this.culinaryStyle = CulinaryStyleEnum.fastFood,
+    this.minimunOrder = 10,
     this.dueDate = 10,
     this.checkPoints = checkPointsDef,
     this.theme = ThemeEnum.paip,
+    this.phone = '',
+    this.phoneCountryCode = '',
   });
 
   EstablishmentModel copyWith({
@@ -76,6 +82,8 @@ class EstablishmentModel {
     int? dueDate,
     List<CheckPointEnum>? checkPoints,
     ThemeEnum? theme,
+    String? phone,
+    String? phoneCountryCode,
   }) {
     return EstablishmentModel(
       id: id ?? this.id,
@@ -100,6 +108,8 @@ class EstablishmentModel {
       dueDate: dueDate ?? this.dueDate,
       checkPoints: checkPoints ?? this.checkPoints,
       theme: theme ?? this.theme,
+      phone: phone ?? this.phone,
+      phoneCountryCode: phoneCountryCode ?? this.phoneCountryCode,
     );
   }
 
@@ -118,11 +128,13 @@ class EstablishmentModel {
       'is_higher_price_pizza': isHigherPricePizza,
       'logo': logo,
       'banner': banner,
-      'culinary_style': culinaryStyle?.name,
+      'culinary_style': culinaryStyle.name,
       'minimun_order': minimunOrder,
       'due_date': dueDate,
       'check_points': checkPoints.map((e) => e.name).toList(),
-      'theme': theme.name
+      'theme': theme.name,
+      'phone': phone,
+      'phone_country_code': phoneCountryCode,
     };
   }
 
@@ -134,24 +146,26 @@ class EstablishmentModel {
       toUpdate: map['to_update'] ?? false,
       companySlug: map['company_slug'] ?? '',
       fantasyName: map['fantasy_name'] ?? '',
-      corporateName: map['corporate_name'],
-      description: map['description'],
+      corporateName: map['corporate_name'] ?? '',
+      description: map['description'] ?? '',
       personalDocument: map['personal_document'] ?? '',
-      businessDocument: map['business_document'],
+      businessDocument: map['business_document'] ?? '',
       isOpen: map['is_open'] ?? false,
       isBlocked: map['is_blocked'] ?? false,
-      pendingRate: map['pending_rate']?.toDouble(),
+      pendingRate: map['pending_rate']?.toDouble() ?? 0,
       isHigherPricePizza: map['is_higher_price_pizza'] ?? false,
       logo: map['logo'],
       banner: map['banner'],
-      culinaryStyle: map['culinary_style'] != null ? CulinaryStyleEnum.fromMap(map['culinary_style']) : null,
-      minimunOrder: map['minimun_order']?.toDouble(),
+      culinaryStyle: map['culinary_style'] != null ? CulinaryStyleEnum.fromMap(map['culinary_style']) : CulinaryStyleEnum.fastFood,
+      minimunOrder: map['minimun_order']?.toDouble() ?? 10.00,
       dueDate: map['due_date']?.toInt() ?? 0,
       checkPoints: List<CheckPointEnum>.from(map['check_points']?.map((checkPoint) {
             return CheckPointEnum.values.firstWhere((element) => element.name == checkPoint);
           }).toList() ??
           []),
       theme: ThemeEnum.values.firstWhere((element) => element.name == map['theme'], orElse: () => ThemeEnum.paip),
+      phone: map['phone'] ?? '',
+      phoneCountryCode: map['phone_country_code'] ?? '',
     );
   }
 

@@ -36,6 +36,16 @@ class PreferencesService extends ChangeNotifier {
     notifyListeners();
   }
 
+  void saveAuthModel(AuthModel authModel) {
+    model = model.copyWith(authModel: authModel);
+    _savePrefs();
+  }
+
+  void logOut() {
+    model = model.copyWith(authModel: AuthModel());
+    _savePrefs();
+  }
+
   void _getPreferences() async {
     await localStorage.openBox(boxAndKey);
     final json = await localStorage.get(boxAndKey, key: boxAndKey);
@@ -45,6 +55,7 @@ class PreferencesService extends ChangeNotifier {
       await _changeMap(model.languageCode ?? Intl.systemLocale);
       if (model.languageCode != null) currentLocale = Locale(model.languageCode!, model.countryCode);
       if (model.isDarkMode != null) themeMode = getThemeMode;
+      if (model.authModel != null) auth_ = model.authModel!;
       notifyListeners();
     }
   }

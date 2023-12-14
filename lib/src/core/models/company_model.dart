@@ -30,6 +30,8 @@ class CompanyModel {
   final int? establishmentDefaultId;
   final List<EstablishmentModel> establishments;
   final List<PaymentMethodsModel> paymentMethods;
+  final String facebook;
+  final String instagram;
   CompanyModel({
     this.slug,
     this.createdAt,
@@ -40,6 +42,8 @@ class CompanyModel {
     this.establishmentDefaultId,
     this.establishments = const [],
     this.paymentMethods = const [],
+    this.facebook = '',
+    this.instagram = '',
   });
 
   CompanyModel copyWith({
@@ -48,21 +52,25 @@ class CompanyModel {
     DateTime? updatedAt,
     bool? toUpdate,
     String? name,
-    String? userAdmId,
+    String? userAdminId,
     int? establishmentDefaultId,
     List<EstablishmentModel>? establishments,
     List<PaymentMethodsModel>? paymentMethods,
+    String? facebook,
+    String? instagram,
   }) {
     return CompanyModel(
+      slug: slug ?? this.slug,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       toUpdate: toUpdate ?? this.toUpdate,
-      slug: slug ?? this.slug,
       name: name ?? this.name,
-      userAdminId: userAdmId ?? userAdminId,
+      userAdminId: userAdminId ?? this.userAdminId,
       establishmentDefaultId: establishmentDefaultId ?? this.establishmentDefaultId,
       establishments: establishments ?? this.establishments,
       paymentMethods: paymentMethods ?? this.paymentMethods,
+      facebook: facebook ?? this.facebook,
+      instagram: instagram ?? this.instagram,
     );
   }
 
@@ -73,25 +81,30 @@ class CompanyModel {
       'name': name,
       'user_admin_id': userAdminId,
       'establishment_default_id': establishmentDefaultId,
+      'facebook': facebook,
+      'instagram': instagram,
     };
   }
 
   factory CompanyModel.fromMap(Map<String, dynamic> map) {
     return CompanyModel(
-        slug: map['slug'],
-        createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
-        updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
-        name: map['name'],
-        establishmentDefaultId: map['establishment_default_id'],
-        userAdminId: map['user_admin_id'],
-        establishments: List<EstablishmentModel>.from(map['establishments']?.map((establishments) {
-              return EstablishmentModel.fromMap(establishments);
-            }).toList() ??
-            const []),
-        paymentMethods: List<PaymentMethodsModel>.from(map['payment_methods']?.map((paymentMethod) {
-              return PaymentMethodsModel.fromMap(paymentMethod);
-            }).toList() ??
-            []));
+      slug: map['slug'],
+      createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
+      updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
+      name: map['name'],
+      establishmentDefaultId: map['establishment_default_id'],
+      userAdminId: map['user_admin_id'],
+      establishments: List<EstablishmentModel>.from(map['establishments']?.map((establishments) {
+            return EstablishmentModel.fromMap(establishments);
+          }).toList() ??
+          const []),
+      paymentMethods: List<PaymentMethodsModel>.from(map['payment_methods']?.map((paymentMethod) {
+            return PaymentMethodsModel.fromMap(paymentMethod);
+          }).toList() ??
+          []),
+      facebook: map['facebook'],
+      instagram: map['instagram'],
+    );
   }
 
   String toJson() => json.encode(toMap());

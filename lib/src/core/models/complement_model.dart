@@ -22,7 +22,7 @@ class ComplementModel {
   final int qtyMax;
   final ComplementType complementType;
   final List<ItemModel>? items;
-  final bool isHidden;
+  final bool visible;
   ComplementModel({
     this.index,
     this.createdAt,
@@ -37,7 +37,7 @@ class ComplementModel {
     this.qtyMax = 0,
     this.complementType = ComplementType.item,
     this.items,
-    this.isHidden = false,
+    this.visible = true,
   });
 
   ComplementModel copyWith({
@@ -54,7 +54,7 @@ class ComplementModel {
     int? qtyMax,
     ComplementType? complementType,
     List<ItemModel>? items,
-    bool? isHidden,
+    bool? visible,
   }) {
     return ComplementModel(
       index: index ?? this.index,
@@ -70,26 +70,25 @@ class ComplementModel {
       qtyMax: qtyMax ?? this.qtyMax,
       complementType: complementType ?? this.complementType,
       items: items ?? this.items,
-      isHidden: isHidden ?? this.isHidden,
+      visible: visible ?? this.visible,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    final map = {
       'index': index,
-      'created_at': createdAt?.toIso8601String(),
       'updated_at': updatedAt?.toIso8601String(),
       'establishment_id': establishmentId,
-      'id': id,
       'name': name,
       'description': description,
       'nick_name': nickName,
       'qty_min': qtyMin,
       'qty_max': qtyMax,
-      'complement_type': complementType,
-      'items': items?.map((x) => x.toMap()).toList(),
-      'is_hidden': isHidden,
+      'complement_type': complementType.name,
+      'visible': visible,
     };
+    if (id != null) map.addAll({'id': id});
+    return map;
   }
 
   factory ComplementModel.fromMap(Map<String, dynamic> map) {
@@ -104,9 +103,9 @@ class ComplementModel {
       nickName: map['nick_name'] ?? '',
       qtyMin: map['qty_min']?.toInt() ?? 0,
       qtyMax: map['qty_max']?.toInt() ?? 0,
-      complementType: ComplementType.values.firstWhere((element) => map['complement_type'], orElse: () => ComplementType.item),
+      complementType: ComplementType.values.firstWhere((element) => element.name == map['complement_type'], orElse: () => ComplementType.item),
       items: map['items'] != null ? List<ItemModel>.from(map['items']?.map(ItemModel.fromMap)) : null,
-      isHidden: map['is_hidden'] ?? false,
+      visible: map['visible'] ?? true,
     );
   }
 

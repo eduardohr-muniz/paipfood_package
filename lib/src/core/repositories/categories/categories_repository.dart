@@ -5,8 +5,10 @@ class CategoriesRepository implements ICategoriesRepository {
   final HttpDio http;
   CategoriesRepository({required this.http});
   @override
-  Future<List<CategoryModel>> getByEstablishmentId(int establishmentId) async {
-    final request = await http.get("rest/v1/categories?establishment_id=eq.$establishmentId&select=*");
+  Future<List<CategoryModel>> getByEstablishmentId(int establishmentId, {bool? visible}) async {
+    String filterVisbile = "";
+    if (visible != null) filterVisbile = HttpUtils.filterVisible(visible);
+    final request = await http.get("rest/v1/categories?establishment_id=eq.$establishmentId$filterVisbile&select=*");
     final List list = request.data;
     return list.map<CategoryModel>((category) {
       return CategoryModel.fromMap(category);
@@ -14,35 +16,16 @@ class CategoriesRepository implements ICategoriesRepository {
   }
 
   @override
-  Future<CategoryModel> insert({required CategoryModel category, required AuthModel auth}) async {
+  Future<List<CategoryModel>> upsert({required List<CategoryModel> categories, required AuthModel auth}) async {
     final request = await http.post(
       "rest/v1/categories",
-      headers: {"Authorization": "Bearer ${auth.accessToken}"},
-      data: category.toJson(),
+      headers: HttpUtils.headerUpsertAuth(auth),
+      data: categories.map((e) => e.toMap()).toList(),
     );
     final List list = request.data;
-    return list
-        .map<CategoryModel>((category) {
-          return CategoryModel.fromMap(category);
-        })
-        .toList()
-        .first;
-  }
-
-  @override
-  Future<CategoryModel> update({required CategoryModel category, required AuthModel auth}) async {
-    final request = await http.patch(
-      "rest/v1/categories?id=eq.${category.id}",
-      headers: {"Authorization": "Bearer ${auth.accessToken}"},
-      data: category.toJson(),
-    );
-    final List list = request.data;
-    return list
-        .map<CategoryModel>((category) {
-          return CategoryModel.fromMap(category);
-        })
-        .toList()
-        .first;
+    return list.map<CategoryModel>((category) {
+      return CategoryModel.fromMap(category);
+    }).toList();
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:paipfood_package/paipfood_package.dart';
 
 class Utils {
   static double stringToDouble(String text) {
@@ -34,6 +35,18 @@ class Utils {
   }
 
   static String maskToString(String value, TextInputFormatter textInputFormatter) {
+    final ec = TextEditingController(text: value);
+    ec.value = textInputFormatter.formatEditUpdate(ec.value, ec.value);
+    final result = ec.text;
+    ec.dispose();
+    return result;
+  }
+
+  static String maskUltisToString(String value, MaskInputController mask) {
+    TextInputFormatter? textInputFormatter;
+    final lenght = value.length;
+    textInputFormatter = mask.inpuFormatters![0];
+    if (mask.onlenghtMaskChange != null && lenght >= mask.onlenghtMaskChange!) textInputFormatter = mask.inpuFormatters![1];
     final ec = TextEditingController(text: value);
     ec.value = textInputFormatter.formatEditUpdate(ec.value, ec.value);
     final result = ec.text;

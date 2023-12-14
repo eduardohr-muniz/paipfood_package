@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:paipfood_package/paipfood_package.dart';
-
 class AddressModel {
   final int? id;
   final DateTime? createdAt;
@@ -13,16 +11,16 @@ class AddressModel {
   final String complement;
   final String zipCode;
   final String state;
-  final double? lat;
-  final double? lon;
+  final double lat;
+  final double lon;
   final String address;
   final String city;
   final String country;
   final String? userId;
   final int? establishmentId;
   AddressModel({
-    this.lat,
-    this.lon,
+    this.lat = 0,
+    this.lon = 0,
     this.createdAt,
     this.updatedAt,
     this.toUpdate = false,

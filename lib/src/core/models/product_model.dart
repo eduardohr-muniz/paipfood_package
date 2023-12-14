@@ -94,7 +94,7 @@ class ProductModel {
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    final map = {
       'index': index,
       'updated_at': updatedAt?.toIso8601String(),
       'establishment_id': establishmentId,
@@ -109,6 +109,8 @@ class ProductModel {
       'category_id': categoryId,
       'complement_pizza_id': complementPizzaId,
     };
+    if (id != null) map.addAll({'id': id});
+    return map;
   }
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {

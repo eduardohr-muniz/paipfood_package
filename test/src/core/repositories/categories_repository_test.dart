@@ -8,10 +8,9 @@ Future<void> main() async {
   final authRepository = AuthRepository(http: http);
   final auth = await authRepository.loginByEmail(email: email, password: Env.passwordDefault);
   final repository = CategoriesRepository(http: http);
-  int categoryId = 7;
+  const int? categoryId = null;
   const int establishmentId = 22;
   final categoryMock = CategoryModel(
-    id: categoryId,
     description: "Descrição",
     establishmentId: 22,
     index: 0,
@@ -19,23 +18,14 @@ Future<void> main() async {
     updatedAt: DateTime.now(),
   );
 
-  test('insert', () async {
+  test('upsert', () async {
     //Arrange
 
     //Act
-    final result = await repository.insert(auth: auth, category: categoryMock);
-    categoryId = result.id!;
-    //Assert
-    expect(result, isA<CategoryModel>());
-  });
+    final result = await repository.upsert(auth: auth, categories: [categoryMock]);
 
-  test('update', () async {
-    //Arrange
-
-    //Act
-    final result = await repository.update(auth: auth, category: categoryMock);
     //Assert
-    expect(result, isA<CategoryModel>());
+    expect(result, isA<List<CategoryModel>>());
   });
 
   test('getByEstablishmentId', () async {
@@ -52,7 +42,7 @@ Future<void> main() async {
     //Arrange
 
     //Act
-    await repository.delete(id: categoryId, auth: auth);
+    await repository.delete(id: categoryId!, auth: auth);
     //Assert
   });
 }

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:paipfood_package/paipfood_package.dart';
 
+bool alreadyFocus = false;
+
 class MaskUtils {
   //* - Validators
   ///[cRequired]--[email]--[password]--[confirmPassword]--[phonePtBr]--[cep]--[cnpj]--[cpf]
@@ -11,7 +13,32 @@ class MaskUtils {
   //* - functions
   ///[isValidEmail]--[isValidCnpj]--[isValidCpf]
   //
-  static MaskInputController cRequired({String? Function(String value)? customValidate}) {
+  // static MaskInputController cRequired({String? Function(String value)? customValidate, bool isFinal = false}) {
+  //   FocusNode? focusNode;
+
+  //   return MaskInputController(
+  //     getFocusNode: () {
+  //       focusNode = focusNode ?? FocusNode();
+  //       return focusNode;
+  //     },
+  //     isFinal: isFinal,
+  //     validator: (value) {
+  //       if (value == null || value.isEmpty) {
+  //         focusNode?.requestFocus();
+  //         return "Campo obrigatório";
+  //       }
+  //       if (customValidate != null) {
+  //         final String? text = customValidate.call(value);
+  //         focusNode?.requestFocus();
+  //         return text;
+  //       }
+
+  //       return null;
+  //     },
+  //   );
+  // }
+
+  static MaskInputController cRequired({String? Function(String? value)? customValidate, bool isFinal = false}) {
     FocusNode? focusNode;
 
     return MaskInputController(
@@ -19,6 +46,38 @@ class MaskUtils {
         focusNode = focusNode ?? FocusNode();
         return focusNode;
       },
+      validator: (value) {
+        String? isError;
+        if (value == null || value.isEmpty && customValidate == null) {
+          isError = 'Campo obrigatório';
+        }
+
+        if (customValidate != null) {
+          isError = customValidate.call(value);
+        }
+        requestFocusOnError(isFinal: isFinal, focusNode: focusNode, isError: isError);
+        return isError;
+      },
+    );
+  }
+
+  static void requestFocusOnError({required bool isFinal, required String? isError, required FocusNode? focusNode}) {
+    if (alreadyFocus == false && isError != null) {
+      alreadyFocus = true;
+      focusNode?.requestFocus();
+    }
+    if (isFinal) alreadyFocus = false;
+  }
+
+  static MaskInputController currencyRequired({String? Function(String value)? customValidate}) {
+    FocusNode? focusNode;
+
+    return MaskInputController(
+      getFocusNode: () {
+        focusNode = focusNode ?? FocusNode();
+        return focusNode;
+      },
+      inpuFormatters: [CurrencyTextInputFormatter(decimalDigits: 2, locale: Intl.defaultLocale, symbol: "")],
       validator: (value) {
         if (value == null || value.isEmpty) {
           focusNode?.requestFocus();
@@ -32,6 +91,12 @@ class MaskUtils {
 
         return null;
       },
+    );
+  }
+
+  static MaskInputController currency() {
+    return MaskInputController(
+      inpuFormatters: [CurrencyTextInputFormatter(decimalDigits: 2, locale: Intl.defaultLocale, symbol: "")],
     );
   }
 
@@ -98,19 +163,20 @@ class MaskUtils {
 
   static MaskInputController phonePtBr({required TextEditingController textEditingController, required int minLenght}) {
     FocusNode? focusNode;
-    final maskFormatter = MaskTextInputFormatter(mask: "(##) ####-####");
+    final maskFormatter = [MaskTextInputFormatter(mask: "(##) ####-####"), MaskTextInputFormatter(mask: "(##)# ####-####")];
     return MaskInputController(
       getFocusNode: () {
         focusNode = focusNode ?? FocusNode();
         return focusNode;
       },
-      inpuFormatters: [maskFormatter],
+      onlenghtMaskChange: 11,
+      inpuFormatters: maskFormatter,
       onChanged: (value) {
         final lenght = value.length;
         if (lenght == min(13, 14)) {
-          textEditingController.value = maskFormatter.updateMask(mask: lenght == 13 ? "(##) ####-#####" : "(##) ####-#####");
+          textEditingController.value = maskFormatter[0].updateMask(mask: lenght == 13 ? "(##) ####-#####" : "(##) ####-#####");
         }
-        if (value.length >= 15) textEditingController.value = maskFormatter.updateMask(mask: "(##)# ####-####");
+        if (value.length >= 15) textEditingController.value = maskFormatter[0].updateMask(mask: "(##)# ####-####");
       },
       keyboardType: TextInputType.number,
       validator: (value) {
@@ -201,6 +267,7 @@ class MaskUtils {
 
   static MaskInputController cpf() {
     FocusNode? focusNode;
+
     return MaskInputController(
       getFocusNode: () {
         focusNode = focusNode ?? FocusNode();
@@ -210,12 +277,15 @@ class MaskUtils {
       keyboardType: TextInputType.number,
       validator: (value) {
         if (value == null || value.isEmpty) {
+          focusNode?.requestFocus();
           return "Cpf obrigatório.";
         }
         if (value.length < 14) {
+          focusNode?.requestFocus();
           return "Cpf incompleto";
         }
         if (!isValidCpf(value)) {
+          focusNode?.requestFocus();
           return "Cpf inválido";
         }
         return null;

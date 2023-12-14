@@ -1,7 +1,4 @@
 import 'package:paipfood_package/paipfood_package.dart';
-import 'http_exception.dart';
-import 'http_response.dart';
-import 'i_http.dart';
 
 class HttpDio implements IHttp {
   late final Dio _dio;
@@ -191,7 +188,7 @@ class HttpDio implements IHttp {
         requestOptions: dioError.requestOptions,
         stackTrace: dioError.stackTrace,
         type: dioError.type,
-        msg: getErrorMessage(dioError) ?? dioError.response?.data['msg']);
+        msg: getErrorMessage(dioError));
     _logError(
       error: dioError.error.toString(),
       message: "MESSAGE:${exception.msg} ERROR: ${dioError.message}",
@@ -201,8 +198,17 @@ class HttpDio implements IHttp {
     toast.showError(exception.toString());
   }
 
-  String? getErrorMessage(DioException dioError) {
-    return dioError.response?.data['message'];
+  String getErrorMessage(DioException dioError) {
+    if (dioError.response?.data['error_description'] != null) {
+      return dioError.response?.data['error_description'];
+    }
+    if (dioError.response?.data['error'] != null) {
+      return dioError.response?.data['error'];
+    }
+    if (dioError.response?.data['message'] == null) {
+      return dioError.response?.data['message'];
+    }
+    return dioError.response?.data['msg'];
   }
 
   Never _trowRestClientException(DioException dioError) {

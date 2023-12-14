@@ -1,5 +1,3 @@
-import 'package:paipfood_package/src/core/repositories/establishment/i_establishment_repository.dart';
-
 import '../../../../paipfood_package.dart';
 
 class EstablishmentRepository implements IEstablishmentRepository {
@@ -10,7 +8,7 @@ class EstablishmentRepository implements IEstablishmentRepository {
 
   @override
   Future<CompanyModel> insertCompany({required CompanyModel company, required AuthModel auth}) async {
-    company = company.copyWith(userAdmId: auth.user!.id);
+    company = company.copyWith(userAdminId: auth.user!.id);
 
     final request = await http.post(
       "rest/v1/companies",
@@ -101,12 +99,12 @@ class EstablishmentRepository implements IEstablishmentRepository {
   }
 
   @override
-  Future<List<EstablishmentModel>> getEstablishments({RangeModel? range}) async {
+  Future<List<EstablishmentModel>> getEstablishmentsBySlug(String slug) async {
     final request = await http.get(
-      "rest/v1/establishments?select=*",
-      headers: range?.toMap(),
+      "rest/v1/establishments?company_slug=eq.$slug&select=*",
     );
-    return request.data.map<EstablishmentModel>((establishment) {
+    final List list = request.data;
+    return list.map<EstablishmentModel>((establishment) {
       return EstablishmentModel.fromMap(establishment);
     }).toList();
   }

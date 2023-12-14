@@ -32,7 +32,7 @@ void main() {
 
     test('getEstablishments', () async {
       //Arrange
-      final request = await repository.getEstablishments(range: RangeModel());
+      final request = await repository.getEstablishmentsBySlug(companyMock.slug!);
       //Act
       expect(request, isA<List<EstablishmentModel>>());
       //Assert
@@ -40,7 +40,7 @@ void main() {
 
     test('getEstablishmentById', () async {
       //Arrange
-      final request = await repository.getEstablishmentById(id: 16);
+      final request = await repository.getEstablishmentById(id: 22);
       final requestNull = await repository.getEstablishmentById(id: 1);
       //Act
       expect(request, isA<EstablishmentModel>());
@@ -61,7 +61,7 @@ void main() {
   test('updateCompany', () async {
     //Arrange
     final user = await authRepository.loginByEmail(email: email, password: Env.passwordDefault);
-    companyMock = companyMock.copyWith(name: "Alterado", userAdmId: user.user!.id);
+    companyMock = companyMock.copyWith(name: "Alterado", userAdminId: user.user!.id);
     //Act
     final request = await repository.updateCompany(auth: user, company: companyMock);
     //Assert
