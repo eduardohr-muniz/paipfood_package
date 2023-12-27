@@ -39,7 +39,10 @@ class StateNotifier extends StatelessWidget {
             if (overlay) Loader.hide();
             return onInitial != null ? onInitial!(context) : const Center(child: Text('Helo'));
           case Status.load:
-            if (overlay) Loader.show(context);
+            if (overlay)
+              Loader.show(
+                context,
+              );
             return onLoad != null ? onLoad!(context) : const Center(child: Text("Loading..."));
           case Status.complete:
             if (overlay) Loader.hide();

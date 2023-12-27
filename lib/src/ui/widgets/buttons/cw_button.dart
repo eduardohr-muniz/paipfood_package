@@ -9,6 +9,7 @@ class CwButton extends StatefulWidget {
   final void Function()? onPressed;
   final Future Function()? onPressedFuture;
   final Color color;
+  final bool autoToast;
   const CwButton({
     required this.label,
     this.onPressed,
@@ -17,6 +18,7 @@ class CwButton extends StatefulWidget {
     Key? key,
     this.icon,
     this.color = PColors.primaryColor_,
+    this.autoToast = true,
   }) : super(key: key);
 
   @override
@@ -63,16 +65,23 @@ class _CwButtonState extends State<CwButton> {
       onPressed: () async {
         if (_enable == false) return;
         if (widget.onPressedFuture != null && widget.enable) {
-          print(_enable);
           _enable = false;
           load.value = true;
 
-          await widget.onPressedFuture?.call();
+          try {
+            await widget.onPressedFuture?.call();
+          } catch (e) {
+            if (widget.autoToast) toast.showError(e.toString());
+          }
 
           load.value = false;
           _enable = true;
         } else if (widget.enable) {
-          widget.onPressed?.call();
+          try {
+            widget.onPressed?.call();
+          } catch (e) {
+            if (widget.autoToast) toast.showError(e.toString());
+          }
         }
       },
       style: ElevatedButton.styleFrom(

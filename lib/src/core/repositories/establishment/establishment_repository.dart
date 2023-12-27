@@ -73,7 +73,7 @@ class EstablishmentRepository implements IEstablishmentRepository {
   }
 
   @override
-  Future<CompanyModel?> getCompanyBySlug({required String slug}) async {
+  Future<CompanyModel?> getCompanyBySlug(String slug) async {
     final request = await http.get("rest/v1/companies?slug=eq.$slug&select=*");
     final List list = request.data;
     if (list.isEmpty) return null;
@@ -86,7 +86,7 @@ class EstablishmentRepository implements IEstablishmentRepository {
   }
 
   @override
-  Future<EstablishmentModel?> getEstablishmentById({required int id}) async {
+  Future<EstablishmentModel?> getEstablishmentById(String id) async {
     final request = await http.get("rest/v1/establishments?id=eq.$id&select=*");
     final List list = request.data;
     if (list.isEmpty) return null;

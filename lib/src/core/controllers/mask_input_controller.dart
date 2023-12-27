@@ -10,6 +10,7 @@ class MaskInputController {
   final TextInputType? keyboardType;
   final FocusNode? Function()? getFocusNode;
   final void Function(String value)? onChanged;
+  final AutovalidateMode? autovalidateMode;
 
   MaskInputController({
     this.validator,
@@ -19,6 +20,7 @@ class MaskInputController {
     this.keyboardType,
     this.getFocusNode,
     this.onChanged,
+    this.autovalidateMode,
   });
 
   MaskInputController copyWith({
@@ -29,6 +31,7 @@ class MaskInputController {
     TextInputType? keyboardType,
     FocusNode? Function()? getFocusNode,
     void Function(String value)? onChanged,
+    AutovalidateMode? autovalidateMode,
   }) {
     return MaskInputController(
       validator: validator ?? this.validator,
@@ -38,6 +41,7 @@ class MaskInputController {
       keyboardType: keyboardType ?? this.keyboardType,
       getFocusNode: getFocusNode ?? this.getFocusNode,
       onChanged: onChanged ?? this.onChanged,
+      autovalidateMode: autovalidateMode ?? this.autovalidateMode,
     );
   }
 }

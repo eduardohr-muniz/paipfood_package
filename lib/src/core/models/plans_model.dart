@@ -5,25 +5,25 @@ import 'package:flutter/widgets.dart';
 import 'country_model.dart';
 
 class PlansModel {
-  int? id;
-  DateTime createdAt;
-  String name;
-  double price;
-  double? promotionalPrice;
-  int? promotionDurationMounths;
-  CountryModel countryId;
-  // UsageLimitModel usageLimit;
-  bool autoRenew;
-  String? discountCoupon;
-  String? discountValue;
-  String? planType;
-  String terms;
-  String? banner;
-  String status;
+  final String id;
+  final DateTime createdAt;
+  final String name;
+  final double price;
+  final double? promotionalPrice;
+  final int? promotionDurationMounths;
+  final CountryModel countryId;
+  final // UsageLimitModel usageLimit;
+      bool autoRenew;
+  final String? discountCoupon;
+  final String? discountValue;
+  final String? planType;
+  final String terms;
+  final String? banner;
+  final String status;
   PlansModel({
     required this.createdAt,
     required this.countryId,
-    this.id,
+    required this.id,
     this.name = '',
     this.price = 0.0,
     this.promotionalPrice,
@@ -38,13 +38,14 @@ class PlansModel {
   });
 
   PlansModel copyWith({
-    int? id,
+    String? id,
     DateTime? createdAt,
     String? name,
     double? price,
     double? promotionalPrice,
     int? promotionDurationMounths,
     CountryModel? countryId,
+    // UsageLimitModel? usageLimit,
     bool? autoRenew,
     String? discountCoupon,
     String? discountValue,
@@ -61,6 +62,7 @@ class PlansModel {
       promotionalPrice: promotionalPrice ?? this.promotionalPrice,
       promotionDurationMounths: promotionDurationMounths ?? this.promotionDurationMounths,
       countryId: countryId ?? this.countryId,
+      // usageLimit: usageLimit ?? this.usageLimit,
       autoRenew: autoRenew ?? this.autoRenew,
       discountCoupon: discountCoupon ?? this.discountCoupon,
       discountValue: discountValue ?? this.discountValue,
@@ -92,7 +94,7 @@ class PlansModel {
 
   factory PlansModel.fromMap(Map<String, dynamic> map) {
     return PlansModel(
-      id: map['id']?.toInt(),
+      id: map['id'],
       createdAt: DateTime.parse(map['created_at']),
       name: map['name'] ?? '',
       price: map['price']?.toDouble() ?? 0.0,

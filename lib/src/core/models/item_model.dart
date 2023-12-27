@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'size_model.dart';
+import 'package:paipfood_package/paipfood_package.dart';
 
 enum Itemtype {
   item,
@@ -8,50 +8,52 @@ enum Itemtype {
 }
 
 class ItemModel {
-  final int? index;
+  int index;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final bool toUpdate;
-  final int? establishmentId;
-  final int? id;
-  final String name;
-  final String nickName;
-  final String description;
-  final double price;
-  final double promotionalPrice;
-  final String image;
-  final bool? isPreSelected;
-  final int complementId;
-  final bool visible;
-  final List<SizeModel>? sizes;
+  String establishmentId;
+  String id;
+  String name;
+  String nickName;
+  String description;
+  double price;
+  double promotionalPrice;
+  String image;
+  bool isPreSelected;
+  String complementId;
+  bool visible;
+  List<SizeModel> sizes;
   final Itemtype itemtype;
+  bool isDeleted;
+  SyncState syncState;
+
   ItemModel({
-    this.index,
+    required this.id,
+    required this.index,
+    required this.establishmentId,
+    required this.complementId,
     this.createdAt,
     this.updatedAt,
-    this.toUpdate = false,
-    this.establishmentId,
-    this.id,
     this.name = '',
     this.nickName = '',
     this.description = '',
     this.price = 0.0,
     this.promotionalPrice = 0.0,
     this.image = '',
-    this.isPreSelected,
-    this.complementId = 0,
+    this.isPreSelected = false,
     this.visible = false,
-    this.sizes,
+    this.sizes = const [],
     this.itemtype = Itemtype.item,
+    this.isDeleted = false,
+    this.syncState = SyncState.none,
   });
 
   ItemModel copyWith({
     int? index,
     DateTime? createdAt,
     DateTime? updatedAt,
-    bool? toUpdate,
-    int? establishmentId,
-    int? id,
+    String? establishmentId,
+    String? id,
     String? name,
     String? nickName,
     String? description,
@@ -59,16 +61,17 @@ class ItemModel {
     double? promotionalPrice,
     String? image,
     bool? isPreSelected,
-    int? complementId,
+    String? complementId,
     bool? visible,
     List<SizeModel>? sizes,
     Itemtype? itemtype,
+    bool? isDeleted,
+    SyncState? syncState,
   }) {
     return ItemModel(
       index: index ?? this.index,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      toUpdate: toUpdate ?? this.toUpdate,
       establishmentId: establishmentId ?? this.establishmentId,
       id: id ?? this.id,
       name: name ?? this.name,
@@ -82,11 +85,14 @@ class ItemModel {
       visible: visible ?? this.visible,
       sizes: sizes ?? this.sizes,
       itemtype: itemtype ?? this.itemtype,
+      isDeleted: isDeleted ?? this.isDeleted,
+      syncState: syncState ?? this.syncState,
     );
   }
 
   Map<String, dynamic> toMap() {
-    final map = {
+    return {
+      'id': id,
       'index': index,
       'updated_at': updatedAt?.toIso8601String(),
       'establishment_id': establishmentId,
@@ -100,20 +106,18 @@ class ItemModel {
       'complement_id': complementId,
       'visible': visible,
       'item_type': itemtype.name,
+      'is_deleted': isDeleted,
     };
-    if (id != null) map.addAll({'id': id});
-
-    return map;
   }
 
   factory ItemModel.fromMap(Map<String, dynamic> map) {
     return ItemModel(
+      id: map['id'],
+      complementId: map['complement_id'],
       index: map['index'],
       createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
       updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
-      toUpdate: map['toUpdate'] ?? false,
       establishmentId: map['establishment_id'],
-      id: map['id']?.toInt(),
       name: map['name'] ?? '',
       nickName: map['nick_name'] ?? '',
       description: map['description'] ?? '',
@@ -121,10 +125,10 @@ class ItemModel {
       promotionalPrice: map['promotional_price']?.toDouble() ?? 0.0,
       image: map['image'] ?? '',
       isPreSelected: map['is_pre_selected'],
-      complementId: map['complement_id']?.toInt() ?? 0,
       visible: map['visible'] ?? false,
-      sizes: map['sizes'] != null ? List<SizeModel>.from(map['sizes']?.map(SizeModel.fromMap)) : null,
+      sizes: map['sizes'] != null ? List<SizeModel>.from(map['sizes']?.map(SizeModel.fromMap)) : [],
       itemtype: Itemtype.values.firstWhere((element) => element.name == map['item_type'], orElse: () => Itemtype.item),
+      isDeleted: map['is_deleted'] ?? false,
     );
   }
 

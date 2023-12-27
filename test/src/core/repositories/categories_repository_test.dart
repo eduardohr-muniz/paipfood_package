@@ -4,15 +4,17 @@ import 'package:paipfood_package/src/core/repositories/categories/categories_rep
 
 Future<void> main() async {
   const email = "eduardohr.muniz@gmail.com";
-  final http = HttpDio(autoToast: false);
+  final http = HttpDio();
   final authRepository = AuthRepository(http: http);
   final auth = await authRepository.loginByEmail(email: email, password: Env.passwordDefault);
   final repository = CategoriesRepository(http: http);
   const int? categoryId = null;
   const int establishmentId = 22;
   final categoryMock = CategoryModel(
+    products: [],
+    id: uuid,
     description: "Descrição",
-    establishmentId: 22,
+    establishmentId: "22",
     index: 0,
     name: "Name",
     updatedAt: DateTime.now(),
@@ -32,7 +34,7 @@ Future<void> main() async {
     //Arrange
 
     //Act
-    final result = await repository.getByEstablishmentId(establishmentId);
+    final result = await repository.getByEstablishmentId('');
 
     //Assert
     expect(result, isA<List<CategoryModel>>());
@@ -42,7 +44,7 @@ Future<void> main() async {
     //Arrange
 
     //Act
-    await repository.delete(id: categoryId!, auth: auth);
+    await repository.delete(id: categoryMock.id, auth: auth);
     //Assert
   });
 }

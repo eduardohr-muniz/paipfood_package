@@ -18,7 +18,7 @@ class InsertUserCompanyEstablishmentUsecase {
     await authRepo.updateUser(auth: auth);
 
     final establishment =
-        await establishmentRepo.insertEstablishment(establishment: company.establishments.first, auth: auth, companySlug: company_.slug!);
+        await establishmentRepo.insertEstablishment(establishment: company.establishments.first, auth: auth, companySlug: company_.slug);
 
     address = address.copyWith(establishmentId: establishment.id);
     await addressRepo.insert(address);

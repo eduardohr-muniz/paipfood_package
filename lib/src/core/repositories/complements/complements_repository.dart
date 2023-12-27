@@ -1,12 +1,10 @@
 import 'package:paipfood_package/paipfood_package.dart';
 
-import 'i_complements_repository.dart';
-
 class ComplementsRepository implements IComplementsRepository {
   final HttpDio http;
   ComplementsRepository({required this.http});
   @override
-  Future<List<ComplementModel>> getByEstablishmentId(int establishmentId, {bool? visible}) async {
+  Future<List<ComplementModel>> getByEstablishmentId(String establishmentId, {bool? visible}) async {
     String filterVisbile = "";
     if (visible != null) filterVisbile = HttpUtils.filterVisible(visible);
     final request = await http.get("rest/v1/complements?establishment_id=eq.$establishmentId$filterVisbile&select=*");
@@ -30,7 +28,7 @@ class ComplementsRepository implements IComplementsRepository {
   }
 
   @override
-  Future<void> delete({required int id, required AuthModel auth}) async {
+  Future<void> delete({required String id, required AuthModel auth}) async {
     await http.delete(
       "rest/v1/complements?id=eq.$id",
       headers: {"Authorization": "Bearer ${auth.accessToken}"},

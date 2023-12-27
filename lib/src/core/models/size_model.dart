@@ -1,46 +1,53 @@
 import 'dart:convert';
-import 'package:paipfood_package/src/core/provider/global_variables.dart';
+
+import 'package:paipfood_package/paipfood_package.dart';
 
 import 'zz_models_export.dart';
 
 class SizeModel {
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
-  final bool toUpdate;
-  final int? establishmentId;
-  final int? id;
-  final int? itemId;
-  final int? productId;
-  final double? price;
-  final double? promotionalPrice;
-  final ProductModel? product;
-  final ItemModel? item;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  bool toUpdate;
+  String establishmentId;
+  String id;
+  String? itemId;
+  String productId;
+  double price;
+  double? promotionalPrice;
+  ProductModel? product;
+  ItemModel? item;
+  bool isDeleted;
+  SyncState syncState;
   SizeModel({
+    required this.id,
+    required this.establishmentId,
+    required this.productId,
+    required this.price,
+    this.itemId,
     this.createdAt,
     this.updatedAt,
     this.toUpdate = false,
-    this.establishmentId,
-    this.id,
-    this.itemId,
-    this.productId,
-    this.price,
     this.promotionalPrice,
     this.product,
     this.item,
+    this.syncState = SyncState.none,
+    this.isDeleted = false,
   });
 
   SizeModel copyWith({
     DateTime? createdAt,
     DateTime? updatedAt,
     bool? toUpdate,
-    int? establishmentId,
-    int? id,
-    int? itemId,
-    int? productId,
+    String? establishmentId,
+    String? id,
+    String? itemId,
+    String? productId,
     double? price,
     double? promotionalPrice,
     ProductModel? product,
     ItemModel? item,
+    bool? isDeleted,
+    SyncState? syncState,
   }) {
     return SizeModel(
       createdAt: createdAt ?? this.createdAt,
@@ -54,20 +61,22 @@ class SizeModel {
       promotionalPrice: promotionalPrice ?? this.promotionalPrice,
       product: product ?? this.product,
       item: item ?? this.item,
+      isDeleted: isDeleted ?? this.isDeleted,
+      syncState: syncState ?? this.syncState,
     );
   }
 
   Map<String, dynamic> toMap() {
-    final map = {
+    return {
+      'id': id,
       'updated_at': updatedAt?.toIso8601String(),
       'establishment_id': establishmentId,
       'item_id': itemId,
       'product_id': productId,
       'price': price,
       'promotional_price': promotionalPrice,
+      'is_deleted': isDeleted,
     };
-    if (id != null) map.addAll({'id': id});
-    return map;
   }
 
   factory SizeModel.fromMap(Map<String, dynamic> map) {

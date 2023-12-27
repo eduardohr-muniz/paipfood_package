@@ -1,52 +1,50 @@
 import 'dart:convert';
 
-import 'package:flutter/widgets.dart';
+import 'package:paipfood_package/paipfood_package.dart';
 
-import '../provider/global_variables.dart';
 import 'zz_models_export.dart';
 
 class InvoiceModel {
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final bool toUpdate;
-  final int? establishmentId;
-  final int? id;
+  final String establishmentId;
+  final String id;
   final PlansModel? plan;
-  final double? planPrice;
-  final DateTime? dueDate;
-  final String? status;
-  final double? tax;
-  final double? amount;
+  final double planPrice;
+  final DateTime dueDate;
+  final String status;
+  final double tax;
+  final double amount;
   final DateTime? renegotiationDate;
   final double? customPlanPrice;
   final DateTime? paymentDate;
-  final String? paymentMethod;
+  final String paymentMethod;
   final String? transactionId;
+  SyncState syncState;
   InvoiceModel({
+    required this.dueDate,
+    required this.paymentDate,
     this.createdAt,
     this.updatedAt,
-    this.toUpdate = false,
-    this.establishmentId,
-    this.id,
+    this.establishmentId = '',
+    this.id = '',
     this.plan,
-    this.planPrice,
-    this.dueDate,
-    this.status,
-    this.tax,
-    this.amount,
+    this.planPrice = 0.0,
+    this.status = '',
+    this.tax = 0.0,
+    this.amount = 0.0,
     this.renegotiationDate,
     this.customPlanPrice,
-    this.paymentDate,
-    this.paymentMethod,
+    this.paymentMethod = '',
     this.transactionId,
+    this.syncState = SyncState.none,
   });
 
   InvoiceModel copyWith({
     DateTime? createdAt,
     DateTime? updatedAt,
-    bool? toUpdate,
-    int? establishmentId,
-    int? id,
+    String? establishmentId,
+    String? id,
     PlansModel? plan,
     double? planPrice,
     DateTime? dueDate,
@@ -58,11 +56,11 @@ class InvoiceModel {
     DateTime? paymentDate,
     String? paymentMethod,
     String? transactionId,
+    SyncState? syncState,
   }) {
     return InvoiceModel(
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      toUpdate: toUpdate ?? this.toUpdate,
       establishmentId: establishmentId ?? this.establishmentId,
       id: id ?? this.id,
       plan: plan ?? this.plan,
@@ -76,6 +74,7 @@ class InvoiceModel {
       paymentDate: paymentDate ?? this.paymentDate,
       paymentMethod: paymentMethod ?? this.paymentMethod,
       transactionId: transactionId ?? this.transactionId,
+      syncState: syncState ?? this.syncState,
     );
   }
 
@@ -87,7 +86,7 @@ class InvoiceModel {
       'id': id,
       'plan': plan?.toMap(),
       'plan_price': planPrice,
-      'due_date': dueDate?.toIso8601String(),
+      'due_date': dueDate.toIso8601String(),
       'status': status,
       'tax': tax,
       'amount': amount,
@@ -107,7 +106,7 @@ class InvoiceModel {
       id: map['id']?.toInt(),
       plan: map['plan'] != null ? PlansModel.fromMap(map['plan']) : null,
       planPrice: map['plan_price']?.toDouble(),
-      dueDate: map['due_date'] != null ? DateTime.parse(map['due_date']) : null,
+      dueDate: DateTime.parse(map['due_date']),
       status: map['status'],
       tax: map['tax']?.toDouble(),
       amount: map['amount']?.toDouble(),

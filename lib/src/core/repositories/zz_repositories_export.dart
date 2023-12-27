@@ -16,3 +16,7 @@ export './products/i_products_repository.dart';
 export './products/products_repository.dart';
 export './sizes/i_sizes_repository.dart';
 export './sizes/sizes_repository.dart';
+export './delivery_areas/delivery_areas_repository.dart';
+export './delivery_areas/i_delivery_areas_repository.dart';
+export './lat_longs/i_lat_longs_repository.dart';
+export './lat_longs/lat_longs_repository.dart';

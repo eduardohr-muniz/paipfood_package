@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:paipfood_package/paipfood_package.dart';
 
 class Utils {
-  static double stringToDouble(String text) {
+  static double _stringToDouble(String text) {
     if (text != "") {
       text = text.replaceAll(".", "");
       text = text.replaceFirst(",", ".");
@@ -14,12 +14,30 @@ class Utils {
     }
   }
 
+  static double stringToDouble(String text) {
+    return double.tryParse(text) ?? _stringToDouble(text);
+  }
+
   static String doubleToString(double value) {
     if (value == 0.0) {
       return " -- ";
     } else {
       return value.toString();
     }
+  }
+
+  static String generateUuid() {
+    String uuid = "";
+    uuid += generateRandomString(8);
+    uuid += "-";
+    uuid += generateRandomString(4);
+    uuid += "-";
+    uuid += generateRandomString(4);
+    uuid += "-";
+    uuid += generateRandomString(4);
+    uuid += "-";
+    uuid += generateRandomString(12);
+    return uuid;
   }
 
   static String generateRandomString(int length) {
@@ -43,10 +61,15 @@ class Utils {
   }
 
   static String maskUltisToString(String value, MaskInputController mask) {
+    if (mask.inpuFormatters == null) return value;
     TextInputFormatter? textInputFormatter;
-    final lenght = value.length;
+    // final lenght = value.length;
     textInputFormatter = mask.inpuFormatters![0];
-    if (mask.onlenghtMaskChange != null && lenght >= mask.onlenghtMaskChange!) textInputFormatter = mask.inpuFormatters![1];
+    // try {
+    //   if (mask.onlenghtMaskChange != null && lenght >= mask.onlenghtMaskChange!) textInputFormatter = mask.inpuFormatters![1];
+    // } catch (_) {
+    //   textInputFormatter = mask.inpuFormatters![0];
+    // }
     final ec = TextEditingController(text: value);
     ec.value = textInputFormatter.formatEditUpdate(ec.value, ec.value);
     final result = ec.text;

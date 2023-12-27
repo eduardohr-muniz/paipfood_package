@@ -8,6 +8,7 @@ class CwButtonSecondary extends StatelessWidget {
   final bool enable;
   final void Function()? onPressed;
   final Color color;
+  final bool autoToast;
   const CwButtonSecondary({
     required this.label,
     required this.onPressed,
@@ -15,6 +16,7 @@ class CwButtonSecondary extends StatelessWidget {
     this.icon,
     this.enable = true,
     this.color = PColors.primaryColor_,
+    this.autoToast = true,
   }) : super(key: key);
 
   @override
@@ -30,7 +32,15 @@ class CwButtonSecondary extends StatelessWidget {
         label,
         style: TextStyle(color: color),
       ),
-      onPressed: enable ? onPressed : null,
+      onPressed: enable
+          ? () {
+              try {
+                onPressed?.call();
+              } catch (e) {
+                if (autoToast) toast.showError(e.toString());
+              }
+            }
+          : null,
       style: ElevatedButton.styleFrom(
         backgroundColor: color.withOpacity(0.25),
         foregroundColor: color.withOpacity(0.25),

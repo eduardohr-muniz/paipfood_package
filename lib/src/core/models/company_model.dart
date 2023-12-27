@@ -2,8 +2,6 @@ import 'dart:convert';
 
 import 'package:paipfood_package/paipfood_package.dart';
 
-import 'zz_models_export.dart';
-
 class RangeModel {
   int offSet;
   int limit;
@@ -21,68 +19,73 @@ class RangeModel {
 }
 
 class CompanyModel {
-  final String? slug;
+  final String slug;
+  final String? userAdminId;
+  final String? establishmentDefaultId;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final bool toUpdate;
-  final String? name;
-  final String? userAdminId;
-  final int? establishmentDefaultId;
-  final List<EstablishmentModel> establishments;
-  final List<PaymentMethodsModel> paymentMethods;
-  final String facebook;
-  final String instagram;
+  String name;
+  List<EstablishmentModel> establishments;
+  List<PaymentMethodsModel> paymentMethods;
+  String facebook;
+  String instagram;
+  ThemeEnum theme;
+  SyncState syncState;
   CompanyModel({
-    this.slug,
-    this.createdAt,
-    this.updatedAt,
-    this.toUpdate = false,
-    this.name,
+    required this.slug,
     this.userAdminId,
     this.establishmentDefaultId,
+    this.createdAt,
+    this.updatedAt,
+    this.name = '',
     this.establishments = const [],
     this.paymentMethods = const [],
     this.facebook = '',
     this.instagram = '',
+    this.theme = ThemeEnum.paip,
+    this.syncState = SyncState.none,
   });
 
   CompanyModel copyWith({
     String? slug,
+    String? userAdminId,
+    String? establishmentDefaultId,
     DateTime? createdAt,
     DateTime? updatedAt,
-    bool? toUpdate,
     String? name,
-    String? userAdminId,
-    int? establishmentDefaultId,
     List<EstablishmentModel>? establishments,
     List<PaymentMethodsModel>? paymentMethods,
     String? facebook,
     String? instagram,
+    ThemeEnum? theme,
+    SyncState? syncState,
   }) {
     return CompanyModel(
       slug: slug ?? this.slug,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
-      toUpdate: toUpdate ?? this.toUpdate,
-      name: name ?? this.name,
       userAdminId: userAdminId ?? this.userAdminId,
       establishmentDefaultId: establishmentDefaultId ?? this.establishmentDefaultId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      name: name ?? this.name,
       establishments: establishments ?? this.establishments,
       paymentMethods: paymentMethods ?? this.paymentMethods,
       facebook: facebook ?? this.facebook,
       instagram: instagram ?? this.instagram,
+      theme: theme ?? this.theme,
+      syncState: syncState ?? this.syncState,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'slug': slug != null ? Utils.onlyAlphanumeric(slug!, undereline: true) : null,
+      'slug': Utils.onlyAlphanumeric(slug, undereline: true),
       'updated_at': updatedAt?.toIso8601String(),
       'name': name,
       'user_admin_id': userAdminId,
       'establishment_default_id': establishmentDefaultId,
       'facebook': facebook,
       'instagram': instagram,
+      'theme': theme.name,
     };
   }
 
@@ -102,8 +105,9 @@ class CompanyModel {
             return PaymentMethodsModel.fromMap(paymentMethod);
           }).toList() ??
           []),
-      facebook: map['facebook'],
-      instagram: map['instagram'],
+      facebook: map['facebook'] ?? "",
+      instagram: map['instagram'] ?? "",
+      theme: map['theme'] != null ? ThemeEnum.values.firstWhere((element) => element.name == map['theme']) : ThemeEnum.paip,
     );
   }
 

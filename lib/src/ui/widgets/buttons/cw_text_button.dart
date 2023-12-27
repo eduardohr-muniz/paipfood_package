@@ -8,6 +8,8 @@ class CwTextButton extends StatelessWidget {
   final Color? colorText;
   final EdgeInsetsGeometry? padding;
   final void Function()? onPressed;
+  final bool enable;
+  final bool autoToast;
   const CwTextButton({
     required this.label,
     required this.onPressed,
@@ -15,12 +17,22 @@ class CwTextButton extends StatelessWidget {
     this.icon,
     this.colorText,
     this.padding,
+    this.enable = true,
+    this.autoToast = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: onPressed,
+      onPressed: enable
+          ? () {
+              try {
+                onPressed?.call();
+              } catch (e) {
+                if (autoToast) toast.showError(e.toString());
+              }
+            }
+          : null,
       style: TextButton.styleFrom(
         padding: padding,
         minimumSize: padding != null ? const Size(0, 0) : const Size(60, 45),

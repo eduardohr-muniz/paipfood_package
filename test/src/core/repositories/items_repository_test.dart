@@ -9,19 +9,19 @@ Future<void> main() async {
   final authRepository = AuthRepository(http: http);
   if (auth.accessToken == null) auth = await authRepository.loginByEmail(email: email, password: Env.passwordDefault);
   final repository = ItemsRepository(http: http);
-  const int establishmentId = 22;
-  const int itemId = 2;
+  const String establishmentId = '22';
+  const String itemId = '2';
 
   final itemMock = ItemModel(
+      id: uuid,
+      complementId: "",
+      establishmentId: "establishmentId",
       description: "Descrição",
-      establishmentId: establishmentId,
       index: 0,
       name: "Name",
       updatedAt: DateTime.now(),
       price: 12.50,
       promotionalPrice: 12,
-      complementId: 2,
-      isPreSelected: false,
       nickName: "teste",
       visible: true,
       itemtype: Itemtype.pizza);

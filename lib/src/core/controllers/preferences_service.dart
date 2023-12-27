@@ -11,7 +11,7 @@ class PreferencesService extends ChangeNotifier {
 
   ThemeMode? themeMode = ThemeMode.system;
   Locale? currentLocale;
-  PreferencesModel model = PreferencesModel();
+  PreferencesModel model = PreferencesModel(id: '');
   static String boxAndKey = "prefs";
 
   void changeTheme(bool isDarkTheme) {

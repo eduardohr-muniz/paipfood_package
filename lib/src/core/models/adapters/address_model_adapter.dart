@@ -4,8 +4,9 @@ import 'package:paipfood_package/src/core/models/address_geoapify_model.dart';
 class AddressModelAdapter {
   static AddressModel geoapify(AddressGeoapfyModel model) {
     return AddressModel(
+      id: uuid,
       lat: model.lat,
-      lon: model.lon,
+      long: model.lon,
       address: model.formatted,
       city: model.city,
       country: model.country,

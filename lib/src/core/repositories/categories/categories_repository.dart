@@ -1,11 +1,10 @@
 import 'package:paipfood_package/paipfood_package.dart';
-import 'package:paipfood_package/src/core/repositories/categories/i_categories_repository.dart';
 
 class CategoriesRepository implements ICategoriesRepository {
   final HttpDio http;
   CategoriesRepository({required this.http});
   @override
-  Future<List<CategoryModel>> getByEstablishmentId(int establishmentId, {bool? visible}) async {
+  Future<List<CategoryModel>> getByEstablishmentId(String establishmentId, {bool? visible}) async {
     String filterVisbile = "";
     if (visible != null) filterVisbile = HttpUtils.filterVisible(visible);
     final request = await http.get("rest/v1/categories?establishment_id=eq.$establishmentId$filterVisbile&select=*");
@@ -29,7 +28,7 @@ class CategoriesRepository implements ICategoriesRepository {
   }
 
   @override
-  Future<void> delete({required int id, required AuthModel auth}) async {
+  Future<void> delete({required String id, required AuthModel auth}) async {
     await http.delete(
       "rest/v1/categories?id=eq.$id",
       headers: {"Authorization": "Bearer ${auth.accessToken}"},

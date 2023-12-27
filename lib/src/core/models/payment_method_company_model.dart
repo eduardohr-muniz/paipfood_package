@@ -1,35 +1,34 @@
 import 'dart:convert';
 
 import 'package:paipfood_package/paipfood_package.dart';
-import 'package:paipfood_package/src/core/enums/check_point_enum.dart';
 
 class PaymentMethodCompanyModel {
-  final int? id;
+  final String id;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final double? tax;
-  final String? companySlug;
-  final int? paymentMethodId;
-  final PaymentMethodsModel? paymentMethod;
+  final double tax;
+  final String companySlug;
+  final String paymentMethodId;
+  final PaymentMethodsModel paymentMethod;
   final List<CheckPointEnum> checkPoints;
   PaymentMethodCompanyModel({
-    this.id,
+    required this.paymentMethod,
     this.createdAt,
     this.updatedAt,
-    this.tax,
-    this.companySlug,
-    this.paymentMethodId,
-    this.paymentMethod,
+    this.id = '',
+    this.tax = 0.0,
+    this.companySlug = '',
+    this.paymentMethodId = '',
     this.checkPoints = const [],
   });
 
   PaymentMethodCompanyModel copyWith({
-    int? id,
+    String? id,
     DateTime? createdAt,
     DateTime? updatedAt,
     double? tax,
     String? companySlug,
-    int? paymentMethodId,
+    String? paymentMethodId,
     PaymentMethodsModel? paymentMethod,
     List<CheckPointEnum>? checkPoints,
   }) {
@@ -59,13 +58,13 @@ class PaymentMethodCompanyModel {
 
   factory PaymentMethodCompanyModel.fromMap(Map<String, dynamic> map) {
     return PaymentMethodCompanyModel(
-        id: map['id']?.toInt(),
-        createdAt: map['created_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['created_at']) : null,
-        updatedAt: map['updated_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['updated_at']) : null,
+        id: map['id'],
+        createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
+        updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
         tax: map['tax']?.toDouble(),
         companySlug: map['company_slug'],
-        paymentMethodId: map['payment_method_id']?.toInt(),
-        paymentMethod: map['payment_method'] != null ? PaymentMethodsModel.fromMap(map['payment_method']) : null,
+        paymentMethodId: map['payment_method_id'],
+        paymentMethod: PaymentMethodsModel.fromMap(map['payment_method']),
         checkPoints: List<CheckPointEnum>.from(map['check_points']?.map((checkPoint) {
               return CheckPointEnum.values.firstWhere((element) => element.name == checkPoint);
             }).toList() ??

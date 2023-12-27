@@ -5,7 +5,7 @@ class ItemsRepository implements IItemsRepository {
   final HttpDio http;
   ItemsRepository({required this.http});
   @override
-  Future<List<ItemModel>> getByEstablishmentId(int establishmentId, {bool? visible}) async {
+  Future<List<ItemModel>> getByEstablishmentId(String establishmentId, {bool? visible}) async {
     String filterVisbile = "";
     if (visible != null) filterVisbile = HttpUtils.filterVisible(visible);
     final request = await http.get("rest/v1/items?establishment_id=eq.$establishmentId$filterVisbile&select=*");
@@ -29,7 +29,7 @@ class ItemsRepository implements IItemsRepository {
   }
 
   @override
-  Future<void> delete({required int id, required AuthModel auth}) async {
+  Future<void> delete({required String id, required AuthModel auth}) async {
     await http.delete(
       "rest/v1/items?id=eq.$id",
       headers: {"Authorization": "Bearer ${auth.accessToken}"},

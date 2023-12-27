@@ -5,7 +5,7 @@ Future<void> main() async {
   //TODO EHM: TESTE
   const email = "eduardohr.muniz@gmail.com";
   AuthModel auth = AuthModel();
-  final http = HttpDio(autoToast: false);
+  final http = HttpDio();
   final authRepository = AuthRepository(http: http);
   if (auth.accessToken == null) auth = await authRepository.loginByEmail(email: email, password: Env.passwordDefault);
   final repository = ComplementsRepository(http: http);
@@ -13,8 +13,9 @@ Future<void> main() async {
   const int complementId = 6;
 
   final complementMock = ComplementModel(
+    id: uuid,
     description: "Descrição",
-    establishmentId: establishmentId,
+    establishmentId: "establishmentId",
     index: 0,
     name: "Name",
     updatedAt: DateTime.now(),
@@ -40,7 +41,7 @@ Future<void> main() async {
     //Arrange
 
     //Act
-    final result = await repository.getByEstablishmentId(establishmentId);
+    final result = await repository.getByEstablishmentId('establishmentId');
 
     //Assert
     expect(result, isA<List<ComplementModel>>());
@@ -50,7 +51,7 @@ Future<void> main() async {
     //Arrange
 
     //Act
-    await repository.delete(id: complementId, auth: auth);
+    await repository.delete(id: complementMock.id, auth: auth);
     //Assert
   });
 }

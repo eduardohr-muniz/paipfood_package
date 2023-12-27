@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class PaymentMethodsModel {
-  final int id;
+  final String id;
   final String name;
   final String countryId;
   final double? tax;
@@ -23,7 +23,7 @@ class PaymentMethodsModel {
 
   factory PaymentMethodsModel.fromMap(Map<String, dynamic> map) {
     return PaymentMethodsModel(
-      id: map['id']?.toInt(),
+      id: map['id'],
       name: map['name'],
       countryId: map['country_id'],
       tax: map['tax'],

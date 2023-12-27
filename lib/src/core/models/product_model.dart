@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'package:paipfood_package/src/core/provider/global_variables.dart';
+
+import 'package:paipfood_package/paipfood_package.dart';
 
 import 'complement_model.dart';
 
@@ -15,51 +16,56 @@ enum QtyFlavorsPizza {
 }
 
 class ProductModel {
-  final int? index;
+  String id;
+  String categoryId;
+  String? complementPizzaId;
+  int index;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final bool toUpdate;
-  final int? establishmentId;
-  final int? id;
-  final QtyFlavorsPizza? qtyFlavorsPizza;
-  final String name;
-  final String description;
-  final double price;
-  final double promotionalPrice;
-  final bool isPromotional;
-  final bool visible;
-  final String? image;
-  final int? categoryId;
-  final List<ComplementModel>? complements;
-  final int? complementPizzaId;
-
+  bool toUpdate;
+  String establishmentId;
+  QtyFlavorsPizza? qtyFlavorsPizza;
+  String name;
+  String description;
+  double price;
+  double promotionalPrice;
+  bool isPromotional;
+  bool visible;
+  String? image;
+  List<ComplementModel>? complements;
+  bool isDeleted;
+  SyncState syncState;
   ProductModel({
-    this.index,
+    required this.id,
+    required this.categoryId,
+    required this.index,
+    this.complementPizzaId,
     this.createdAt,
     this.updatedAt,
     this.toUpdate = false,
-    this.establishmentId,
-    this.id,
+    this.establishmentId = '',
     this.qtyFlavorsPizza,
     this.name = '',
     this.description = '',
     this.price = 0.0,
     this.promotionalPrice = 0.0,
     this.isPromotional = false,
-    this.visible = true,
+    this.visible = false,
     this.image,
-    this.categoryId,
     this.complements,
-    this.complementPizzaId,
+    this.isDeleted = false,
+    this.syncState = SyncState.none,
   });
 
   ProductModel copyWith({
+    String? id,
+    String? categoryId,
+    String? complementPizzaId,
     int? index,
     DateTime? createdAt,
     DateTime? updatedAt,
     bool? toUpdate,
-    int? establishmentId,
-    int? id,
+    String? establishmentId,
     QtyFlavorsPizza? qtyFlavorsPizza,
     String? name,
     String? description,
@@ -68,17 +74,19 @@ class ProductModel {
     bool? isPromotional,
     bool? visible,
     String? image,
-    int? categoryId,
     List<ComplementModel>? complements,
-    int? complementPizzaId,
+    bool? isDeleted,
+    SyncState? syncState,
   }) {
     return ProductModel(
+      id: id ?? this.id,
+      categoryId: categoryId ?? this.categoryId,
+      complementPizzaId: complementPizzaId ?? this.complementPizzaId,
       index: index ?? this.index,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       toUpdate: toUpdate ?? this.toUpdate,
       establishmentId: establishmentId ?? this.establishmentId,
-      id: id ?? this.id,
       qtyFlavorsPizza: qtyFlavorsPizza ?? this.qtyFlavorsPizza,
       name: name ?? this.name,
       description: description ?? this.description,
@@ -87,14 +95,15 @@ class ProductModel {
       isPromotional: isPromotional ?? this.isPromotional,
       visible: visible ?? this.visible,
       image: image ?? this.image,
-      categoryId: categoryId ?? this.categoryId,
       complements: complements ?? this.complements,
-      complementPizzaId: complementPizzaId ?? this.complementPizzaId,
+      isDeleted: isDeleted ?? this.isDeleted,
+      syncState: syncState ?? this.syncState,
     );
   }
 
   Map<String, dynamic> toMap() {
-    final map = {
+    return {
+      'id': id,
       'index': index,
       'updated_at': updatedAt?.toIso8601String(),
       'establishment_id': establishmentId,
@@ -108,19 +117,20 @@ class ProductModel {
       'image': image,
       'category_id': categoryId,
       'complement_pizza_id': complementPizzaId,
+      'is_deleted': isDeleted,
     };
-    if (id != null) map.addAll({'id': id});
-    return map;
   }
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
+      id: map['id'],
+      categoryId: map['category_id'],
+      complementPizzaId: map['complement_pizza_id'],
       index: map['index'],
       createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
       updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
       toUpdate: map['toUpdate'] ?? false,
       establishmentId: map['establishment_id'],
-      id: map['id']?.toInt(),
       qtyFlavorsPizza:
           map['qty_flavors_pizza'] != null ? QtyFlavorsPizza.values.firstWhere((element) => element.index == map['qty_flavors_pizza']) : null,
       name: map['name'] ?? '',
@@ -130,9 +140,7 @@ class ProductModel {
       isPromotional: map['is_promotional'] ?? false,
       visible: map['visible'] ?? false,
       image: map['image'],
-      categoryId: map['category_id']?.toInt(),
       complements: map['complements'] != null ? List<ComplementModel>.from(map['complements']?.map(ComplementModel.fromMap)) : null,
-      complementPizzaId: map['complement_pizza_id'],
     );
   }
 

@@ -1,14 +1,12 @@
-import 'dart:math';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:paipfood_package/paipfood_package.dart';
 
 void main() {
-  final http = HttpDio(autoToast: false);
+  final http = HttpDio();
   final repository = EstablishmentRepository(http: http);
   final authRepository = AuthRepository(http: http);
   CompanyModel companyMock = CompanyModel(slug: "paipfood");
-  EstablishmentModel establishmentMock = EstablishmentModel(fantasyName: "Teste", id: 16);
+  EstablishmentModel establishmentMock = EstablishmentModel(fantasyName: "Teste", id: uuid, deliveryAreas: [], companySlug: 'paipfood');
 
   const String email = "eduardohr.muniz@gmail.com";
   group('GET establishmentRepository', () {
@@ -22,8 +20,8 @@ void main() {
 
     test('getCompanyBySlug', () async {
       //Arrange
-      final request = await repository.getCompanyBySlug(slug: "paipfood");
-      final requestNull = await repository.getCompanyBySlug(slug: "p");
+      final request = await repository.getCompanyBySlug("paipfood");
+      final requestNull = await repository.getCompanyBySlug("p");
       //Act
       expect(request, isA<CompanyModel>());
       //Assert
@@ -32,7 +30,7 @@ void main() {
 
     test('getEstablishments', () async {
       //Arrange
-      final request = await repository.getEstablishmentsBySlug(companyMock.slug!);
+      final request = await repository.getEstablishmentsBySlug(companyMock.slug);
       //Act
       expect(request, isA<List<EstablishmentModel>>());
       //Assert
@@ -40,8 +38,8 @@ void main() {
 
     test('getEstablishmentById', () async {
       //Arrange
-      final request = await repository.getEstablishmentById(id: 22);
-      final requestNull = await repository.getEstablishmentById(id: 1);
+      final request = await repository.getEstablishmentById('22');
+      final requestNull = await repository.getEstablishmentById('');
       //Act
       expect(request, isA<EstablishmentModel>());
       //Assert
@@ -72,13 +70,13 @@ void main() {
     //Arrange
     final user = await authRepository.loginByEmail(email: email, password: Env.passwordDefault);
     //Act
-    final request = await repository.insertEstablishment(auth: user, companySlug: companyMock.slug!, establishment: establishmentMock);
+    final request = await repository.insertEstablishment(auth: user, companySlug: companyMock.slug, establishment: establishmentMock);
     //Assert
     expect(request, isA<EstablishmentModel>());
   });
 
   test('updateEstablishment', () async {
-    establishmentMock = establishmentMock.copyWith(fantasyName: "Trocamos de nome", id: 16, companySlug: companyMock.slug);
+    establishmentMock = establishmentMock.copyWith(fantasyName: "Trocamos de nome", id: "16", companySlug: companyMock.slug);
     //Arrange
     final user = await authRepository.loginByEmail(email: email, password: Env.passwordDefault);
     //Act

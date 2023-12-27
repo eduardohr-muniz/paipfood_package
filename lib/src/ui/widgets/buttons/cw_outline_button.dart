@@ -6,12 +6,16 @@ class CwOutlineButton extends StatelessWidget {
   final String label;
   final void Function()? onPressed;
   final Color color;
+  final bool enable;
+  final bool autoToast;
   const CwOutlineButton({
     required this.label,
     required this.onPressed,
     Key? key,
     this.icon,
     this.color = PColors.primaryColor_,
+    this.enable = true,
+    this.autoToast = true,
   }) : super(key: key);
 
   @override
@@ -27,7 +31,15 @@ class CwOutlineButton extends StatelessWidget {
         label,
         style: TextStyle(color: color),
       ),
-      onPressed: onPressed,
+      onPressed: enable
+          ? () {
+              try {
+                onPressed?.call();
+              } catch (e) {
+                if (autoToast) toast.showError(e.toString());
+              }
+            }
+          : null,
       style: OutlinedButton.styleFrom(
         // backgroundColor: color,
         minimumSize: const Size(60, 45),

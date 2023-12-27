@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:paipfood_package/src/ui/overlay_loader.dart';
 
 class FutureState<T> extends StatelessWidget {
+  final bool ignoreListEmpty;
   final Future<T> future;
   final T? initialData;
   final Widget Function(BuildContext context, Object? error)? onError;
@@ -16,6 +17,7 @@ class FutureState<T> extends StatelessWidget {
     this.onError,
     this.onLoading,
     this.onEmpty,
+    this.ignoreListEmpty = false,
   }) : super(key: key);
 
   @override
@@ -37,13 +39,16 @@ class FutureState<T> extends StatelessWidget {
           if (onLoading != null) {
             return onLoading!(context);
           } else {
-            Loader.show(context);
+            Loader.show(context, overlayColor: Colors.transparent);
           }
         }
 
         if (status == ConnectionState.done) {
           if (onLoading == null) Loader.hide();
           if (snapshot.hasData && snapshot.data.toString() != "[]") {
+            return onComplete(context, snapshot.data as T);
+          }
+          if (!snapshot.hasData && ignoreListEmpty) {
             return onComplete(context, snapshot.data as T);
           }
           if (onEmpty != null) {

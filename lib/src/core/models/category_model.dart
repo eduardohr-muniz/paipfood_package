@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'product_model.dart';
+
+import 'package:paipfood_package/paipfood_package.dart';
 
 enum CategoryType {
   product,
@@ -7,65 +8,70 @@ enum CategoryType {
 }
 
 class CategoryModel {
-  final int? index;
+  final String id;
+  final String establishmentId;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final bool toUpdate;
-  final int? establishmentId;
-  final int? id;
-  final String name;
-  final String description;
-  final bool visible;
-  final String image;
-  final CategoryType categoryType;
-  final List<ProductModel>? products;
+  int? index;
+  String name;
+  String description;
+  bool visible;
+  String image;
+  CategoryType categoryType;
+  List<ProductModel> products;
+  bool isDeleted;
+  SyncState syncState;
   CategoryModel({
+    required this.id,
+    required this.establishmentId,
+    required this.products,
     this.index,
     this.createdAt,
     this.updatedAt,
-    this.toUpdate = false,
-    this.establishmentId,
-    this.id,
     this.name = '',
     this.description = '',
     this.visible = true,
     this.image = '',
     this.categoryType = CategoryType.product,
-    this.products,
+    this.syncState = SyncState.none,
+    this.isDeleted = false,
   });
 
   CategoryModel copyWith({
-    int? index,
+    String? id,
+    String? establishmentId,
     DateTime? createdAt,
     DateTime? updatedAt,
-    bool? toUpdate,
-    int? establishmentId,
-    int? id,
+    int? index,
     String? name,
     String? description,
     bool? visible,
     String? image,
     CategoryType? categoryType,
     List<ProductModel>? products,
+    bool? isDeleted,
+    SyncState? syncState,
   }) {
     return CategoryModel(
-      index: index ?? this.index,
+      id: id ?? this.id,
+      establishmentId: establishmentId ?? this.establishmentId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      toUpdate: toUpdate ?? this.toUpdate,
-      establishmentId: establishmentId ?? this.establishmentId,
-      id: id ?? this.id,
+      index: index ?? this.index,
       name: name ?? this.name,
       description: description ?? this.description,
       visible: visible ?? this.visible,
       image: image ?? this.image,
       categoryType: categoryType ?? this.categoryType,
       products: products ?? this.products,
+      isDeleted: isDeleted ?? this.isDeleted,
+      syncState: syncState ?? this.syncState,
     );
   }
 
   Map<String, dynamic> toMap() {
-    final map = {
+    return {
+      'id': id,
       'index': index,
       'updated_at': updatedAt?.toIso8601String(),
       'establishment_id': establishmentId,
@@ -74,9 +80,8 @@ class CategoryModel {
       'visible': visible,
       'image': image,
       'category_type': categoryType.name,
+      'is_deleted': isDeleted,
     };
-    if (id != null) map.addAll({'id': id});
-    return map;
   }
 
   factory CategoryModel.fromMap(Map<String, dynamic> map) {
@@ -91,7 +96,8 @@ class CategoryModel {
       visible: map['visible'] ?? false,
       image: map['image'] ?? '',
       categoryType: CategoryType.values.firstWhere((element) => element.name == map['category_type'], orElse: () => CategoryType.product),
-      products: map['products'] != null ? List<ProductModel>.from(map['products']?.map(ProductModel.fromMap)) : null,
+      products: [],
+      isDeleted: map['is_deleted'] ?? false,
     );
   }
 

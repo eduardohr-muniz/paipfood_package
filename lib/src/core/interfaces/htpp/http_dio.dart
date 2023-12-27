@@ -5,7 +5,7 @@ class HttpDio implements IHttp {
   final bool autoToast;
   final log = Log(printer: PrettyPrinter());
 
-  HttpDio({BaseOptions? baseOptions, this.autoToast = true}) {
+  HttpDio({BaseOptions? baseOptions, this.autoToast = false}) {
     baseOptions != null ? _dio = Dio(baseOptions) : _dio = Dio(_defaultOptions);
   }
 
@@ -47,7 +47,7 @@ class HttpDio implements IHttp {
     } on DioException catch (e) {
       if (autoToast) {
         _trowToast(e);
-        return HttpResponse();
+        return _trowRestClientException(e);
       } else {
         _trowRestClientException(e);
       }
@@ -70,7 +70,7 @@ class HttpDio implements IHttp {
     } on DioException catch (e) {
       if (autoToast) {
         _trowToast(e);
-        return HttpResponse();
+        return _trowRestClientException(e);
       } else {
         _trowRestClientException(e);
       }
@@ -94,7 +94,7 @@ class HttpDio implements IHttp {
     } on DioException catch (e) {
       if (autoToast) {
         _trowToast(e);
-        return HttpResponse();
+        return _trowRestClientException(e);
       } else {
         _trowRestClientException(e);
       }
@@ -117,8 +117,9 @@ class HttpDio implements IHttp {
       return _dioResponseConverter(response);
     } on DioException catch (e) {
       if (autoToast) {
-        _trowToast(e);
-        return HttpResponse();
+        _trowRestClientException(e);
+        // _trowToast(e);
+        // return _trowRestClientException(e);
       } else {
         _trowRestClientException(e);
       }
@@ -142,7 +143,7 @@ class HttpDio implements IHttp {
     } on DioException catch (e) {
       if (autoToast) {
         _trowToast(e);
-        return HttpResponse();
+        return _trowRestClientException(e);
       } else {
         _trowRestClientException(e);
       }
@@ -166,7 +167,7 @@ class HttpDio implements IHttp {
     } on DioException catch (e) {
       if (autoToast) {
         _trowToast(e);
-        return HttpResponse();
+        return _trowRestClientException(e);
       } else {
         _trowRestClientException(e);
       }
@@ -182,6 +183,8 @@ class HttpDio implements IHttp {
   }
 
   void _trowToast(DioException dioError) {
+    toast.showError("exception.toString()");
+    print(getErrorMessage(dioError));
     final exception = HttpExceptionCustom(
         error: dioError.error,
         message: dioError.message,
@@ -195,7 +198,6 @@ class HttpDio implements IHttp {
       statusCode: dioError.response?.statusCode.toString(),
       stackTrace: dioError.stackTrace,
     );
-    toast.showError(exception.toString());
   }
 
   String getErrorMessage(DioException dioError) {
@@ -205,7 +207,7 @@ class HttpDio implements IHttp {
     if (dioError.response?.data['error'] != null) {
       return dioError.response?.data['error'];
     }
-    if (dioError.response?.data['message'] == null) {
+    if (dioError.response?.data['message'] != null) {
       return dioError.response?.data['message'];
     }
     return dioError.response?.data['msg'];
@@ -219,7 +221,7 @@ class HttpDio implements IHttp {
       requestOptions: dioError.requestOptions,
       stackTrace: dioError.stackTrace,
       type: dioError.type,
-      msg: getErrorMessage(dioError) ?? dioError.response?.data['msg'],
+      msg: getErrorMessage(dioError),
     );
     _logError(
         error: exception.error.toString(),

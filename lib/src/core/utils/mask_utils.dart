@@ -1,42 +1,30 @@
-import 'dart:math';
-
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:paipfood_package/paipfood_package.dart';
 
-bool alreadyFocus = false;
+bool _alreadyFocus = false;
+Timer? _timer;
 
 class MaskUtils {
   //* - Validators
   ///[cRequired]--[email]--[password]--[confirmPassword]--[phonePtBr]--[cep]--[cnpj]--[cpf]
   //
   //* - functions
-  ///[isValidEmail]--[isValidCnpj]--[isValidCpf]
-  //
-  // static MaskInputController cRequired({String? Function(String value)? customValidate, bool isFinal = false}) {
-  //   FocusNode? focusNode;
+  ///[requestFocusOnError]--[isValidEmail]--[isValidCnpj]--[isValidCpf]
 
-  //   return MaskInputController(
-  //     getFocusNode: () {
-  //       focusNode = focusNode ?? FocusNode();
-  //       return focusNode;
-  //     },
-  //     isFinal: isFinal,
-  //     validator: (value) {
-  //       if (value == null || value.isEmpty) {
-  //         focusNode?.requestFocus();
-  //         return "Campo obrigatório";
-  //       }
-  //       if (customValidate != null) {
-  //         final String? text = customValidate.call(value);
-  //         focusNode?.requestFocus();
-  //         return text;
-  //       }
+  static void requestFocusOnError({required String? isError, required FocusNode? focusNode}) {
+    if (_alreadyFocus == false && isError != null) {
+      _alreadyFocus = true;
+      focusNode?.requestFocus();
+    }
 
-  //       return null;
-  //     },
-  //   );
-  // }
+    _timer?.cancel();
+
+    _timer = Timer(100.ms, () {
+      _alreadyFocus = false;
+    });
+  }
 
   static MaskInputController cRequired({String? Function(String? value)? customValidate, bool isFinal = false}) {
     FocusNode? focusNode;
@@ -46,27 +34,20 @@ class MaskUtils {
         focusNode = focusNode ?? FocusNode();
         return focusNode;
       },
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
         String? isError;
-        if (value == null || value.isEmpty && customValidate == null) {
+        if (value == null || value.isEmpty) {
           isError = 'Campo obrigatório';
         }
 
         if (customValidate != null) {
           isError = customValidate.call(value);
         }
-        requestFocusOnError(isFinal: isFinal, focusNode: focusNode, isError: isError);
+        requestFocusOnError(focusNode: focusNode, isError: isError);
         return isError;
       },
     );
-  }
-
-  static void requestFocusOnError({required bool isFinal, required String? isError, required FocusNode? focusNode}) {
-    if (alreadyFocus == false && isError != null) {
-      alreadyFocus = true;
-      focusNode?.requestFocus();
-    }
-    if (isFinal) alreadyFocus = false;
   }
 
   static MaskInputController currencyRequired({String? Function(String value)? customValidate}) {
@@ -79,17 +60,16 @@ class MaskUtils {
       },
       inpuFormatters: [CurrencyTextInputFormatter(decimalDigits: 2, locale: Intl.defaultLocale, symbol: "")],
       validator: (value) {
+        String? isError;
         if (value == null || value.isEmpty) {
-          focusNode?.requestFocus();
-          return "Campo obrigatório";
+          isError = "Campo obrigatório";
         }
         if (customValidate != null) {
-          final String? text = customValidate.call(value);
-          focusNode?.requestFocus();
-          return text;
+          final text = customValidate.call(value!);
+          isError = text;
         }
-
-        return null;
+        requestFocusOnError(focusNode: focusNode, isError: isError);
+        return isError;
       },
     );
   }
@@ -100,7 +80,13 @@ class MaskUtils {
     );
   }
 
-  static MaskInputController email({String? Function(String value)? customValidate}) {
+  static MaskInputController decimalDot({int? digitis = 1}) {
+    return MaskInputController(
+      inpuFormatters: [CurrencyTextInputFormatter(decimalDigits: 1, locale: 'en', symbol: "")],
+    );
+  }
+
+  static MaskInputController email({required bool isRequired, String? Function(String value)? customValidate, bool isFinal = false}) {
     FocusNode? focusNode;
     bool isValidEmail(String email) {
       final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
@@ -108,32 +94,36 @@ class MaskUtils {
     }
 
     return MaskInputController(
+      keyboardType: TextInputType.emailAddress,
       getFocusNode: () {
         focusNode = focusNode ?? FocusNode();
         return focusNode!;
       },
       validator: (value) {
-        if (value == null || value.isEmpty) {
-          focusNode?.requestFocus();
-          return "E-mail obrigatório.";
-        }
-        if (!isValidEmail(value)) {
-          focusNode?.requestFocus();
-          return "E-mail inválido";
-        }
-        if (customValidate != null) {
-          final String? text = customValidate.call(value);
-          if (text != null) {
-            focusNode?.requestFocus();
-            return text;
+        String? isError;
+        if (isRequired) {
+          if (value == null || value.isEmpty) {
+            isError = "E-mail obrigatório.";
           }
         }
-        return null;
+        if (value != null && value.isNotEmpty) {
+          if (!isValidEmail(value)) {
+            isError = "E-mail inválido";
+          }
+          if (customValidate != null) {
+            final String? text = customValidate.call(value);
+            if (text != null) {
+              isError = text;
+            }
+          }
+        }
+        requestFocusOnError(isError: isError, focusNode: focusNode);
+        return isError;
       },
     );
   }
 
-  static MaskInputController password({String? Function(String value)? customValidate}) {
+  static MaskInputController password({String? Function(String value)? customValidate, bool isFinal = false}) {
     FocusNode? focusNode;
     return MaskInputController(
       getFocusNode: () {
@@ -141,29 +131,32 @@ class MaskUtils {
         return focusNode;
       },
       validator: (value) {
+        String? isError;
         if (value == null || value.isEmpty) {
-          focusNode?.requestFocus();
-          return "Senha obrigatória";
+          isError = "Senha obrigatória";
         }
-        if (value.length < 8) {
+        if (value!.length < 8) {
           focusNode?.requestFocus();
-          return "Sua senha deve conter no minimo 8 caracteres";
+          isError = "Sua senha deve conter no minimo 8 caracteres";
         }
         if (customValidate != null) {
           final String? text = customValidate.call(value);
           if (text != null) {
             focusNode?.requestFocus();
-            return text;
+            isError = text;
           }
         }
-        return null;
+        requestFocusOnError(isError: isError, focusNode: focusNode);
+        return isError;
       },
     );
   }
 
   static MaskInputController phonePtBr({required TextEditingController textEditingController, required int minLenght}) {
     FocusNode? focusNode;
-    final maskFormatter = [MaskTextInputFormatter(mask: "(##) ####-####"), MaskTextInputFormatter(mask: "(##)# ####-####")];
+    final maskFormatter = [
+      MaskTextInputFormatter(mask: "(##) ####-#############"),
+    ];
     return MaskInputController(
       getFocusNode: () {
         focusNode = focusNode ?? FocusNode();
@@ -173,22 +166,22 @@ class MaskUtils {
       inpuFormatters: maskFormatter,
       onChanged: (value) {
         final lenght = value.length;
-        if (lenght == min(13, 14)) {
-          textEditingController.value = maskFormatter[0].updateMask(mask: lenght == 13 ? "(##) ####-#####" : "(##) ####-#####");
+        if (lenght <= 13) {
+          textEditingController.value = maskFormatter[0].updateMask(mask: "(##) ####-##################");
         }
-        if (value.length >= 15) textEditingController.value = maskFormatter[0].updateMask(mask: "(##)# ####-####");
+        if (value.length == 14) textEditingController.value = maskFormatter[0].updateMask(mask: "(##)# ####-#################");
       },
       keyboardType: TextInputType.number,
       validator: (value) {
+        String? isError;
         if (value == null || value.isEmpty) {
-          focusNode?.requestFocus();
-          return "Telefone obrigatório.";
+          isError = "Telefone obrigatório.";
         }
-        if (Utils.onlyNumbersRgx(value).length < minLenght) {
-          focusNode?.requestFocus();
-          return "Telefone incompleto";
+        if (Utils.onlyNumbersRgx(value!).length < minLenght) {
+          isError = "Telefone incompleto";
         }
-        return null;
+        requestFocusOnError(isError: isError, focusNode: focusNode);
+        return isError;
       },
     );
   }
@@ -203,10 +196,12 @@ class MaskUtils {
       inpuFormatters: [MaskTextInputFormatter(mask: "#####-###")],
       keyboardType: TextInputType.number,
       validator: (value) {
+        String? isError;
         if (value != null && value.length > 1 && value.length < 9) {
-          return "Cep incompleto";
+          isError = "Cep incompleto";
         }
-        return null;
+        requestFocusOnError(isError: isError, focusNode: focusNode);
+        return isError;
       },
     );
   }
@@ -220,16 +215,18 @@ class MaskUtils {
       },
       inpuFormatters: [MaskTextInputFormatter(mask: "##.###.###/####-##")],
       validator: (value) {
+        String? isError;
         if (value == null || value.isEmpty) {
-          return "Cnpj obrigatório.";
+          isError = "Cnpj obrigatório.";
         }
-        if (value.length < 18) {
-          return "Cnpj incompleto";
+        if (value!.length < 18) {
+          isError = "Cnpj incompleto";
         }
         if (!isValidCnpj(value)) {
-          return "Cnpj inválido";
+          isError = "Cnpj inválido";
         }
-        return null;
+        requestFocusOnError(isError: isError, focusNode: focusNode);
+        return isError;
       },
     );
   }
@@ -276,19 +273,21 @@ class MaskUtils {
       inpuFormatters: [MaskTextInputFormatter(mask: "###.###.###-##")],
       keyboardType: TextInputType.number,
       validator: (value) {
+        String? isError;
         if (value == null || value.isEmpty) {
           focusNode?.requestFocus();
-          return "Cpf obrigatório.";
+          isError = "Cpf obrigatório.";
         }
-        if (value.length < 14) {
+        if (value!.length < 14) {
           focusNode?.requestFocus();
-          return "Cpf incompleto";
+          isError = "Cpf incompleto";
         }
         if (!isValidCpf(value)) {
           focusNode?.requestFocus();
-          return "Cpf inválido";
+          isError = "Cpf inválido";
         }
-        return null;
+        requestFocusOnError(isError: isError, focusNode: focusNode);
+        return isError;
       },
     );
   }

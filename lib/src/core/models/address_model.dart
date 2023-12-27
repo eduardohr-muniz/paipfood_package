@@ -1,30 +1,32 @@
 import 'dart:convert';
 
+import 'package:paipfood_package/paipfood_package.dart';
+
 class AddressModel {
-  final int? id;
+  final String id;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final bool? toUpdate;
-  final String street;
-  final String number;
-  final String neighborhood;
-  final String complement;
-  final String zipCode;
-  final String state;
-  final double lat;
-  final double lon;
-  final String address;
-  final String city;
-  final String country;
+  String street;
+  String number;
+  String neighborhood;
+  String complement;
+  String zipCode;
+  String state;
+  double lat;
+  double long;
+  String address;
+  String city;
+  String country;
   final String? userId;
-  final int? establishmentId;
+  final String? establishmentId;
+  SyncState syncState;
+  bool isDeleted;
   AddressModel({
+    required this.id,
     this.lat = 0,
-    this.lon = 0,
+    this.long = 0,
     this.createdAt,
     this.updatedAt,
-    this.toUpdate = false,
-    this.id,
     this.street = "",
     this.number = "",
     this.neighborhood = "",
@@ -36,13 +38,14 @@ class AddressModel {
     this.country = "",
     this.userId,
     this.establishmentId,
+    this.syncState = SyncState.none,
+    this.isDeleted = false,
   });
 
   AddressModel copyWith({
-    int? id,
+    String? id,
     DateTime? createdAt,
     DateTime? updatedAt,
-    bool? toUpdate,
     String? street,
     String? number,
     String? neighborhood,
@@ -50,18 +53,19 @@ class AddressModel {
     String? zipCode,
     String? state,
     double? lat,
-    double? lon,
+    double? long,
     String? address,
     String? city,
     String? country,
     String? userId,
-    int? establishmentId,
+    String? establishmentId,
+    SyncState? syncState,
+    bool? isDeleted,
   }) {
     return AddressModel(
       id: id ?? this.id,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      toUpdate: toUpdate ?? this.toUpdate,
       street: street ?? this.street,
       number: number ?? this.number,
       neighborhood: neighborhood ?? this.neighborhood,
@@ -69,17 +73,20 @@ class AddressModel {
       zipCode: zipCode ?? this.zipCode,
       state: state ?? this.state,
       lat: lat ?? this.lat,
-      lon: lon ?? this.lon,
+      long: long ?? this.long,
       address: address ?? this.address,
       city: city ?? this.city,
       country: country ?? this.country,
       userId: userId ?? this.userId,
       establishmentId: establishmentId ?? this.establishmentId,
+      syncState: syncState ?? this.syncState,
+      isDeleted: isDeleted ?? this.isDeleted,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'updated_at': DateTime.now().toIso8601String(),
       'street': street,
       'number': number,
@@ -88,21 +95,21 @@ class AddressModel {
       'zip_code': zipCode,
       'state': state,
       'lat': lat,
-      'lon': lon,
+      'long': long,
       'address': address,
       'city': city,
       'country': country,
       'user_id': userId,
       'establishment_id': establishmentId,
+      'is_deleted': isDeleted,
     };
   }
 
   factory AddressModel.fromMap(Map<String, dynamic> map) {
     return AddressModel(
+      id: map['id'],
       createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
       updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
-      toUpdate: map['to_update'] ?? false,
-      id: map['id']?.toInt(),
       street: map['street'] ?? "",
       number: map['number'] ?? "",
       neighborhood: map['neighborhood'] ?? "",
@@ -110,16 +117,22 @@ class AddressModel {
       zipCode: map['zipCode'] ?? "",
       state: map['state'] ?? "",
       lat: map['lat']?.toDouble() ?? 0.0,
-      lon: map['lon']?.toDouble() ?? 0.0,
+      long: map['long']?.toDouble() ?? 0.0,
       address: map['address'] ?? "",
       city: map['city'] ?? "",
       country: map['country'] ?? "",
       userId: map['user_id'],
       establishmentId: map['establishment_id'],
+      isDeleted: map['is_deleted'] ?? false,
     );
   }
 
   String toJson() => json.encode(toMap());
 
   factory AddressModel.fromJson(String source) => AddressModel.fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'AddressModel(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, street: $street, number: $number, neighborhood: $neighborhood, complement: $complement, zipCode: $zipCode, state: $state, lat: $lat, lon: $long, address: $address, city: $city, country: $country, userId: $userId, establishmentId: $establishmentId)';
+  }
 }

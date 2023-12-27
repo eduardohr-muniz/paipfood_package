@@ -4,41 +4,41 @@ import 'package:paipfood_package/src/core/enums/zz_enums_export.dart';
 
 import 'zz_models_export.dart';
 
-// preferenceTheme: PreferenceTheme.values.firstWhere((eleiment) => element.name == map['preference_theme']),
 const List<CheckPointEnum> checkPointsDef = [CheckPointEnum.establishment, CheckPointEnum.delivery];
 
 class EstablishmentModel {
-  final int? id;
+  final String id;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final bool toUpdate;
   final String companySlug;
-  final String fantasyName;
-  final String corporateName;
-  final String description;
-  final String personalDocument;
-  final String businessDocument;
-  final bool isOpen;
-  final bool isBlocked;
-  final double pendingRate;
-  final bool isHigherPricePizza;
-  final String? logo;
-  final String? banner;
-  final AddressModel? address;
-  final CulinaryStyleEnum culinaryStyle;
-  final double minimunOrder;
-  final int dueDate;
-  final List<CheckPointEnum> checkPoints;
-  final ThemeEnum theme;
-  final String phone;
-  final String phoneCountryCode;
+  String fantasyName;
+  String corporateName;
+  String description;
+  String personalDocument;
+  String businessDocument;
+  bool isOpen;
+  bool isBlocked;
+  double pendingRate;
+  bool isHigherPricePizza;
+  String? logo;
+  String? banner;
+  AddressModel? address;
+  CulinaryStyleEnum culinaryStyle;
+  double minimunOrder;
+  int dueDate;
+  String phone;
+  String phoneCountryCode;
+  String email;
+  List<CheckPointEnum> checkPoints;
+  List<DeliveryAreasModel> deliveryAreas;
+  SyncState syncState;
   EstablishmentModel({
-    this.id,
-    this.address,
+    required this.id,
+    required this.deliveryAreas,
+    required this.companySlug,
     this.createdAt,
     this.updatedAt,
-    this.toUpdate = false,
-    this.companySlug = '',
+    this.address,
     this.fantasyName = '',
     this.corporateName = '',
     this.description = '',
@@ -54,16 +54,16 @@ class EstablishmentModel {
     this.minimunOrder = 10,
     this.dueDate = 10,
     this.checkPoints = checkPointsDef,
-    this.theme = ThemeEnum.paip,
     this.phone = '',
     this.phoneCountryCode = '',
+    this.email = '',
+    this.syncState = SyncState.none,
   });
 
   EstablishmentModel copyWith({
-    int? id,
+    String? id,
     DateTime? createdAt,
     DateTime? updatedAt,
-    bool? toUpdate,
     String? companySlug,
     String? fantasyName,
     String? corporateName,
@@ -80,16 +80,17 @@ class EstablishmentModel {
     CulinaryStyleEnum? culinaryStyle,
     double? minimunOrder,
     int? dueDate,
-    List<CheckPointEnum>? checkPoints,
-    ThemeEnum? theme,
     String? phone,
     String? phoneCountryCode,
+    String? email,
+    List<CheckPointEnum>? checkPoints,
+    List<DeliveryAreasModel>? deliveryAreas,
+    SyncState? syncState,
   }) {
     return EstablishmentModel(
       id: id ?? this.id,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      toUpdate: toUpdate ?? this.toUpdate,
       companySlug: companySlug ?? this.companySlug,
       fantasyName: fantasyName ?? this.fantasyName,
       corporateName: corporateName ?? this.corporateName,
@@ -106,15 +107,18 @@ class EstablishmentModel {
       culinaryStyle: culinaryStyle ?? this.culinaryStyle,
       minimunOrder: minimunOrder ?? this.minimunOrder,
       dueDate: dueDate ?? this.dueDate,
-      checkPoints: checkPoints ?? this.checkPoints,
-      theme: theme ?? this.theme,
       phone: phone ?? this.phone,
       phoneCountryCode: phoneCountryCode ?? this.phoneCountryCode,
+      email: email ?? this.email,
+      checkPoints: checkPoints ?? this.checkPoints,
+      deliveryAreas: deliveryAreas ?? this.deliveryAreas,
+      syncState: syncState ?? this.syncState,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'updated_at': DateTime.now().toIso8601String(),
       'company_slug': companySlug,
       'fantasy_name': fantasyName,
@@ -132,9 +136,9 @@ class EstablishmentModel {
       'minimun_order': minimunOrder,
       'due_date': dueDate,
       'check_points': checkPoints.map((e) => e.name).toList(),
-      'theme': theme.name,
       'phone': phone,
       'phone_country_code': phoneCountryCode,
+      'email': email,
     };
   }
 
@@ -143,7 +147,6 @@ class EstablishmentModel {
       id: map['id'],
       createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
       updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
-      toUpdate: map['to_update'] ?? false,
       companySlug: map['company_slug'] ?? '',
       fantasyName: map['fantasy_name'] ?? '',
       corporateName: map['corporate_name'] ?? '',
@@ -163,9 +166,10 @@ class EstablishmentModel {
             return CheckPointEnum.values.firstWhere((element) => element.name == checkPoint);
           }).toList() ??
           []),
-      theme: ThemeEnum.values.firstWhere((element) => element.name == map['theme'], orElse: () => ThemeEnum.paip),
       phone: map['phone'] ?? '',
       phoneCountryCode: map['phone_country_code'] ?? '',
+      email: map['email'] ?? '',
+      deliveryAreas: [],
     );
   }
 

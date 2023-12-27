@@ -3,22 +3,25 @@ import 'dart:convert';
 import 'package:paipfood_package/paipfood_package.dart';
 
 class PreferencesModel {
-  final int? establishmentId;
-  final bool? isDarkMode;
-  final String? languageCode;
-  final String? countryCode;
-  final AuthModel? authModel;
+  final String id;
+  final String? establishmentId;
+  bool? isDarkMode;
+  String? languageCode;
+  String? countryCode;
+  AuthModel? authModel;
 
   PreferencesModel({
+    required this.id,
+    this.authModel,
     this.establishmentId,
     this.isDarkMode,
     this.languageCode,
     this.countryCode,
-    this.authModel,
   });
 
   Map<String, dynamic> toMap({bool supabase = true}) {
     final map = {
+      'id': id,
       'establishment_id': establishmentId,
       'is_dark_mode': isDarkMode,
       'language_code': languageCode,
@@ -32,6 +35,7 @@ class PreferencesModel {
 
   factory PreferencesModel.fromMap(Map<String, dynamic> map) {
     return PreferencesModel(
+      id: map['id'] ?? uuid,
       establishmentId: map['establishment_id'],
       isDarkMode: map['is_dark_mode'],
       languageCode: map['language_code'],
@@ -45,17 +49,19 @@ class PreferencesModel {
   factory PreferencesModel.fromJson(String source) => PreferencesModel.fromMap(json.decode(source));
 
   PreferencesModel copyWith({
-    int? establishmentId,
+    String? id,
+    String? establishmentId,
     bool? isDarkMode,
     String? languageCode,
     String? countryCode,
     AuthModel? authModel,
   }) {
     return PreferencesModel(
+      id: id ?? this.id,
       establishmentId: establishmentId ?? this.establishmentId,
       isDarkMode: isDarkMode ?? this.isDarkMode,
       languageCode: languageCode ?? this.languageCode,
-      countryCode: countryCode,
+      countryCode: countryCode ?? this.countryCode,
       authModel: authModel ?? this.authModel,
     );
   }

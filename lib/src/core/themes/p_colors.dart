@@ -8,7 +8,8 @@ class PColors extends ThemeExtension<PColors> {
   static const Color secondaryColor_ = Color(0xffCAE97C);
   static const Color tertiaryColor_ = Color(0xffceac5c);
   static const Color blackColor_ = Color(0xff030401);
-  static const Color errorColor_ = Color(0xff7E121d);
+  static const Color errorColorL_ = Colors.red;
+  static const Color errorColorD_ = Colors.redAccent;
   //?light
   static const Color surfaceL_ = Color(0xffF5F6FA);
   static const Color primaryBGL_ = Color(0xffFFFFFF);
@@ -49,7 +50,7 @@ class PColors extends ThemeExtension<PColors> {
     primaryColor: primaryColor_,
     secondaryColor: secondaryColor_,
     tertiaryColor: tertiaryColor_,
-    errorColor: errorColor_,
+    errorColor: errorColorL_,
     surface: surfaceL_,
     primaryBG: primaryBGL_,
     onPrimaryBG: onPrimaryBGL_,
@@ -60,7 +61,7 @@ class PColors extends ThemeExtension<PColors> {
     primaryColor: primaryColor_,
     secondaryColor: secondaryColor_,
     tertiaryColor: tertiaryColor_,
-    errorColor: errorColor_,
+    errorColor: errorColorD_,
     surface: surfaceD_,
     primaryBG: primaryBGD_,
     onPrimaryBG: onPrimaryBGD_,

@@ -12,3 +12,5 @@ export 'package:flutter_modular/flutter_modular.dart';
 export 'package:window_manager/window_manager.dart';
 export 'package:pin_code_fields/pin_code_fields.dart';
 export 'package:socket_io_client/socket_io_client.dart';
+export 'package:collection/collection.dart';
+export 'package:uuid/uuid.dart';

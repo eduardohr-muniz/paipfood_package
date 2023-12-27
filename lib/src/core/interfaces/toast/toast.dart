@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:paipfood_package/paipfood_package.dart';
 
-import 'i_toast.dart';
-
 class Toast implements IToast {
   final BuildContext context;
   Toast._(this.context);
@@ -56,25 +54,19 @@ class Toast implements IToast {
     return Duration(milliseconds: miliseconds);
   }
 
-  void _showMessage({required String label, required String message, required Color color, Widget? icon}) {
+  void _showMessage({required String label, required String message, required Color color, Widget? icon, Color? backGroundColor}) {
     toastification.show(
         context: context,
         title: label,
         style: ToastificationStyle.fillColored,
         autoCloseDuration: calculeDuration(message),
-        backgroundColor: context.color.onPrimaryBG,
+        backgroundColor: backGroundColor ?? context.color.onPrimaryBG,
         primaryColor: color,
         foregroundColor: context.color.primaryText,
         borderRadius: BorderRadius.circular(4),
         dragToClose: true,
         showProgressBar: true,
-        boxShadow: [
-          const BoxShadow(
-            color: Color.fromRGBO(0, 0, 0, 0.35),
-            blurRadius: 15,
-            offset: Offset(0, 5),
-          ),
-        ],
+        boxShadow: [],
         description: message,
         closeButtonShowType: CloseButtonShowType.always,
         icon: icon,

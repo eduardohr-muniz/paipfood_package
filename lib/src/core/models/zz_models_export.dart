@@ -9,7 +9,7 @@ export 'delivery_areas_model.dart';
 export 'establishment_model.dart';
 export 'invoice_model.dart';
 export 'item_model.dart';
-export 'lat_long_delivery_areas_model.dart';
+export 'lat_long_model.dart';
 export 'payment_method_company_model.dart';
 export 'payment_methods_model.dart';
 export 'plans_model.dart';

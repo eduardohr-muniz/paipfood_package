@@ -15,24 +15,23 @@ class UserModel {
   final DateTime? lastSignInAt;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final String name;
-  final String surname;
+  String name;
   final List<Permissions>? permissions;
   final String? companySlug;
-  UserModel(
-      {this.id,
-      this.email,
-      this.emailConfirmedAt,
-      this.phone,
-      this.phoneConfirmedAt,
-      this.confirmedAt,
-      this.lastSignInAt,
-      this.createdAt,
-      this.updatedAt,
-      this.name = "",
-      this.surname = "",
-      this.permissions,
-      this.companySlug});
+  UserModel({
+    this.id,
+    this.email,
+    this.emailConfirmedAt,
+    this.phone,
+    this.phoneConfirmedAt,
+    this.confirmedAt,
+    this.lastSignInAt,
+    this.createdAt,
+    this.updatedAt,
+    this.name = "",
+    this.permissions,
+    this.companySlug,
+  });
 
   UserModel copyWith({
     String? id,
@@ -45,7 +44,6 @@ class UserModel {
     DateTime? createdAt,
     DateTime? updatedAt,
     String? name,
-    String? surname,
     List<Permissions>? permissions,
     String? companySlug,
   }) {
@@ -60,7 +58,6 @@ class UserModel {
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       name: name ?? this.name,
-      surname: surname ?? this.surname,
       permissions: permissions ?? this.permissions,
       companySlug: companySlug ?? this.companySlug,
     );
@@ -85,8 +82,7 @@ class UserModel {
       'email': email,
       'phone': phone,
       'name': name,
-      'surname': surname,
-      'permissions': permissions,
+      'permissions': permissions?.map((e) => e.name).toList(),
       'company_slug': companySlug,
     };
   }
@@ -103,11 +99,6 @@ class UserModel {
       createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
       updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
       name: map['name'] ?? "",
-      surname: map['surname'] ?? "",
-      // permissions: map['permissions'] != null
-      //     ? List<Permissions>.from(
-      //         map['permissions']?.map((permission) => Permissions.values.firstWhere((element) => element.name == permission)).toList())
-      //     : null,
       permissions: map['permissions'] != null
           ? (map['permissions'] as List).map((permission) => Permissions.values.firstWhere((element) => element.name == permission)).toList()
           : null,

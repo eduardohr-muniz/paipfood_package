@@ -6,6 +6,9 @@ class HttpUtils {
   static Map<String, dynamic> headerUpsert = {
     "Prefer": ["resolution=merge-duplicates", "return=representation"],
   };
+
+  static BaseOptions geoapifyBaseOptions = BaseOptions(baseUrl: "https://api.geoapify.com/");
+
   static Map<String, dynamic> headerAuth(AuthModel auth) => {
         "Authorization": "Bearer ${auth.accessToken}",
       };
@@ -16,4 +19,5 @@ class HttpUtils {
       };
 
   static String filterVisible(bool visible) => "&visible=eq.$visible";
+  static String queryIsDeleted(bool isDeleted) => "is_deleted=eq.$isDeleted";
 }

@@ -15,7 +15,7 @@ class AddressRepository implements IAddressRepository {
   }
 
   @override
-  Future<AddressModel> getByEstablishmentId(int id) async {
+  Future<AddressModel> getByEstablishmentId(String id) async {
     final request = await http.get("rest/v1/address?establishment_id=eq.$id&select=*");
     final List list = request.data;
     final List<AddressModel> address = list.map<AddressModel>((address) {

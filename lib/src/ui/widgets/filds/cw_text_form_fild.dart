@@ -6,11 +6,11 @@ import '../buttons/cw_icon_tolltip.dart';
 class CwTextFormFild extends StatefulWidget {
   final String? label;
   final String? initialValue;
-  final void Function(String)? onChanged;
-  final void Function(String)? onFieldSubmitted;
+  final void Function(String value)? onChanged;
+  final void Function(String value)? onFieldSubmitted;
   final MaskInputController? maskUtils;
   final TextEditingController? controller;
-  final String? Function(String?)? validator;
+  final String? Function(String? value)? validator;
   final String? hintText;
   final bool? autofocus;
   final bool? autocorrect;
@@ -32,7 +32,6 @@ class CwTextFormFild extends StatefulWidget {
   final IconData? tooltipIcon;
   final String? counterText;
   final AutovalidateMode? autovalidateMode;
-  final bool validateUserInteractor;
 
   const CwTextFormFild({
     Key? key,
@@ -64,7 +63,6 @@ class CwTextFormFild extends StatefulWidget {
     this.autovalidateMode,
     this.autofocus = false,
     this.autocorrect = false,
-    this.validateUserInteractor = false,
   }) : super(key: key);
 
   @override
@@ -135,7 +133,7 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
                 : widget.initialValue,
             autovalidateMode: () {
               if (widget.autovalidateMode != null) return widget.autovalidateMode;
-              if (widget.validateUserInteractor) return AutovalidateMode.onUserInteraction;
+              if (widget.maskUtils != null && widget.maskUtils!.autovalidateMode != null) return widget.maskUtils!.autovalidateMode;
               return null;
             }(),
             decoration: InputDecoration(

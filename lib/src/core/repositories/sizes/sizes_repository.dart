@@ -5,7 +5,7 @@ class SizesRepository implements ISizesRepository {
   final HttpDio http;
   SizesRepository({required this.http});
   @override
-  Future<List<SizeModel>> getByEstablishmentId(int establishmentId, {bool? visible}) async {
+  Future<List<SizeModel>> getByEstablishmentId(String establishmentId, {bool? visible}) async {
     String filterVisbile = "";
     if (visible != null) filterVisbile = HttpUtils.filterVisible(visible);
     final request = await http.get("rest/v1/sizes?establishment_id=eq.$establishmentId$filterVisbile&select=*");
@@ -29,7 +29,7 @@ class SizesRepository implements ISizesRepository {
   }
 
   @override
-  Future<void> delete({required int id, required AuthModel auth}) async {
+  Future<void> delete({required String id, required AuthModel auth}) async {
     await http.delete(
       "rest/v1/sizes?id=eq.$id",
       headers: {"Authorization": "Bearer ${auth.accessToken}"},

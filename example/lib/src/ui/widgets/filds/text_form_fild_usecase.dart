@@ -15,7 +15,6 @@ Widget cwTextFormFildUseCase(BuildContext context) {
 
   return Form(
     key: form,
-    // autovalidateMode: AutovalidateMode.always,
     child: Container(
       color: context.color.primaryBG,
       child: Padding(
@@ -24,9 +23,11 @@ Widget cwTextFormFildUseCase(BuildContext context) {
           child: Column(
             children: [
               CwTextFormFild(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                maskUtils: MaskUtils.cRequired(),
+                maskUtils: MaskUtils.email(isRequired: true),
               ),
+              const CwTextFormFild(
+                  // maskUtils: MaskUtils.cRequired(),
+                  ),
               CwTextFormFild(
                 maskUtils: MaskUtils.cRequired(),
               ),
@@ -79,10 +80,8 @@ Widget cwTextFormFildUseCase(BuildContext context) {
                 maskUtils: MaskUtils.cRequired(),
               ),
               CwTextFormFild(
-                maskUtils: MaskUtils.cRequired(),
-              ),
-              CwTextFormFild(
-                maskUtils: MaskUtils.cRequired(),
+                label: "Email",
+                maskUtils: MaskUtils.email(isRequired: true),
               ),
               CwTextFormFild(
                 maskUtils: MaskUtils.cRequired(),

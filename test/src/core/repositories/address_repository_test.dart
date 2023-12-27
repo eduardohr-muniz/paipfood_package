@@ -2,8 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:paipfood_package/paipfood_package.dart';
 
 void main() {
-  final http = HttpDio(autoToast: false);
-  final AddressModel addressmock = AddressModel(lat: 0.1, lon: 2.4, id: 2, city: "Tupi", country: "Brasil");
+  final http = HttpDio();
+  final AddressModel addressmock = AddressModel(id: uuid, lat: 0.1, long: 2.4, city: "Tupi", country: "Brasil");
   final repository = AddressRepository(http: http);
   test('insertAddress', () async {
     //Arrange
@@ -28,7 +28,7 @@ void main() {
     //Arrange
 
     //Act
-    final request = await repository.getByEstablishmentId(17);
+    final request = await repository.getByEstablishmentId('9bde7654-6fcf-4b45-8d58-d1cbe5f9f259');
 
     //Assert
     expect(request, isA<AddressModel>());

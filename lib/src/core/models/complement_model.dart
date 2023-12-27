@@ -1,7 +1,6 @@
 import 'dart:convert';
-import 'package:paipfood_package/src/core/provider/global_variables.dart';
 
-import 'item_model.dart';
+import 'package:paipfood_package/paipfood_package.dart';
 
 enum ComplementType {
   item,
@@ -9,27 +8,27 @@ enum ComplementType {
 }
 
 class ComplementModel {
-  final int? index;
+  final String establishmentId;
+  final String id;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final bool toUpdate;
-  final int? establishmentId;
-  final int? id;
-  final String name;
-  final String description;
-  final String nickName;
-  final int qtyMin;
-  final int qtyMax;
+  int index;
+  String name;
+  String description;
+  String nickName;
+  int qtyMin;
+  int qtyMax;
   final ComplementType complementType;
-  final List<ItemModel>? items;
-  final bool visible;
+  List<ItemModel>? items;
+  bool visible;
+  bool isDeleted;
+  SyncState syncState;
   ComplementModel({
-    this.index,
+    required this.establishmentId,
+    required this.id,
+    required this.index,
     this.createdAt,
     this.updatedAt,
-    this.toUpdate = false,
-    this.establishmentId,
-    this.id,
     this.name = '',
     this.description = '',
     this.nickName = '',
@@ -38,15 +37,16 @@ class ComplementModel {
     this.complementType = ComplementType.item,
     this.items,
     this.visible = true,
+    this.isDeleted = false,
+    this.syncState = SyncState.none,
   });
 
   ComplementModel copyWith({
-    int? index,
+    String? establishmentId,
+    String? id,
     DateTime? createdAt,
     DateTime? updatedAt,
-    bool? toUpdate,
-    int? establishmentId,
-    int? id,
+    int? index,
     String? name,
     String? description,
     String? nickName,
@@ -55,14 +55,15 @@ class ComplementModel {
     ComplementType? complementType,
     List<ItemModel>? items,
     bool? visible,
+    bool? isDeleted,
+    SyncState? syncState,
   }) {
     return ComplementModel(
-      index: index ?? this.index,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
-      toUpdate: toUpdate ?? this.toUpdate,
       establishmentId: establishmentId ?? this.establishmentId,
       id: id ?? this.id,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      index: index ?? this.index,
       name: name ?? this.name,
       description: description ?? this.description,
       nickName: nickName ?? this.nickName,
@@ -71,11 +72,14 @@ class ComplementModel {
       complementType: complementType ?? this.complementType,
       items: items ?? this.items,
       visible: visible ?? this.visible,
+      isDeleted: isDeleted ?? this.isDeleted,
+      syncState: syncState ?? this.syncState,
     );
   }
 
   Map<String, dynamic> toMap() {
-    final map = {
+    return {
+      'id': id,
       'index': index,
       'updated_at': updatedAt?.toIso8601String(),
       'establishment_id': establishmentId,
@@ -86,18 +90,17 @@ class ComplementModel {
       'qty_max': qtyMax,
       'complement_type': complementType.name,
       'visible': visible,
+      'is_deleted': isDeleted,
     };
-    if (id != null) map.addAll({'id': id});
-    return map;
   }
 
   factory ComplementModel.fromMap(Map<String, dynamic> map) {
     return ComplementModel(
+      id: map['id'],
+      establishmentId: map['establishment_id'],
       index: map['index'],
       createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
       updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
-      establishmentId: map['establishment_id'],
-      id: map['id']?.toInt(),
       name: map['name'] ?? '',
       description: map['description'] ?? '',
       nickName: map['nick_name'] ?? '',
@@ -106,6 +109,7 @@ class ComplementModel {
       complementType: ComplementType.values.firstWhere((element) => element.name == map['complement_type'], orElse: () => ComplementType.item),
       items: map['items'] != null ? List<ItemModel>.from(map['items']?.map(ItemModel.fromMap)) : null,
       visible: map['visible'] ?? true,
+      isDeleted: map['is_deleted'] ?? false,
     );
   }
 
