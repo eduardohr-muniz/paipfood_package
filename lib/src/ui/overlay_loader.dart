@@ -27,7 +27,7 @@ class Loader extends StatelessWidget {
     bool isBottomBarOverlay = true,
     bool isSafeAreaOverlay = true,
   }) {
-    final safeBottomPadding = MediaQuery.of(context).padding.bottom;
+    // final safeBottomPadding = MediaQuery.of(context).padding.bottom;
     var defaultPaddingTop = 0.0;
     var defaultPaddingBottom = 0.0;
     if (!isAppbarOverlay) {
@@ -35,7 +35,7 @@ class Loader extends StatelessWidget {
     }
     if (!isSafeAreaOverlay) {
       defaultPaddingTop = defaultValue;
-      defaultPaddingBottom = defaultValue + safeBottomPadding;
+      // defaultPaddingBottom = defaultValue + safeBottomPadding;
     } else {
       defaultPaddingTop = defaultValue;
       defaultPaddingBottom = defaultValue;

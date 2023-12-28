@@ -31,7 +31,7 @@ class CwButtonSecondary extends StatelessWidget {
       label: Text(
         label,
         style: TextStyle(color: color),
-      ),
+      ).center,
       onPressed: enable
           ? () {
               try {

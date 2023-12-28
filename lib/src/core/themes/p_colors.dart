@@ -11,14 +11,14 @@ class PColors extends ThemeExtension<PColors> {
   static const Color errorColorL_ = Colors.red;
   static const Color errorColorD_ = Colors.redAccent;
   //?light
-  static const Color surfaceL_ = Color(0xffF5F6FA);
+  static const Color surfaceL_ = Color(0xffF5F5F5);
   static const Color primaryBGL_ = Color(0xffFFFFFF);
   static const Color onPrimaryBGL_ = Color(0xffF5F6FA);
   static const Color primaryTextL_ = Color(0xff121214);
   static const Color secondaryTextL_ = Color(0xffababab);
   //?Dark
-  static const Color surfaceD_ = Color(0xff1c1c20);
-  static const Color primaryBGD_ = Color(0xff202024);
+  static const Color surfaceD_ = Color(0xff121212);
+  static const Color primaryBGD_ = Color(0xff202020);
   static const Color onPrimaryBGD_ = Color(0xff393b3f);
   static const Color primaryTextD_ = Color(0xffd6d6d7);
   static const Color secondaryTextD_ = Color(0xff9a9a9c);

@@ -45,12 +45,7 @@ class HttpDio implements IHttp {
       _logResponse(path, "DELETE", response: response, time: end.difference(start).inMilliseconds.toString());
       return _dioResponseConverter(response);
     } on DioException catch (e) {
-      if (autoToast) {
-        _trowToast(e);
-        return _trowRestClientException(e);
-      } else {
-        _trowRestClientException(e);
-      }
+      _trowRestClientException(e);
     }
   }
 
@@ -68,12 +63,7 @@ class HttpDio implements IHttp {
       _logResponse(path, "GET", response: response, time: end.difference(start).inMilliseconds.toString());
       return _dioResponseConverter(response);
     } on DioException catch (e) {
-      if (autoToast) {
-        _trowToast(e);
-        return _trowRestClientException(e);
-      } else {
-        _trowRestClientException(e);
-      }
+      _trowRestClientException(e);
     }
   }
 
@@ -92,12 +82,7 @@ class HttpDio implements IHttp {
       _logResponse(path, "PATCH", response: response, time: end.difference(start).inMilliseconds.toString());
       return _dioResponseConverter(response);
     } on DioException catch (e) {
-      if (autoToast) {
-        _trowToast(e);
-        return _trowRestClientException(e);
-      } else {
-        _trowRestClientException(e);
-      }
+      _trowRestClientException(e);
     }
   }
 
@@ -116,13 +101,7 @@ class HttpDio implements IHttp {
       _logResponse(path, "POST", response: response, time: end.difference(start).inMilliseconds.toString());
       return _dioResponseConverter(response);
     } on DioException catch (e) {
-      if (autoToast) {
-        _trowRestClientException(e);
-        // _trowToast(e);
-        // return _trowRestClientException(e);
-      } else {
-        _trowRestClientException(e);
-      }
+      _trowRestClientException(e);
     }
   }
 
@@ -141,12 +120,7 @@ class HttpDio implements IHttp {
       _logResponse(path, "PUT", response: response, time: end.difference(start).inMilliseconds.toString());
       return _dioResponseConverter(response);
     } on DioException catch (e) {
-      if (autoToast) {
-        _trowToast(e);
-        return _trowRestClientException(e);
-      } else {
-        _trowRestClientException(e);
-      }
+      _trowRestClientException(e);
     }
   }
 
@@ -165,12 +139,7 @@ class HttpDio implements IHttp {
       _logResponse(path, "REQUEST", response: response, time: end.difference(start).inMilliseconds.toString());
       return _dioResponseConverter(response);
     } on DioException catch (e) {
-      if (autoToast) {
-        _trowToast(e);
-        return _trowRestClientException(e);
-      } else {
-        _trowRestClientException(e);
-      }
+      return _trowRestClientException(e);
     }
   }
 
@@ -182,23 +151,23 @@ class HttpDio implements IHttp {
     );
   }
 
-  void _trowToast(DioException dioError) {
-    toast.showError("exception.toString()");
-    print(getErrorMessage(dioError));
-    final exception = HttpExceptionCustom(
-        error: dioError.error,
-        message: dioError.message,
-        requestOptions: dioError.requestOptions,
-        stackTrace: dioError.stackTrace,
-        type: dioError.type,
-        msg: getErrorMessage(dioError));
-    _logError(
-      error: dioError.error.toString(),
-      message: "MESSAGE:${exception.msg} ERROR: ${dioError.message}",
-      statusCode: dioError.response?.statusCode.toString(),
-      stackTrace: dioError.stackTrace,
-    );
-  }
+  // void _trowToast(DioException dioError) {
+  //   toast.showError("exception.toString()");
+  //   print(getErrorMessage(dioError));
+  //   final exception = HttpExceptionCustom(
+  //       error: dioError.error,
+  //       message: dioError.message,
+  //       requestOptions: dioError.requestOptions,
+  //       stackTrace: dioError.stackTrace,
+  //       type: dioError.type,
+  //       msg: getErrorMessage(dioError));
+  //   _logError(
+  //     error: dioError.error.toString(),
+  //     message: "MESSAGE:${exception.msg} ERROR: ${dioError.message}",
+  //     statusCode: dioError.response?.statusCode.toString(),
+  //     stackTrace: dioError.stackTrace,
+  //   );
+  // }
 
   String getErrorMessage(DioException dioError) {
     if (dioError.response?.data['error_description'] != null) {
@@ -210,25 +179,30 @@ class HttpDio implements IHttp {
     if (dioError.response?.data['message'] != null) {
       return dioError.response?.data['message'];
     }
+    if (dioError.response?.data['msg'] == null) {
+      return dioError.response?.data['message'];
+    }
     return dioError.response?.data['msg'];
   }
 
   Never _trowRestClientException(DioException dioError) {
     final exception = HttpExceptionCustom(
       error: dioError.error,
-      message: dioError.message,
+      message: getErrorMessage(dioError),
       response: dioError.response,
       requestOptions: dioError.requestOptions,
       stackTrace: dioError.stackTrace,
       type: dioError.type,
       msg: getErrorMessage(dioError),
     );
+    print(exception.msg);
     _logError(
         error: exception.error.toString(),
         stackTrace: exception.stackTrace,
         message: exception.msg ?? exception.message,
         statusCode: exception.response?.statusCode.toString());
-    throw exception;
+    final message = exception.msg;
+    throw Exception(exception.message ?? exception);
   }
 
   void _logInfo(String path, String methodo,

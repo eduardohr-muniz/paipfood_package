@@ -14,3 +14,4 @@ export 'package:pin_code_fields/pin_code_fields.dart';
 export 'package:socket_io_client/socket_io_client.dart';
 export 'package:collection/collection.dart';
 export 'package:uuid/uuid.dart';
+export 'package:dotted_border/dotted_border.dart';

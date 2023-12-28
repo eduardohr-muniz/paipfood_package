@@ -59,7 +59,7 @@ class _CwImageGetState extends State<CwImageGet> {
                             )
                           : CwEmptyState(
                               icon: Icomoon.camera,
-                              size: widget.width,
+                              size: widget.width - 10,
                               bgColor: false,
                               iconColor: onHover ? context.color.primaryColor : null,
                             )),

@@ -53,7 +53,7 @@ class CwTextButton extends StatelessWidget {
           Text(
             label,
             style: TextStyle(color: colorText ?? context.color.primaryText),
-          ),
+          ).center,
         ],
       ),
     );

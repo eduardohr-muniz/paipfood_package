@@ -12,7 +12,7 @@ class CategoryModel {
   final String establishmentId;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  int? index;
+  int index;
   String name;
   String description;
   bool visible;
@@ -25,7 +25,7 @@ class CategoryModel {
     required this.id,
     required this.establishmentId,
     required this.products,
-    this.index,
+    required this.index,
     this.createdAt,
     this.updatedAt,
     this.name = '',

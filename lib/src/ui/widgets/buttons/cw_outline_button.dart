@@ -30,7 +30,7 @@ class CwOutlineButton extends StatelessWidget {
       label: Text(
         label,
         style: TextStyle(color: color),
-      ),
+      ).center,
       onPressed: enable
           ? () {
               try {
@@ -42,6 +42,7 @@ class CwOutlineButton extends StatelessWidget {
           : null,
       style: OutlinedButton.styleFrom(
         // backgroundColor: color,
+
         minimumSize: const Size(60, 45),
         side: BorderSide(
           color: color,

@@ -10,6 +10,7 @@ class CwButton extends StatefulWidget {
   final Future Function()? onPressedFuture;
   final Color color;
   final bool autoToast;
+  final String? errorGeneric;
   const CwButton({
     required this.label,
     this.onPressed,
@@ -19,6 +20,7 @@ class CwButton extends StatefulWidget {
     this.icon,
     this.color = PColors.primaryColor_,
     this.autoToast = true,
+    this.errorGeneric,
   }) : super(key: key);
 
   @override
@@ -41,7 +43,7 @@ class _CwButtonState extends State<CwButton> {
       icon: widget.icon != null
           ? Icon(
               widget.icon,
-              color: widget.color,
+              color: Colors.white,
             )
           : const SizedBox.shrink(),
       label: ValueListenableBuilder(
@@ -60,7 +62,7 @@ class _CwButtonState extends State<CwButton> {
             return Text(
               widget.label,
               style: TextStyle(color: PColors.light.primaryBG),
-            );
+            ).center;
           }),
       onPressed: () async {
         if (_enable == false) return;
@@ -71,7 +73,8 @@ class _CwButtonState extends State<CwButton> {
           try {
             await widget.onPressedFuture?.call();
           } catch (e) {
-            if (widget.autoToast) toast.showError(e.toString());
+            print(e.toString());
+            if (widget.autoToast) toast.showError(widget.errorGeneric ?? e.toString());
           }
 
           load.value = false;
