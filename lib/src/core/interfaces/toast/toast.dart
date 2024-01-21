@@ -11,7 +11,7 @@ class Toast implements IToast {
   late final Toastification? toast;
 
   @override
-  void showError(String message, {String? label}) => _showMessage(
+  void showError(String message, {String? label, Alignment? alignment}) => _showMessage(
         label: label ?? "Error",
         message: message,
         color: context.color.errorColor,
@@ -22,25 +22,25 @@ class Toast implements IToast {
       );
 
   @override
-  void showInfo(String message, {String? label}) => _showMessage(
+  void showInfo(String message, {String? label, Alignment? alignment}) => _showMessage(
         label: label ?? "Info",
         message: message,
-        color: Colors.blue,
-        icon: const Icon(
+        color: context.color.tertiaryColor,
+        icon: Icon(
           Icomoon.info_circle,
-          color: Colors.blue,
+          color: context.color.tertiaryColor,
         ),
       );
 
   @override
-  void showSucess(String message, {String? label}) => _showMessage(
+  void showSucess(String message, {String? label, Alignment? alignment}) => _showMessage(
         label: label ?? "Sucess",
         message: message,
         color: context.color.primaryColor,
         icon: Icon(Icomoon.tick_circle, color: context.color.primaryColor),
       );
   @override
-  void showCustom(String message, {String? label, Color? color, Widget? icon}) => _showMessage(
+  void showCustom(String message, {String? label, Color? color, Widget? icon, Alignment? alignment}) => _showMessage(
         label: label ?? "Custom",
         message: message,
         color: color ?? Colors.black,
@@ -54,20 +54,22 @@ class Toast implements IToast {
     return Duration(milliseconds: miliseconds);
   }
 
-  void _showMessage({required String label, required String message, required Color color, Widget? icon, Color? backGroundColor}) {
+  void _showMessage(
+      {required String label, required String message, required Color color, Widget? icon, Color? backGroundColor, Alignment? alignment}) {
     toastification.show(
         context: context,
-        title: label,
-        style: ToastificationStyle.fillColored,
+        title: Text(label),
+        style: ToastificationStyle.flatColored,
         autoCloseDuration: calculeDuration(message),
         backgroundColor: backGroundColor ?? context.color.onPrimaryBG,
         primaryColor: color,
         foregroundColor: context.color.primaryText,
         borderRadius: BorderRadius.circular(4),
         dragToClose: true,
+        alignment: alignment ?? Alignment.topRight,
         showProgressBar: true,
         boxShadow: [],
-        description: message,
+        description: Text(message),
         closeButtonShowType: CloseButtonShowType.always,
         icon: icon,
         pauseOnHover: true,

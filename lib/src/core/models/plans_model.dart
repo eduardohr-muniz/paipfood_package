@@ -1,7 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/widgets.dart';
-
 import 'country_model.dart';
 
 class PlansModel {
@@ -36,7 +33,7 @@ class PlansModel {
     this.banner,
     this.status = '',
   });
-
+  static const String box = "plans";
   PlansModel copyWith({
     String? id,
     DateTime? createdAt,

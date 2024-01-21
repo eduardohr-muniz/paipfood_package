@@ -18,12 +18,25 @@ class Utils {
     return double.tryParse(text) ?? _stringToDouble(text);
   }
 
+  static String doubleToStringDecimal(double value, {int digitis = 2}) {
+    if (value == 0.0 || value == 0) {
+      return '0';
+    }
+    return value.toStringAsFixed(digitis);
+  }
+
   static String doubleToString(double value) {
     if (value == 0.0) {
       return " -- ";
     } else {
       return value.toString();
     }
+  }
+
+  (double heidth, double width) getAspectRatio(double size, double ratio) {
+    final h = size * ratio;
+    final w = size;
+    return (h, w);
   }
 
   static String generateUuid() {
@@ -40,6 +53,11 @@ class Utils {
     return uuid;
   }
 
+  static Map<String, dynamic>? mapToMapStringDynamic(Map<dynamic, dynamic>? map) {
+    if (map == null) return null;
+    return Map<String, dynamic>.from(map).cast<String, dynamic>();
+  }
+
   static String generateRandomString(int length) {
     final random = Random();
     const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -50,6 +68,10 @@ class Utils {
     }
 
     return result;
+  }
+
+  static List<Map> listDynamicToListMap(List<dynamic> list) {
+    return list.map((e) => e as Map<String, dynamic>).toList();
   }
 
   static String maskToString(String value, TextInputFormatter textInputFormatter) {

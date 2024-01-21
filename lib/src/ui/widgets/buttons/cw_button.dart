@@ -9,6 +9,7 @@ class CwButton extends StatefulWidget {
   final void Function()? onPressed;
   final Future Function()? onPressedFuture;
   final Color color;
+  final Color? colorText;
   final bool autoToast;
   final String? errorGeneric;
   const CwButton({
@@ -21,6 +22,7 @@ class CwButton extends StatefulWidget {
     this.color = PColors.primaryColor_,
     this.autoToast = true,
     this.errorGeneric,
+    this.colorText,
   }) : super(key: key);
 
   @override
@@ -40,28 +42,32 @@ class _CwButtonState extends State<CwButton> {
   @override
   Widget build(BuildContext context) {
     return FilledButton.icon(
-      icon: widget.icon != null
-          ? Icon(
-              widget.icon,
-              color: Colors.white,
-            )
-          : const SizedBox.shrink(),
+      icon: ValueListenableBuilder(
+        valueListenable: load,
+        builder: (context, value, child) {
+          if (value || widget.icon == null) return const SizedBox.shrink();
+          return Icon(
+            widget.icon,
+            color: widget.colorText ?? Colors.white,
+          );
+        },
+      ),
       label: ValueListenableBuilder(
           valueListenable: load,
           builder: (context, isLoad, _) {
             if (isLoad) {
-              return const SizedBox(
+              return SizedBox(
                   width: 15,
                   height: 15,
                   child: CircularProgressIndicator(
-                    color: Colors.white,
+                    color: widget.colorText ?? Colors.white,
                     strokeWidth: 3,
                   ));
             }
 
             return Text(
               widget.label,
-              style: TextStyle(color: PColors.light.primaryBG),
+              style: TextStyle(color: widget.colorText ?? PColors.light.primaryBG),
             ).center;
           }),
       onPressed: () async {
@@ -73,7 +79,6 @@ class _CwButtonState extends State<CwButton> {
           try {
             await widget.onPressedFuture?.call();
           } catch (e) {
-            print(e.toString());
             if (widget.autoToast) toast.showError(widget.errorGeneric ?? e.toString());
           }
 
@@ -89,7 +94,8 @@ class _CwButtonState extends State<CwButton> {
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: widget.color,
-        minimumSize: const Size(60, 45),
+        minimumSize: const Size(50, 45),
+        // padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       ),
     );

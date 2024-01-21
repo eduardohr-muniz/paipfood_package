@@ -87,7 +87,7 @@ class UserModel {
     };
   }
 
-  factory UserModel.fromMap(Map<String, dynamic> map) {
+  factory UserModel.fromMap(Map map) {
     return UserModel(
       id: map['id'],
       email: map['email'],
@@ -105,9 +105,14 @@ class UserModel {
       companySlug: map['company_slug'],
     );
   }
-
+  static const String box = "users";
   String toJson() => json.encode(toMap());
   String toJsonUsers_() => json.encode(toMapUsers_());
 
   factory UserModel.fromJson(String source) => UserModel.fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'UserModel(id: $id, email: $email, emailConfirmedAt: $emailConfirmedAt, phone: $phone, phoneConfirmedAt: $phoneConfirmedAt, confirmedAt: $confirmedAt, lastSignInAt: $lastSignInAt, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, permissions: $permissions, companySlug: $companySlug)';
+  }
 }

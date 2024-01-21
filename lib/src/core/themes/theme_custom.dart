@@ -12,6 +12,7 @@ class ThemeCustom {
       selectionColor: PColors.light.primaryColor.withOpacity(0.5),
       selectionHandleColor: PColors.light.secondaryColor,
     ),
+    appBarTheme: const AppBarTheme(backgroundColor: PColors.neutral100L_, surfaceTintColor: PColors.neutral100L_),
     textTheme: text,
     brightness: Brightness.light,
     extensions: [PColors.light],
@@ -41,6 +42,7 @@ class ThemeCustom {
       selectionColor: PColors.light.primaryColor.withOpacity(0.5),
       selectionHandleColor: PColors.light.secondaryColor,
     ),
+    appBarTheme: const AppBarTheme(backgroundColor: PColors.neutral100D_, surfaceTintColor: PColors.neutral100D_),
     extensions: [PColors.dark],
     colorScheme: ColorScheme(
       brightness: Brightness.dark,
@@ -66,16 +68,16 @@ class ThemeCustom {
     headlineMedium: TextStyle(letterSpacing: 0),
     headlineSmall: TextStyle(letterSpacing: 0),
     //
-    titleLarge: TextStyle(letterSpacing: 0),
-    titleMedium: TextStyle(letterSpacing: 0),
-    titleSmall: TextStyle(letterSpacing: 0.5),
+    titleLarge: TextStyle(letterSpacing: 0, fontWeight: FontWeight.w600),
+    titleMedium: TextStyle(letterSpacing: 0, fontWeight: FontWeight.w500),
+    titleSmall: TextStyle(letterSpacing: 0.5, fontWeight: FontWeight.w400),
     //
-    labelLarge: TextStyle(fontSize: 16, letterSpacing: 0.5),
-    labelMedium: TextStyle(fontSize: 14, letterSpacing: 0.5),
-    labelSmall: TextStyle(fontSize: 13, letterSpacing: 0.5),
+    labelLarge: TextStyle(fontSize: 16, letterSpacing: 0.5, fontWeight: FontWeight.w600),
+    labelMedium: TextStyle(fontSize: 14, letterSpacing: 0.5, fontWeight: FontWeight.w500),
+    labelSmall: TextStyle(fontSize: 13, letterSpacing: 0.5, fontWeight: FontWeight.w400),
     //
     bodyLarge: TextStyle(fontWeight: FontWeight.w600, letterSpacing: 0),
-    bodyMedium: TextStyle(letterSpacing: 0),
-    bodySmall: TextStyle(letterSpacing: 0),
+    bodyMedium: TextStyle(letterSpacing: 0, fontWeight: FontWeight.w500),
+    bodySmall: TextStyle(letterSpacing: 0, fontWeight: FontWeight.w400),
   );
 }

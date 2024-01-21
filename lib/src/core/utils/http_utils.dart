@@ -8,6 +8,10 @@ class HttpUtils {
   };
 
   static BaseOptions geoapifyBaseOptions = BaseOptions(baseUrl: "https://api.geoapify.com/");
+  static BaseOptions bucketSupabase = BaseOptions(baseUrl: "https://vipwbbuyhszmxdjsclzg.supabase.co/storage/v1/", headers: {
+    "Authorization": "Bearer ${Env.supaApiKey}",
+    "Content-Type": "application/json",
+  });
 
   static Map<String, dynamic> headerAuth(AuthModel auth) => {
         "Authorization": "Bearer ${auth.accessToken}",

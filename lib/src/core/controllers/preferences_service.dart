@@ -10,9 +10,9 @@ class PreferencesService extends ChangeNotifier {
   }
 
   ThemeMode? themeMode = ThemeMode.system;
-  Locale? currentLocale;
+  Locale currentLocale = const Locale('en');
   PreferencesModel model = PreferencesModel(id: '');
-  static String boxAndKey = "prefs";
+  static String boxAndKey = PreferencesModel.box;
 
   void changeTheme(bool isDarkTheme) {
     model = model.copyWith(isDarkMode: isDarkTheme);
@@ -23,13 +23,14 @@ class PreferencesService extends ChangeNotifier {
 
   Future<void> _changeMap(String languageCode) async {
     Intl.defaultLocale = languageCode;
-    final String fileText = await rootBundle.loadString("lib/l10n/app_$languageCode.arb");
+    // final String fileText = await rootBundle.loadString("lib/l10n/app_$languageCode.arb");
+    final String fileText = await rootBundle.loadString("lib/l10n/app_en.arb");
     mapI18n = jsonDecode(fileText);
   }
 
   void changeLocale(Locale locale) {
     model = model.copyWith(languageCode: locale.languageCode, countryCode: locale.countryCode);
-    _changeMap(model.languageCode ?? Intl.systemLocale);
+    _changeMap(model.language);
     currentLocale = locale;
 
     _savePrefs();
@@ -47,12 +48,11 @@ class PreferencesService extends ChangeNotifier {
   }
 
   void _getPreferences() async {
-    await localStorage.openBox(boxAndKey);
-    final json = await localStorage.get(boxAndKey, key: boxAndKey);
+    final map = await localStorage.get(boxAndKey, key: boxAndKey);
 
-    if (json != null) {
-      model = PreferencesModel.fromJson(json);
-      await _changeMap(model.languageCode ?? Intl.systemLocale);
+    if (map != null) {
+      model = PreferencesModel.fromMap(map);
+      await _changeMap(model.language);
       if (model.languageCode != null) currentLocale = Locale(model.languageCode!, model.countryCode);
       if (model.isDarkMode != null) themeMode = getThemeMode;
       if (model.authModel != null) auth_ = model.authModel!;
@@ -62,6 +62,6 @@ class PreferencesService extends ChangeNotifier {
 
   ThemeMode get getThemeMode => model.isDarkMode! ? ThemeMode.dark : ThemeMode.light;
   void _savePrefs() {
-    localStorage.put(boxAndKey, key: boxAndKey, value: model.toJson());
+    localStorage.put(boxAndKey, key: boxAndKey, value: model.toMap());
   }
 }

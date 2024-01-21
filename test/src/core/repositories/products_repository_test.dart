@@ -16,13 +16,14 @@ Future<void> main() async {
     categoryId: "",
     description: "Descrição",
     establishmentId: "establishmentId",
-    complementPizzaId: "",
     name: "Name",
     updatedAt: DateTime.now(),
-    isPromotional: true,
     price: 12.50,
     promotionalPrice: 12,
     qtyFlavorsPizza: QtyFlavorsPizza.one,
+    complementsIds: [],
+    complements: [],
+    sizes: [],
   );
 
   test('upsert', () async {

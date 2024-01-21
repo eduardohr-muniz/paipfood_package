@@ -21,7 +21,7 @@ class PaymentMethodCompanyModel {
     this.paymentMethodId = '',
     this.checkPoints = const [],
   });
-
+  static const String box = "payment_methods_company";
   PaymentMethodCompanyModel copyWith({
     String? id,
     DateTime? createdAt,

@@ -22,6 +22,7 @@ class CwTextFormFild extends StatefulWidget {
   final int? flex;
   final int? minLines;
   final int? maxLines;
+  final int? maxLength;
   final String? helperText;
   final String? prefixText;
   final List<TextInputFormatter>? inputFormatters;
@@ -49,6 +50,7 @@ class CwTextFormFild extends StatefulWidget {
     this.expanded = false,
     this.minLines,
     this.maxLines = 1,
+    this.maxLength,
     this.helperText,
     this.prefixText,
     this.inputFormatters,
@@ -88,7 +90,7 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
   @override
   Widget build(BuildContext context) {
     final Widget child = Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,6 +111,7 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
             focusNode: widget.focusNode ?? focusNode,
             controller: widget.controller,
             obscureText: _obscure,
+            maxLength: widget.maxLength,
             inputFormatters: widget.inputFormatters ?? widget.maskUtils?.inpuFormatters,
             onChanged: () {
               if (widget.maskUtils != null && widget.maskUtils?.onChanged != null) {
@@ -146,6 +149,7 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
                 isDense: true,
                 fillColor: context.color.onPrimaryBG,
                 enabled: widget.enabled,
+                errorMaxLines: 10,
                 disabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 0, color: context.color.onPrimaryBG)),
                 floatingLabelStyle: TextStyle(color: context.color.primaryColor),
                 helperText: widget.helperText,

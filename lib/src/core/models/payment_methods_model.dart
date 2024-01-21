@@ -21,6 +21,7 @@ class PaymentMethodsModel {
     };
   }
 
+  static const String box = "payment_methods";
   factory PaymentMethodsModel.fromMap(Map<String, dynamic> map) {
     return PaymentMethodsModel(
       id: map['id'],

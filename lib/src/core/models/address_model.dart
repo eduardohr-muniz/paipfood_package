@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:paipfood_package/paipfood_package.dart';
 
 class AddressModel {
@@ -41,6 +40,8 @@ class AddressModel {
     this.syncState = SyncState.none,
     this.isDeleted = false,
   });
+
+  static const String box = "address";
 
   AddressModel copyWith({
     String? id,

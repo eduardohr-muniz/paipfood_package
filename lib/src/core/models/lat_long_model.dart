@@ -21,7 +21,7 @@ class LatLongModel {
     this.syncState = SyncState.none,
     this.isDeleted = false,
   });
-
+  static const String box = "lat_longs";
   LatLongModel copyWith({
     String? id,
     String? deliveryAreaId,

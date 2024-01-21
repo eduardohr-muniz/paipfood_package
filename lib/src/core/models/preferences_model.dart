@@ -18,7 +18,7 @@ class PreferencesModel {
     this.languageCode,
     this.countryCode,
   });
-
+  static const String box = "preferences";
   Map<String, dynamic> toMap({bool supabase = true}) {
     final map = {
       'id': id,
@@ -33,7 +33,7 @@ class PreferencesModel {
     return map;
   }
 
-  factory PreferencesModel.fromMap(Map<String, dynamic> map) {
+  factory PreferencesModel.fromMap(Map map) {
     return PreferencesModel(
       id: map['id'] ?? uuid,
       establishmentId: map['establishment_id'],
@@ -45,6 +45,11 @@ class PreferencesModel {
   }
 
   String toJson() => json.encode(toMap());
+
+  String get language {
+    if (countryCode != null) return '${languageCode}_$countryCode';
+    return languageCode ?? Intl.systemLocale;
+  }
 
   factory PreferencesModel.fromJson(String source) => PreferencesModel.fromMap(json.decode(source));
 
@@ -61,7 +66,7 @@ class PreferencesModel {
       establishmentId: establishmentId ?? this.establishmentId,
       isDarkMode: isDarkMode ?? this.isDarkMode,
       languageCode: languageCode ?? this.languageCode,
-      countryCode: countryCode ?? this.countryCode,
+      countryCode: countryCode,
       authModel: authModel ?? this.authModel,
     );
   }

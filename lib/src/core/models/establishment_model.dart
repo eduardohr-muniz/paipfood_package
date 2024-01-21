@@ -59,7 +59,7 @@ class EstablishmentModel {
     this.email = '',
     this.syncState = SyncState.none,
   });
-
+  static const String box = "establishments";
   EstablishmentModel copyWith({
     String? id,
     DateTime? createdAt,

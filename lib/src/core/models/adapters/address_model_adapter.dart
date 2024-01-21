@@ -1,5 +1,4 @@
 import 'package:paipfood_package/paipfood_package.dart';
-import 'package:paipfood_package/src/core/models/address_geoapify_model.dart';
 
 class AddressModelAdapter {
   static AddressModel geoapify(AddressGeoapfyModel model) {

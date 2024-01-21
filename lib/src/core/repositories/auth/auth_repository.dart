@@ -48,6 +48,7 @@ class AuthRepository implements IAuthRepository {
     AuthModel auth = AuthModel.fromMap(request.data);
     final user = await getUser(auth: auth);
     auth = auth.copyWith(user: user);
+    auth_ = auth;
     return auth;
   }
 

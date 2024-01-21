@@ -31,6 +31,7 @@ class DeliveryAreasModel {
     this.syncState = SyncState.none,
     this.isDeleted = false,
   });
+  static const String box = "delivery_areas";
 
   DeliveryAreasModel copyWith({
     String? id,

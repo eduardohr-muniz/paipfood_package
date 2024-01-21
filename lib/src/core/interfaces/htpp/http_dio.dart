@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:paipfood_package/paipfood_package.dart';
 
 class HttpDio implements IHttp {
@@ -195,20 +197,18 @@ class HttpDio implements IHttp {
       type: dioError.type,
       msg: getErrorMessage(dioError),
     );
-    print(exception.msg);
     _logError(
         error: exception.error.toString(),
         stackTrace: exception.stackTrace,
         message: exception.msg ?? exception.message,
         statusCode: exception.response?.statusCode.toString());
-    final message = exception.msg;
     throw Exception(exception.message ?? exception);
   }
 
   void _logInfo(String path, String methodo,
       {Map<String, dynamic>? headers, Map<String, dynamic>? baseOptions, Map<String, dynamic>? queryParamters, dynamic data}) {
     log.i(
-        'METHOD: $methodo \nPATH: ${_dio.options.baseUrl}$path \nQUERYPARAMTERS: $queryParamters \nHEADERS: $headers \nBASEOPTIONS: $baseOptions \nDATA: $data');
+        'METHOD: $methodo \nPATH: ${_dio.options.baseUrl}$path \nQUERYPARAMTERS: $queryParamters \nHEADERS: $headers \nBASEOPTIONS: $baseOptions \nDATA: ${data is Uint8List ? 'bytes' : data}');
   }
 
   void _logError({String? error, String? message, String? statusCode, StackTrace? stackTrace}) {

@@ -1,8 +1,5 @@
 import 'dart:convert';
-
 import 'package:paipfood_package/paipfood_package.dart';
-
-import 'zz_models_export.dart';
 
 class InvoiceModel {
   final DateTime? createdAt;
@@ -39,7 +36,7 @@ class InvoiceModel {
     this.transactionId,
     this.syncState = SyncState.none,
   });
-
+  static const String box = "invoices";
   InvoiceModel copyWith({
     DateTime? createdAt,
     DateTime? updatedAt,

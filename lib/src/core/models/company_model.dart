@@ -45,7 +45,7 @@ class CompanyModel {
     this.theme = ThemeEnum.paip,
     this.syncState = SyncState.none,
   });
-
+  static const String box = "companies";
   CompanyModel copyWith({
     String? slug,
     String? userAdminId,

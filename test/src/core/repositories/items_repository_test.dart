@@ -2,10 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:paipfood_package/paipfood_package.dart';
 
 Future<void> main() async {
-  //TODO EHM: TESTE
   const email = "eduardohr.muniz@gmail.com";
   AuthModel auth = AuthModel();
-  final http = HttpDio(autoToast: false);
+  final http = HttpDio();
   final authRepository = AuthRepository(http: http);
   if (auth.accessToken == null) auth = await authRepository.loginByEmail(email: email, password: Env.passwordDefault);
   final repository = ItemsRepository(http: http);
@@ -23,7 +22,7 @@ Future<void> main() async {
       price: 12.50,
       promotionalPrice: 12,
       nickName: "teste",
-      visible: true,
+      sizes: [],
       itemtype: Itemtype.pizza);
 
   test('upsert', () async {

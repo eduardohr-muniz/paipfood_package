@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:paipfood_package/paipfood_package.dart';
 
 void main() {
-  final http = HttpDio(baseOptions: BaseOptions(baseUrl: Env.geoapifyBaseUrl), autoToast: false);
+  final http = HttpDio(baseOptions: BaseOptions(baseUrl: Env.geoapifyBaseUrl));
   final repository = GeoapifyRepository(http: http);
 
   test('searchAddress', () async {

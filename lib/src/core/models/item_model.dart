@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:paipfood_package/paipfood_package.dart';
 
@@ -8,22 +9,24 @@ enum Itemtype {
 }
 
 class ItemModel {
-  int index;
+  final String id;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  String establishmentId;
-  String id;
+  final String establishmentId;
+  int index;
   String name;
   String nickName;
   String description;
   double price;
   double promotionalPrice;
-  String image;
+  double? priceFrom;
+  String? image;
+  Uint8List? imageBytes;
   bool isPreSelected;
   String complementId;
   bool visible;
   List<SizeModel> sizes;
-  final Itemtype itemtype;
+  Itemtype itemtype;
   bool isDeleted;
   SyncState syncState;
 
@@ -32,6 +35,7 @@ class ItemModel {
     required this.index,
     required this.establishmentId,
     required this.complementId,
+    required this.sizes,
     this.createdAt,
     this.updatedAt,
     this.name = '',
@@ -39,27 +43,30 @@ class ItemModel {
     this.description = '',
     this.price = 0.0,
     this.promotionalPrice = 0.0,
-    this.image = '',
+    this.priceFrom,
+    this.image,
+    this.imageBytes,
     this.isPreSelected = false,
-    this.visible = false,
-    this.sizes = const [],
+    this.visible = true,
     this.itemtype = Itemtype.item,
     this.isDeleted = false,
     this.syncState = SyncState.none,
   });
-
+  static const String box = "items";
   ItemModel copyWith({
-    int? index,
+    String? id,
     DateTime? createdAt,
     DateTime? updatedAt,
     String? establishmentId,
-    String? id,
+    int? index,
     String? name,
     String? nickName,
     String? description,
     double? price,
     double? promotionalPrice,
+    double? priceFrom,
     String? image,
+    Uint8List? imageBytes,
     bool? isPreSelected,
     String? complementId,
     bool? visible,
@@ -69,17 +76,19 @@ class ItemModel {
     SyncState? syncState,
   }) {
     return ItemModel(
-      index: index ?? this.index,
+      id: id ?? this.id,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       establishmentId: establishmentId ?? this.establishmentId,
-      id: id ?? this.id,
+      index: index ?? this.index,
       name: name ?? this.name,
       nickName: nickName ?? this.nickName,
       description: description ?? this.description,
       price: price ?? this.price,
       promotionalPrice: promotionalPrice ?? this.promotionalPrice,
+      priceFrom: priceFrom ?? this.priceFrom,
       image: image ?? this.image,
+      imageBytes: imageBytes ?? this.imageBytes,
       isPreSelected: isPreSelected ?? this.isPreSelected,
       complementId: complementId ?? this.complementId,
       visible: visible ?? this.visible,
@@ -90,8 +99,34 @@ class ItemModel {
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return {
+  ItemModel clone() {
+    return ItemModel(
+      index: index,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      establishmentId: establishmentId,
+      id: id,
+      name: name,
+      nickName: nickName,
+      description: description,
+      price: price,
+      promotionalPrice: promotionalPrice,
+      priceFrom: priceFrom,
+      image: image,
+      imageBytes: imageBytes,
+      isPreSelected: isPreSelected,
+      complementId: complementId,
+      visible: visible,
+      sizes: sizes.map((e) => e.clone()).toList(),
+      itemtype: itemtype,
+      isDeleted: isDeleted,
+      syncState: syncState,
+    );
+  }
+
+//  List<SizeModel> sizes;
+  Map<String, dynamic> toMap({bool isComplete = true}) {
+    final map = {
       'id': id,
       'index': index,
       'updated_at': updatedAt?.toIso8601String(),
@@ -107,10 +142,17 @@ class ItemModel {
       'visible': visible,
       'item_type': itemtype.name,
       'is_deleted': isDeleted,
+      'price_from': priceFromPizza
     };
+    final mapComplete = {
+      SizeModel.box: sizes.map((e) => e.toMap()).toList(),
+      'sync_state': syncState.name,
+    };
+    if (isComplete) map.addAll(mapComplete);
+    return map;
   }
 
-  factory ItemModel.fromMap(Map<String, dynamic> map) {
+  factory ItemModel.fromMap(Map map) {
     return ItemModel(
       id: map['id'],
       complementId: map['complement_id'],
@@ -123,16 +165,49 @@ class ItemModel {
       description: map['description'] ?? '',
       price: map['price']?.toDouble() ?? 0.0,
       promotionalPrice: map['promotional_price']?.toDouble() ?? 0.0,
-      image: map['image'] ?? '',
+      priceFrom: map['price_from']?.toDouble(),
+      image: map['image'],
       isPreSelected: map['is_pre_selected'],
       visible: map['visible'] ?? false,
-      sizes: map['sizes'] != null ? List<SizeModel>.from(map['sizes']?.map(SizeModel.fromMap)) : [],
+      sizes: map['sizes'] != null
+          ? List<SizeModel>.from(map['sizes']?.map((e) {
+              return SizeModel.fromMap(e);
+            }))
+          : [],
       itemtype: Itemtype.values.firstWhere((element) => element.name == map['item_type'], orElse: () => Itemtype.item),
       isDeleted: map['is_deleted'] ?? false,
+      syncState: map['sync_state'] != null
+          ? SyncState.values.firstWhere((element) => element.name == map['sync_state'], orElse: () => SyncState.none)
+          : SyncState.none,
     );
   }
-
   String toJson() => json.encode(toMap());
 
   factory ItemModel.fromJson(String source) => ItemModel.fromMap(json.decode(source));
+
+  //*--------------------------------------------------------------------------------------
+
+  String get imagePath => "$establishmentId/$id.png";
+
+  double? get priceFromPizza {
+    final list = List.from(sizes);
+    if (list.isEmpty) return null;
+    return list.sorted((a, b) => a.price.compareTo(b.price)).first.price;
+  }
+
+  double getPriceSizeByProduct(ProductModel product) {
+    return sizes.firstWhere((element) => element.productId == product.id).getAmount;
+  }
+
+  SizeModel? getSizeByProduct(ProductModel product) {
+    return sizes.firstWhereOrNull((element) => element.productId == product.id);
+  }
+
+  double get getAmount {
+    if (promotionalPrice > 0) return promotionalPrice;
+    return price;
+  }
+
+  List<SizeModel> get sizesAscByPrice => sizes.sorted((a, b) => a.price.compareTo(b.price));
+  List<SizeModel> get sizesDescByPrice => sizes.sorted((a, b) => b.price.compareTo(a.price));
 }

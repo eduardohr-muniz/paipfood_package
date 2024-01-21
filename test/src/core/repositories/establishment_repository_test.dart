@@ -108,4 +108,13 @@ void main() {
     expect(request, true);
     expect(requestF, false);
   });
+  test('getMenuView', () async {
+    //Arrange
+    //Act
+    final request = await repository.getMenuByEstablishmentId("26c6c358-ef75-40c1-9be2-19a9bbce45a5");
+
+    //Assert
+
+    expect(request, isA<Map<String, dynamic>>());
+  });
 }

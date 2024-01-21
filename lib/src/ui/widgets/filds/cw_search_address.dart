@@ -25,7 +25,7 @@ class _CwSearchAddressState extends State<CwSearchAddress> {
   late final addressEC = TextEditingController(text: widget.initialValue);
   final debounce = Debounce();
 
-  searchAddress(String value) async {
+  void searchAddress(String value) async {
     final List<AddressModel> result = await widget.geoapifyRepo.autoComplete(value);
     listAddress.value = result;
   }

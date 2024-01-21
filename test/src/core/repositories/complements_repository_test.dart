@@ -2,29 +2,26 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:paipfood_package/paipfood_package.dart';
 
 Future<void> main() async {
-  //TODO EHM: TESTE
   const email = "eduardohr.muniz@gmail.com";
   AuthModel auth = AuthModel();
   final http = HttpDio();
   final authRepository = AuthRepository(http: http);
   if (auth.accessToken == null) auth = await authRepository.loginByEmail(email: email, password: Env.passwordDefault);
   final repository = ComplementsRepository(http: http);
-  const int establishmentId = 22;
-  const int complementId = 6;
 
   final complementMock = ComplementModel(
     id: uuid,
-    description: "Descrição",
     establishmentId: "establishmentId",
     index: 0,
     name: "Name",
     updatedAt: DateTime.now(),
     createdAt: DateTime.now(),
-    nickName: "teste",
+    identifier: "teste",
     visible: false,
     complementType: ComplementType.pizza,
     qtyMax: 2,
     qtyMin: 1,
+    items: [],
   );
 
   test('upsert', () async {

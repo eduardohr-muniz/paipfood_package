@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/widgets.dart';
-
 class CountryModel {
   final String name;
   final String languageCode;
@@ -11,7 +9,7 @@ class CountryModel {
     required this.languageCode,
     this.countryCode,
   });
-
+  static const String box = "countries";
   CountryModel copyWith({
     String? name,
     String? languageCode,

@@ -12,4 +12,5 @@ abstract interface class IEstablishmentRepository {
   Future<EstablishmentModel?> getEstablishmentById(String id);
   Future<List<EstablishmentModel>> getEstablishmentsBySlug(String slug);
   Future<bool> slugExists(String slug);
+  Future<Map<String, dynamic>> getMenuByEstablishmentId(String id);
 }

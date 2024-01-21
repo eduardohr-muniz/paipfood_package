@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:paipfood_package/paipfood_package.dart';
 
 void main() {
-  final http = HttpDio(autoToast: false);
+  final http = HttpDio();
   final repository = AuthRepository(http: http);
 
   const String email = "eduardohr.muniz@gmail.com";

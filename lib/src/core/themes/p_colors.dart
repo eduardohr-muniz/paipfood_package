@@ -5,23 +5,28 @@ import 'package:paipfood_package/src/core/extensions/context_extension.dart';
 class PColors extends ThemeExtension<PColors> {
 //*COLORS
   static const Color primaryColor_ = Color(0xff49A568);
-  static const Color secondaryColor_ = Color(0xffCAE97C);
-  static const Color tertiaryColor_ = Color(0xffceac5c);
+  static const Color tertiaryColor_ = Color(0xfffab70a);
   static const Color blackColor_ = Color(0xff030401);
   static const Color errorColorL_ = Colors.red;
   static const Color errorColorD_ = Colors.redAccent;
   //?light
   static const Color surfaceL_ = Color(0xffF5F5F5);
+  static const Color secondaryColorL_ = Color(0xff8257e5);
   static const Color primaryBGL_ = Color(0xffFFFFFF);
   static const Color onPrimaryBGL_ = Color(0xffF5F6FA);
   static const Color primaryTextL_ = Color(0xff121214);
   static const Color secondaryTextL_ = Color(0xffababab);
+  static const Color neutral100L_ = Color(0xffffffff);
+  static const Color neutral900L_ = Color(0xff000000);
   //?Dark
   static const Color surfaceD_ = Color(0xff121212);
+  static const Color secondaryColorD_ = Color(0xff8257e5);
   static const Color primaryBGD_ = Color(0xff202020);
   static const Color onPrimaryBGD_ = Color(0xff393b3f);
   static const Color primaryTextD_ = Color(0xffd6d6d7);
   static const Color secondaryTextD_ = Color(0xff9a9a9c);
+  static const Color neutral100D_ = Color(0xff000000);
+  static const Color neutral900D_ = Color(0xffffffff);
 
 //*PARAMS
   final Color primaryColor;
@@ -33,6 +38,8 @@ class PColors extends ThemeExtension<PColors> {
   final Color onPrimaryBG;
   final Color primaryText;
   final Color secondaryText;
+  final Color neutral900;
+  final Color neutral100;
 
   PColors._({
     required this.primaryColor,
@@ -44,11 +51,13 @@ class PColors extends ThemeExtension<PColors> {
     required this.onPrimaryBG,
     required this.primaryText,
     required this.secondaryText,
+    required this.neutral900,
+    required this.neutral100,
   });
 
   static PColors light = PColors._(
     primaryColor: primaryColor_,
-    secondaryColor: secondaryColor_,
+    secondaryColor: secondaryColorL_,
     tertiaryColor: tertiaryColor_,
     errorColor: errorColorL_,
     surface: surfaceL_,
@@ -56,10 +65,12 @@ class PColors extends ThemeExtension<PColors> {
     onPrimaryBG: onPrimaryBGL_,
     primaryText: primaryTextL_,
     secondaryText: secondaryTextL_,
+    neutral900: neutral900L_,
+    neutral100: neutral100L_,
   );
   static PColors dark = PColors._(
     primaryColor: primaryColor_,
-    secondaryColor: secondaryColor_,
+    secondaryColor: secondaryColorD_,
     tertiaryColor: tertiaryColor_,
     errorColor: errorColorD_,
     surface: surfaceD_,
@@ -67,6 +78,8 @@ class PColors extends ThemeExtension<PColors> {
     onPrimaryBG: onPrimaryBGD_,
     primaryText: primaryTextD_,
     secondaryText: secondaryTextD_,
+    neutral900: neutral900D_,
+    neutral100: neutral100D_,
   );
 
   @override
@@ -82,6 +95,8 @@ class PColors extends ThemeExtension<PColors> {
       onPrimaryBG: Color.lerp(onPrimaryBG, other.onPrimaryBG, t)!,
       primaryText: Color.lerp(primaryText, other.primaryText, t)!,
       secondaryText: Color.lerp(secondaryText, other.secondaryText, t)!,
+      neutral900: Color.lerp(secondaryText, other.secondaryText, t)!,
+      neutral100: Color.lerp(secondaryText, other.secondaryText, t)!,
     );
   }
 
@@ -96,6 +111,8 @@ class PColors extends ThemeExtension<PColors> {
     Color? secondaryBG,
     Color? primaryText,
     Color? secondaryText,
+    Color? neutral900,
+    Color? neutral100,
   }) {
     return PColors._(
       primaryColor: primaryColor ?? this.primaryColor,
@@ -107,6 +124,8 @@ class PColors extends ThemeExtension<PColors> {
       onPrimaryBG: secondaryBG ?? onPrimaryBG,
       primaryText: primaryText ?? this.primaryText,
       secondaryText: secondaryText ?? this.secondaryText,
+      neutral900: neutral900 ?? this.neutral900,
+      neutral100: neutral100 ?? this.neutral100,
     );
   }
 }

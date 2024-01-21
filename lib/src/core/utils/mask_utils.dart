@@ -26,7 +26,35 @@ class MaskUtils {
     });
   }
 
-  static MaskInputController cRequired({String? Function(String? value)? customValidate, bool isFinal = false}) {
+  static MaskInputController onlyInt({String? Function(String? value)? customValidate, bool isRequired = false}) {
+    FocusNode? focusNode;
+
+    return MaskInputController(
+      getFocusNode: () {
+        focusNode = focusNode ?? FocusNode();
+        return focusNode;
+      },
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      inpuFormatters: [FilteringTextInputFormatter.digitsOnly],
+      keyboardType: TextInputType.number,
+      validator: (value) {
+        String? isError;
+        if (isRequired) {
+          if (value == null || value.isEmpty) {
+            isError = 'Campo obrigatório';
+          }
+        }
+
+        if (customValidate != null) {
+          isError = customValidate.call(value);
+        }
+        requestFocusOnError(focusNode: focusNode, isError: isError);
+        return isError;
+      },
+    );
+  }
+
+  static MaskInputController cRequired({String? Function(String? value)? customValidate}) {
     FocusNode? focusNode;
 
     return MaskInputController(
@@ -44,6 +72,29 @@ class MaskUtils {
         if (customValidate != null) {
           isError = customValidate.call(value);
         }
+        requestFocusOnError(focusNode: focusNode, isError: isError);
+        return isError;
+      },
+    );
+  }
+
+  static MaskInputController custom({required String? Function(String? value) validate, bool isRequired = false}) {
+    FocusNode? focusNode;
+
+    return MaskInputController(
+      getFocusNode: () {
+        focusNode = focusNode ?? FocusNode();
+        return focusNode;
+      },
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (value) {
+        String? isError;
+        if (isRequired && (value == null || value.isEmpty)) {
+          isError = 'Campo obrigatório';
+        }
+
+        isError = validate.call(value);
+
         requestFocusOnError(focusNode: focusNode, isError: isError);
         return isError;
       },
@@ -74,9 +125,30 @@ class MaskUtils {
     );
   }
 
-  static MaskInputController currency() {
+  static MaskInputController currency({bool isRequired = false, String? Function(String value)? customValidate}) {
+    FocusNode? focusNode;
     return MaskInputController(
+      getFocusNode: () {
+        focusNode = focusNode ?? FocusNode();
+        return focusNode;
+      },
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       inpuFormatters: [CurrencyTextInputFormatter(decimalDigits: 2, locale: Intl.defaultLocale, symbol: "")],
+      validator: (value) {
+        String? isError;
+        if (isRequired) {
+          if (value == null || value.isEmpty) {
+            isError = "Campo obrigatório";
+          }
+          requestFocusOnError(focusNode: focusNode, isError: isError);
+        }
+        if (customValidate != null) {
+          final text = customValidate.call(value!);
+          isError = text;
+        }
+
+        return isError;
+      },
     );
   }
 

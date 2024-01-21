@@ -152,4 +152,13 @@ class EstablishmentRepository implements IEstablishmentRepository {
     );
     return request.data;
   }
+
+  @override
+  Future<Map<String, dynamic>> getMenuByEstablishmentId(String id) async {
+    final request = await http.get(
+      "rest/v1/menu_by_establishment_view?id=eq.$id&select=*",
+    );
+    final List list = request.data;
+    return list.first;
+  }
 }

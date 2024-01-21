@@ -20,3 +20,5 @@ export './delivery_areas/delivery_areas_repository.dart';
 export './delivery_areas/i_delivery_areas_repository.dart';
 export './lat_longs/i_lat_longs_repository.dart';
 export './lat_longs/lat_longs_repository.dart';
+export './bucket/bucket_repository.dart';
+export './bucket/i_bucket_repository.dart';

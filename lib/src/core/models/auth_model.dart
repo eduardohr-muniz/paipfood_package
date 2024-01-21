@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'zz_models_export.dart';
+
+import 'package:paipfood_package/paipfood_package.dart';
 
 class AuthModel {
   final String? accessToken;
@@ -16,7 +17,7 @@ class AuthModel {
     this.refreshToken,
     this.user,
   });
-
+  static const String box = "auth";
   AuthModel copyWith({
     String? accessToken,
     String? tokenType,
@@ -46,7 +47,7 @@ class AuthModel {
     };
   }
 
-  factory AuthModel.fromMap(Map<String, dynamic> map) {
+  factory AuthModel.fromMap(Map map) {
     return AuthModel(
       accessToken: map['access_token'],
       tokenType: map['token_type'],
@@ -60,4 +61,9 @@ class AuthModel {
   String toJson() => json.encode(toMap());
 
   factory AuthModel.fromJson(String source) => AuthModel.fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'AuthModel(accessToken: $accessToken, tokenType: $tokenType, expiresIn: $expiresIn, expiresAt: $expiresAt, refreshToken: $refreshToken, user: $user)';
+  }
 }
