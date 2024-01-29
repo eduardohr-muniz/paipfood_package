@@ -161,4 +161,15 @@ class EstablishmentRepository implements IEstablishmentRepository {
     final List list = request.data;
     return list.first;
   }
+
+  @override
+  Future<List<PaymentMethodModel>> getPaymentMethodsByCountry(String country) async {
+    final request = await http.get(
+      "rest/v1/payment_methods?country_id=eq.$country&select=*",
+    );
+    final List list = request.data;
+    return list.map<PaymentMethodModel>((paymentMethod) {
+      return PaymentMethodModel.fromMap(paymentMethod);
+    }).toList();
+  }
 }

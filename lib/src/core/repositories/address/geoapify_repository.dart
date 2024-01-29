@@ -3,7 +3,7 @@ import 'package:paipfood_package/env.dart';
 import 'package:paipfood_package/src/core/interfaces/htpp/i_http.dart';
 import 'package:paipfood_package/src/core/models/adapters/address_model_adapter.dart';
 import 'package:paipfood_package/src/core/models/adapters/address_geoapify_model.dart';
-import 'package:paipfood_package/src/core/models/address_model.dart';
+import 'package:paipfood_package/src/core/models/adapters/address_model.dart';
 import 'package:paipfood_package/src/core/repositories/address/i_search_address_repository.dart';
 
 class GeoapifyRepository implements ISearchAddressRepository {

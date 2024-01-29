@@ -33,9 +33,9 @@ dependencies:
   cropperx: ^1.1.1
   file_picker: ^6.1.1
   cached_network_image: ^3.3.1
+  path_provider: ^2.1.2
 
   url_launcher: ^6.2.3
-  grouped_list: ^5.1.2
   sliver_tools: ^0.2.12
 
 dev_dependencies:
@@ -54,6 +54,7 @@ flutter:
     - lib/fonts/
     - assets/
     - assets/flags/
+    - assets/payments/
   #
   # For details regarding assets in packages, see
   # https://flutter.dev/assets-and-images/#from-packages

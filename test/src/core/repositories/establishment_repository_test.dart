@@ -5,8 +5,9 @@ void main() {
   final http = HttpDio();
   final repository = EstablishmentRepository(http: http);
   final authRepository = AuthRepository(http: http);
-  CompanyModel companyMock = CompanyModel(slug: "paipfood");
-  EstablishmentModel establishmentMock = EstablishmentModel(fantasyName: "Teste", id: uuid, deliveryAreas: [], companySlug: 'paipfood');
+  CompanyModel companyMock = CompanyModel(slug: "paipfood", paymentFlagsApp: []);
+  EstablishmentModel establishmentMock =
+      EstablishmentModel(fantasyName: "Teste", id: uuid, deliveryAreas: [], companySlug: 'paipfood', paymentFlagsApp: []);
 
   const String email = "eduardohr.muniz@gmail.com";
   group('GET establishmentRepository', () {
@@ -116,5 +117,10 @@ void main() {
     //Assert
 
     expect(request, isA<Map<String, dynamic>>());
+  });
+
+  test("paymentMethods", () async {
+    final request = await repository.getPaymentMethodsByCountry('Brasil');
+    expect(request, isA<List<PaymentMethodModel>>());
   });
 }

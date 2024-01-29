@@ -4,21 +4,34 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 
 import '../../../../paipfood_package.dart';
 
-late BoxCollection _collection;
+late BoxCollection collection;
 
 class LocalStorage implements ILocalStorage {
   final logger = Log(printer: PrettyPrinter());
 
-  static void init(Set<String> boxNames) async {
+  static Future<String> getPath() async {
     String path = "";
+    Directory? dir;
     if (kIsWeb) {
+      path = "assets/db";
+    } else if (Platform.isAndroid) {
+      dir = await getExternalStorageDirectory();
+      path = dir?.path ?? '';
+    } else if (Platform.isIOS) {
+      dir = await getApplicationDocumentsDirectory();
+      path = dir.path;
     } else {
-      path = Directory.current.path;
+      dir = await getApplicationSupportDirectory();
+      path = dir.path;
     }
-    Hive.init(path);
+    return path += '/hive_db';
+  }
 
-    _collection = await BoxCollection.open(
-      Env.dataBase, // Name of your database
+  static Future<void> init(Set<String> boxNames) async {
+    final path = await getPath();
+    Hive.init(path);
+    collection = await BoxCollection.open(
+      "paip", // Name of your database
       boxNames, // Names of your boxes
       path: path, // Path where to store your boxes (Only used in Flutter / Dart IO)
       // key: HiveAesCipher([0, 1, 8, 0, 4, 9, 9, 3]), // Key to encrypt your boxes (Only used in Flutter / Dart IO)
@@ -27,7 +40,7 @@ class LocalStorage implements ILocalStorage {
 
   @override
   Future<void> delete(String boxId, {required List<String> keys}) async {
-    final box = await _collection.openBox<Map>(boxId);
+    final box = await collection.openBox<Map>(boxId);
     await box.deleteAll(keys);
 
     _logInfos(boxId, "DELETE", key: keys.toString());
@@ -35,7 +48,7 @@ class LocalStorage implements ILocalStorage {
 
   @override
   Future<Map?> get(String boxId, {required String key}) async {
-    final box = await _collection.openBox<Map>(boxId);
+    final box = await collection.openBox<Map>(boxId);
     final result = await box.get(key);
     _logInfos(boxId, "GET", key: key, value: result);
     return result;
@@ -43,15 +56,15 @@ class LocalStorage implements ILocalStorage {
 
   @override
   Future<void> put(String boxId, {required String key, required Map value, bool transaction = false}) async {
-    final box = await _collection.openBox<Map>(boxId);
+    final box = await collection.openBox<Map>(boxId);
     await box.put(key, value);
     _logInfos(boxId, "PUT", key: key, value: value);
   }
 
   @override
   Future<void> putTransaction(String boxId, {required List<Map> values}) async {
-    final box = await _collection.openBox<Map>(boxId);
-    await _collection.transaction(
+    final box = await collection.openBox<Map>(boxId);
+    await collection.transaction(
       () async {
         values.map((e) async => await box.put(e['id'], e)).toList();
       },
@@ -63,7 +76,7 @@ class LocalStorage implements ILocalStorage {
 
   @override
   Future<Map?> getAll(String boxId) async {
-    final box = await _collection.openBox<Map>(boxId);
+    final box = await collection.openBox<Map>(boxId);
     final content = await box.getAllValues();
 
     final result = Map.fromIterable(content.values);
@@ -74,7 +87,7 @@ class LocalStorage implements ILocalStorage {
 
   @override
   Future<Map?> getAllByKeys(String boxId, {required List<String> keys}) async {
-    final box = await _collection.openBox<Map>(boxId);
+    final box = await collection.openBox<Map>(boxId);
     final content = await box.getAll(keys);
 
     final result = Map.fromIterable(content);
@@ -88,7 +101,7 @@ class LocalStorage implements ILocalStorage {
   }
 
   Future<void> openBox(String name) async {
-    await _collection.openBox<Map>(name);
+    await collection.openBox<Map>(name);
   }
 
   Future<void> closeBox(String name) async {
@@ -101,7 +114,7 @@ class LocalStorage implements ILocalStorage {
 
   @override
   Future<void> clearBox(String boxId) async {
-    final box = await _collection.openBox<Map>(boxId);
+    final box = await collection.openBox<Map>(boxId);
     await box.clear();
 
     _logInfos(boxId, "CLEAR");
@@ -109,12 +122,7 @@ class LocalStorage implements ILocalStorage {
 
   @override
   Future<void> clearDatabase() async {
-    String path = "";
-    if (kIsWeb) {
-      path = "/assets/db";
-    } else {
-      path = Directory.current.path;
-    }
+    final String path = await getPath();
     await Hive.deleteBoxFromDisk(path);
   }
 }

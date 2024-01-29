@@ -54,6 +54,33 @@ class MaskUtils {
     );
   }
 
+  static MaskInputController datePtbr({String? Function(String? value)? customValidate, bool isRequired = false}) {
+    FocusNode? focusNode;
+
+    return MaskInputController(
+      getFocusNode: () {
+        focusNode = focusNode ?? FocusNode();
+        return focusNode;
+      },
+      inpuFormatters: [MaskTextInputFormatter(mask: "##/##/####")],
+      keyboardType: TextInputType.number,
+      validator: (value) {
+        String? isError;
+        if (isRequired) {
+          if (value == null || value.isEmpty) {
+            isError = 'Campo obrigatório';
+          }
+        }
+
+        if (customValidate != null) {
+          isError = customValidate.call(value);
+        }
+        requestFocusOnError(focusNode: focusNode, isError: isError);
+        return isError;
+      },
+    );
+  }
+
   static MaskInputController cRequired({String? Function(String? value)? customValidate}) {
     FocusNode? focusNode;
 
@@ -227,7 +254,7 @@ class MaskUtils {
   static MaskInputController phonePtBr({required TextEditingController textEditingController, required int minLenght}) {
     FocusNode? focusNode;
     final maskFormatter = [
-      MaskTextInputFormatter(mask: "(##) ####-#############"),
+      MaskTextInputFormatter(mask: "(##) ####-#####"),
     ];
     return MaskInputController(
       getFocusNode: () {
@@ -238,10 +265,10 @@ class MaskUtils {
       inpuFormatters: maskFormatter,
       onChanged: (value) {
         final lenght = value.length;
-        if (lenght <= 13) {
-          textEditingController.value = maskFormatter[0].updateMask(mask: "(##) ####-##################");
+        if (lenght <= 14) {
+          textEditingController.value = maskFormatter[0].updateMask(mask: "(##) ####-#####");
         }
-        if (value.length == 14) textEditingController.value = maskFormatter[0].updateMask(mask: "(##)# ####-#################");
+        if (value.length == 15) textEditingController.value = maskFormatter[0].updateMask(mask: "(##)# ####-#####");
       },
       keyboardType: TextInputType.number,
       validator: (value) {

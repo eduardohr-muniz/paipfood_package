@@ -13,7 +13,7 @@ enum DeviceUtils {
   const DeviceUtils(this.minWidth);
 
   bool get isPlatform {
-    final device = _getPlatform();
+    final device = getPlatform();
     return device == this;
   }
 
@@ -34,7 +34,7 @@ enum DeviceUtils {
     return DeviceUtils.mobile;
   }
 
-  DeviceUtils _getPlatform() {
+  DeviceUtils getPlatform() {
     if (kIsWeb) {
       return DeviceUtils.webPlatform;
     } else if (Platform.isAndroid || Platform.isIOS) {

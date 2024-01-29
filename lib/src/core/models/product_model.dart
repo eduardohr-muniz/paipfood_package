@@ -208,6 +208,10 @@ class ProductModel {
     return results;
   }
 
+  List<QtyFlavorsPizza> get getQtyFlavorsPizza {
+    return QtyFlavorsPizza.values.where((e) => e.qty <= qtyFlavorsPizza!.qty).toList();
+  }
+
   String get imagePath => "$establishmentId/$id.png";
   List<String> get sizesIds => sizes.map((e) => e.id).toList();
   double get priceFromSizes => sizes.sorted((a, b) => a.price.compareTo(b.price)).first.price;

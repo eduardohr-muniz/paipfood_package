@@ -4,7 +4,7 @@ import 'package:paipfood_package/src/core/enums/zz_enums_export.dart';
 
 import 'zz_models_export.dart';
 
-const List<CheckPointEnum> checkPointsDef = [CheckPointEnum.establishment, CheckPointEnum.delivery];
+const List<OrderTypeEnum> orderTypesDef = [OrderTypeEnum.pickUp, OrderTypeEnum.delivery];
 
 class EstablishmentModel {
   final String id;
@@ -29,13 +29,16 @@ class EstablishmentModel {
   String phone;
   String phoneCountryCode;
   String email;
-  List<CheckPointEnum> checkPoints;
+  List<OrderTypeEnum> orderTypes;
   List<DeliveryAreasModel> deliveryAreas;
+  List<PaymentFlagEnum> paymentFlagsLocal;
+  List<PaymentFlagEnum> paymentFlagsApp;
   SyncState syncState;
   EstablishmentModel({
     required this.id,
     required this.deliveryAreas,
     required this.companySlug,
+    required this.paymentFlagsApp,
     this.createdAt,
     this.updatedAt,
     this.address,
@@ -53,11 +56,12 @@ class EstablishmentModel {
     this.culinaryStyle = CulinaryStyleEnum.fastFood,
     this.minimunOrder = 10,
     this.dueDate = 10,
-    this.checkPoints = checkPointsDef,
+    this.orderTypes = orderTypesDef,
     this.phone = '',
     this.phoneCountryCode = '',
     this.email = '',
     this.syncState = SyncState.none,
+    this.paymentFlagsLocal = const [PaymentFlagEnum.money, PaymentFlagEnum.visa, PaymentFlagEnum.master],
   });
   static const String box = "establishments";
   EstablishmentModel copyWith({
@@ -83,8 +87,10 @@ class EstablishmentModel {
     String? phone,
     String? phoneCountryCode,
     String? email,
-    List<CheckPointEnum>? checkPoints,
+    List<OrderTypeEnum>? orderTypes,
     List<DeliveryAreasModel>? deliveryAreas,
+    List<PaymentFlagEnum>? paymentFlagsLocal,
+    List<PaymentFlagEnum>? paymentFlagsApp,
     SyncState? syncState,
   }) {
     return EstablishmentModel(
@@ -110,8 +116,10 @@ class EstablishmentModel {
       phone: phone ?? this.phone,
       phoneCountryCode: phoneCountryCode ?? this.phoneCountryCode,
       email: email ?? this.email,
-      checkPoints: checkPoints ?? this.checkPoints,
+      orderTypes: orderTypes ?? this.orderTypes,
       deliveryAreas: deliveryAreas ?? this.deliveryAreas,
+      paymentFlagsLocal: paymentFlagsLocal ?? this.paymentFlagsLocal,
+      paymentFlagsApp: paymentFlagsApp ?? this.paymentFlagsApp,
       syncState: syncState ?? this.syncState,
     );
   }
@@ -135,10 +143,12 @@ class EstablishmentModel {
       'culinary_style': culinaryStyle.name,
       'minimun_order': minimunOrder,
       'due_date': dueDate,
-      'check_points': checkPoints.map((e) => e.name).toList(),
+      'order_types': orderTypes.map((e) => e.name).toList(),
       'phone': phone,
       'phone_country_code': phoneCountryCode,
       'email': email,
+      'payment_flags_local': paymentFlagsLocal.map((e) => e.name).toList(),
+      'payment_flags_app': paymentFlagsApp.map((e) => e.name).toList(),
     };
   }
 
@@ -162,8 +172,16 @@ class EstablishmentModel {
       culinaryStyle: map['culinary_style'] != null ? CulinaryStyleEnum.fromMap(map['culinary_style']) : CulinaryStyleEnum.fastFood,
       minimunOrder: map['minimun_order']?.toDouble() ?? 10.00,
       dueDate: map['due_date']?.toInt() ?? 0,
-      checkPoints: List<CheckPointEnum>.from(map['check_points']?.map((checkPoint) {
-            return CheckPointEnum.values.firstWhere((element) => element.name == checkPoint);
+      paymentFlagsLocal: List<PaymentFlagEnum>.from(map['payment_flags_local']?.map((paymentMethod) {
+            return PaymentFlagEnum.fromMap(paymentMethod);
+          }).toList() ??
+          []),
+      paymentFlagsApp: List<PaymentFlagEnum>.from(map['payment_flags_app']?.map((paymentMethod) {
+            return PaymentFlagEnum.fromMap(paymentMethod);
+          }).toList() ??
+          []),
+      orderTypes: List<OrderTypeEnum>.from(map['order_types']?.map((checkPoint) {
+            return OrderTypeEnum.values.firstWhere((element) => element.name == checkPoint);
           }).toList() ??
           []),
       phone: map['phone'] ?? '',

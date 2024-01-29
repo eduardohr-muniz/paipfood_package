@@ -115,7 +115,7 @@ linter:
     # Evite funções lambda quando uma tear-off pode ser utilizado
     # X  onTap: (value) => foo(value)
     # >> onTap: foo
-    unnecessary_lambdas: true
+    unnecessary_lambdas: false
 
     avoid_relative_lib_imports: true
     implementation_imports: true

@@ -26,20 +26,22 @@ class CompanyModel {
   final DateTime? updatedAt;
   String name;
   List<EstablishmentModel> establishments;
-  List<PaymentMethodsModel> paymentMethods;
+  List<PaymentFlagEnum> paymentFlagsLocal;
+  List<PaymentFlagEnum> paymentFlagsApp;
   String facebook;
   String instagram;
   ThemeEnum theme;
   SyncState syncState;
   CompanyModel({
     required this.slug,
+    required this.paymentFlagsApp,
     this.userAdminId,
     this.establishmentDefaultId,
     this.createdAt,
     this.updatedAt,
     this.name = '',
     this.establishments = const [],
-    this.paymentMethods = const [],
+    this.paymentFlagsLocal = const [PaymentFlagEnum.money, PaymentFlagEnum.visa, PaymentFlagEnum.master],
     this.facebook = '',
     this.instagram = '',
     this.theme = ThemeEnum.paip,
@@ -54,7 +56,8 @@ class CompanyModel {
     DateTime? updatedAt,
     String? name,
     List<EstablishmentModel>? establishments,
-    List<PaymentMethodsModel>? paymentMethods,
+    List<PaymentFlagEnum>? paymentFlagsLocal,
+    List<PaymentFlagEnum>? paymentFlagsApp,
     String? facebook,
     String? instagram,
     ThemeEnum? theme,
@@ -68,7 +71,8 @@ class CompanyModel {
       updatedAt: updatedAt ?? this.updatedAt,
       name: name ?? this.name,
       establishments: establishments ?? this.establishments,
-      paymentMethods: paymentMethods ?? this.paymentMethods,
+      paymentFlagsLocal: paymentFlagsLocal ?? this.paymentFlagsLocal,
+      paymentFlagsApp: paymentFlagsApp ?? this.paymentFlagsApp,
       facebook: facebook ?? this.facebook,
       instagram: instagram ?? this.instagram,
       theme: theme ?? this.theme,
@@ -86,6 +90,8 @@ class CompanyModel {
       'facebook': facebook,
       'instagram': instagram,
       'theme': theme.name,
+      'payment_flags_local': paymentFlagsLocal.map((e) => e.name).toList(),
+      'payment_flags_app': paymentFlagsApp.map((e) => e.name).toList(),
     };
   }
 
@@ -101,8 +107,12 @@ class CompanyModel {
             return EstablishmentModel.fromMap(establishments);
           }).toList() ??
           const []),
-      paymentMethods: List<PaymentMethodsModel>.from(map['payment_methods']?.map((paymentMethod) {
-            return PaymentMethodsModel.fromMap(paymentMethod);
+      paymentFlagsLocal: List<PaymentFlagEnum>.from(map['payment_flags_local']?.map((paymentMethod) {
+            return PaymentFlagEnum.fromMap(paymentMethod);
+          }).toList() ??
+          []),
+      paymentFlagsApp: List<PaymentFlagEnum>.from(map['payment_flags_app']?.map((paymentMethod) {
+            return PaymentFlagEnum.fromMap(paymentMethod);
           }).toList() ??
           []),
       facebook: map['facebook'] ?? "",

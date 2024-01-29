@@ -85,7 +85,30 @@ class AddressModel {
     );
   }
 
-  Map<String, dynamic> toMap() {
+  AddressModel clone() {
+    return AddressModel(
+      id: id,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      street: street,
+      number: number,
+      neighborhood: neighborhood,
+      complement: complement,
+      zipCode: zipCode,
+      state: state,
+      lat: lat,
+      long: long,
+      address: address,
+      city: city,
+      country: country,
+      userId: userId,
+      establishmentId: establishmentId,
+      syncState: syncState,
+      isDeleted: isDeleted,
+    );
+  }
+
+  Map toMap() {
     return {
       'id': id,
       'updated_at': DateTime.now().toIso8601String(),
@@ -106,9 +129,9 @@ class AddressModel {
     };
   }
 
-  factory AddressModel.fromMap(Map<String, dynamic> map) {
+  factory AddressModel.fromMap(Map map) {
     return AddressModel(
-      id: map['id'],
+      id: map['id'] ?? '',
       createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
       updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
       street: map['street'] ?? "",
@@ -123,7 +146,7 @@ class AddressModel {
       city: map['city'] ?? "",
       country: map['country'] ?? "",
       userId: map['user_id'],
-      establishmentId: map['establishment_id'],
+      establishmentId: map['establishment_id'] ?? "",
       isDeleted: map['is_deleted'] ?? false,
     );
   }
@@ -131,6 +154,8 @@ class AddressModel {
   String toJson() => json.encode(toMap());
 
   factory AddressModel.fromJson(String source) => AddressModel.fromMap(json.decode(source));
+
+  String get addressToString => "$street, $number, $neighborhood${complement.isNotEmpty ? "\n$complement" : ""}";
 
   @override
   String toString() {

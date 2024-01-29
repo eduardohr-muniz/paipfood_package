@@ -83,7 +83,7 @@ class DeliveryAreasModel {
       createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
       updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
       establishmentId: map['establishment_id'],
-      color: Color(int.parse(map['color'])),
+      color: map['color'] != null ? Color(int.parse(map['color'])) : Colors.red,
       label: map['label'] ?? '',
       price: map['price']?.toDouble() ?? 0.0,
       isArea: map['is_area'] ?? false,

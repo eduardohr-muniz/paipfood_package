@@ -21,7 +21,7 @@ class CwSearchFild extends StatefulWidget {
   final void Function(dynamic)? onSelectedCallBack;
   final String? initialValue;
   final MenuController menuController;
-  final double maxheight;
+  final double? maxheight;
   final double heightChild;
   final bool? obscureText;
   final Widget? suffixIcon;
@@ -34,6 +34,7 @@ class CwSearchFild extends StatefulWidget {
   final TextEditingController? controller;
   final void Function(String)? onChanged;
   final MaskInputController? maskUtils;
+  final AutovalidateMode? autovalidateMode;
 
   const CwSearchFild({
     required this.label,
@@ -51,8 +52,9 @@ class CwSearchFild extends StatefulWidget {
     this.inputFormatters,
     this.onChanged,
     this.maskUtils,
-    this.maxheight = 350,
+    this.autovalidateMode,
     this.heightChild = 50,
+    this.maxheight = 350,
   }) : super(key: key);
 
   @override
@@ -79,7 +81,7 @@ class _CwSearchFildState extends State<CwSearchFild> {
             Material(
               elevation: 8,
               child: SizedBox(
-                height: max(min((widget.children?.length ?? 0) * widget.heightChild, widget.maxheight), 0),
+                height: max(min((widget.children?.length ?? 0) * widget.heightChild, widget.maxheight ?? 350), 0),
                 width: constraints.maxWidth,
                 child: SingleChildScrollView(
                   child: Column(
@@ -100,6 +102,7 @@ class _CwSearchFildState extends State<CwSearchFild> {
             label: widget.label,
             hintText: widget.hintText,
             focusNode: focusNode,
+            autovalidateMode: widget.autovalidateMode,
           ),
         );
       },

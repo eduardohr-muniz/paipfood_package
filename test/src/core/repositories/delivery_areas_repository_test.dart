@@ -8,7 +8,7 @@ Future<void> main() async {
   final authRepository = AuthRepository(http: http);
   if (auth.accessToken == null) auth = await authRepository.loginByEmail(email: email, password: Env.passwordDefault);
   final repository = DeliveryAreasRepository(http: http);
-  const String establishmentId = '22';
+  const String establishmentId = '26c6c358-ef75-40c1-9be2-19a9bbce45a5';
   final String id = uuid;
 
   final areaMock = DeliveryAreasModel(
@@ -49,5 +49,13 @@ Future<void> main() async {
     //Act
     await repository.delete(id: id, auth: auth, isDeleted: true);
     //Assert
+  });
+  test('getdeliveryareabylatlong', () async {
+    //Arrange
+
+    //Act
+    final result = await repository.getDeliveryAreaByLatLong(establishmentId: establishmentId, lat: -21.7984488, long: -46.5284425);
+    //Assert
+    expect(result, isA<DeliveryAreasModel>());
   });
 }

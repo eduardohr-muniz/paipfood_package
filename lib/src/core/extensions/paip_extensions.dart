@@ -24,6 +24,16 @@ extension ListExtension on List {
   }
 }
 
+extension MapExtension on Map {
+  bool contains({required String key, required String value}) {
+    return this[key]?.toUpperCase().contains(value.toUpperCase()) ?? false;
+  }
+
+  bool startsWith({required String key, required String value}) {
+    return this[key]?.toUpperCase().startsWith(value.toUpperCase()) ?? false;
+  }
+}
+
 extension NumExtension on num {
   String get toStringCurrency => "${"currency".i18n()} ${Utils.maskUltisToString(toStringAsFixed(2), MaskUtils.currency())}";
 }

@@ -15,8 +15,8 @@ class CropperImageController extends ChangeNotifier {
   Future<Uint8List?> uploadImage({required BuildContext context, double? width}) async {
     await FilePicker.platform.pickFiles(type: FileType.image).then((value) async {
       if (value != null) {
-        final i = value.files.first;
-        final File file = File(i.path!);
+        final imageResult = value.files.first;
+        final File file = File(imageResult.path!);
         imagePicker = file.readAsBytesSync();
       }
     });

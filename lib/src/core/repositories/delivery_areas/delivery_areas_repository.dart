@@ -37,4 +37,14 @@ class DeliveryAreasRepository implements IDeliveryAreasRepository {
       headers: {"Authorization": "Bearer ${auth.accessToken}"},
     );
   }
+
+  @override
+  Future<DeliveryAreasModel> getDeliveryAreaByLatLong({required String establishmentId, required double lat, required double long}) async {
+    final request = await http.post(
+      "rest/v1/rpc/getdeliveryareabylatlong",
+      data: {"p_establishment_id": establishmentId, "p_lat": lat, "p_long": long},
+    );
+    final List list = request.data;
+    return DeliveryAreasModel.fromMap(list.first);
+  }
 }
