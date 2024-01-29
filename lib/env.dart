@@ -14,5 +14,4 @@ class Env {
   static String mapboxDark = const String.fromEnvironment('MAPBOX_DARK');
 
   static String mapboxApiKey = const String.fromEnvironment('MAPBOX_API_KEY');
-  static String dataBase = const String.fromEnvironment('DATA_BASE');
 }
