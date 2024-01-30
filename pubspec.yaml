@@ -37,6 +37,7 @@ dependencies:
 
   url_launcher: ^6.2.3
   sliver_tools: ^0.2.12
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -55,6 +56,7 @@ flutter:
     - assets/
     - assets/flags/
     - assets/payments/
+    - .env
   #
   # For details regarding assets in packages, see
   # https://flutter.dev/assets-and-images/#from-packages

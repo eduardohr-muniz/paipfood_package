@@ -21,3 +21,4 @@ export 'package:cached_network_image/cached_network_image.dart';
 export 'package:url_launcher/url_launcher.dart';
 export 'package:sliver_tools/sliver_tools.dart';
 export 'package:path_provider/path_provider.dart';
+export 'package:flutter_dotenv/flutter_dotenv.dart';
