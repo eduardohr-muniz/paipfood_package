@@ -5,20 +5,24 @@ enum OrderTypeEnum {
   kiosk("kiosk"),
   table("mesa");
 
-  final String i18Name;
+  final String i18nText;
 
-  const OrderTypeEnum(this.i18Name);
+  const OrderTypeEnum(this.i18nText);
 
   static OrderTypeEnum fromMap(String value) {
     return OrderTypeEnum.values.firstWhere((element) => element.name == value);
   }
 }
 
-enum StatusOrder {
-  peding,
-  awaitingPayment,
-  paid,
-  paymentRejected,
-  canceled,
-  lost,
-}
+// enum OrderStatus {
+//   peding,
+//   awaitingPayment,
+//   paid,
+//   paymentRejected,
+//   canceled,
+//   lost;
+
+//   static OrderStatus fromMap(String value) {
+//     return OrderStatus.values.firstWhere((element) => element.name == value);
+//   }
+// }

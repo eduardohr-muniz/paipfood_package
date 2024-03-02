@@ -1,6 +1,6 @@
-export 'adapters/address_geoapify_model.dart';
-export 'view_models/cart_product_vm.dart';
-export 'adapters/address_model.dart';
+export 'adapters/address/address_geoapify_model.dart';
+export 'view_models/cart/cart_product_vm.dart';
+export 'adapters/address/address_model.dart';
 export 'auth_model.dart';
 export 'category_model.dart';
 export 'customer_model.dart';
@@ -12,11 +12,12 @@ export 'establishment_model.dart';
 export 'invoice_model.dart';
 export 'item_model.dart';
 export 'lat_long_model.dart';
+export 'opening_hours_model.dart';
 export 'order_model.dart';
-
 export 'payment_method_model.dart';
 export 'plans_model.dart';
 export 'preferences_model.dart';
+export 'printer_model.dart';
 export 'product_model.dart';
 export 'size_model.dart';
 export 'user_model.dart';

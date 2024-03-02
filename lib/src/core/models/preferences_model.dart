@@ -9,6 +9,7 @@ class PreferencesModel {
   String? languageCode;
   String? countryCode;
   AuthModel? authModel;
+  
 
   PreferencesModel({
     required this.id,

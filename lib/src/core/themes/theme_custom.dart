@@ -14,9 +14,13 @@ class ThemeCustom {
     ),
     appBarTheme: AppBarTheme(backgroundColor: PColors.neutral_.get50, surfaceTintColor: PColors.neutral_.get50),
     textTheme: text,
+    dialogTheme: DialogTheme(
+      backgroundColor: PColors.light.primaryBG,
+      surfaceTintColor: PColors.light.primaryBG,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+    ),
     brightness: Brightness.light,
     extensions: [PColors.light],
-    hoverColor: PColors.neutral_.get200,
     colorScheme: ColorScheme(
       brightness: Brightness.light,
       background: PColors.light.surface, //primaryBackGround
@@ -44,6 +48,11 @@ class ThemeCustom {
       selectionHandleColor: PColors.light.primaryColor,
     ),
     appBarTheme: AppBarTheme(backgroundColor: PColors.neutral_.get950, surfaceTintColor: PColors.neutral_.get950),
+    dialogTheme: DialogTheme(
+      backgroundColor: PColors.dark.primaryBG,
+      surfaceTintColor: PColors.dark.primaryBG,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+    ),
     extensions: [PColors.dark],
     colorScheme: ColorScheme(
       brightness: Brightness.dark,

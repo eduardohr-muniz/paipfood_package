@@ -20,9 +20,8 @@ dependencies:
   flutter_map: ^5.0.0
   latlong2: ^0.9.0
   flutter_animate: ^4.2.0
-  dio: ^5.1.2
+  dio: ^5.4.1
   flutter_modular: ^5.0.3
-  supabase_flutter: ^1.10.9
   window_manager: ^0.3.6
   pin_code_fields: ^8.0.1
   universal_io: ^2.2.2
@@ -34,10 +33,10 @@ dependencies:
   file_picker: ^6.1.1
   cached_network_image: ^3.3.1
   path_provider: ^2.1.2
-
   url_launcher: ^6.2.3
   sliver_tools: ^0.2.12
   flutter_dotenv: ^5.1.0
+  flutter_pos_printer_platform: ^1.0.12
 
 dev_dependencies:
   flutter_test:

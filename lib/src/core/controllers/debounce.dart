@@ -4,20 +4,26 @@ import 'dart:async';
 class Debounce {
   int? miliseconds;
 
+  Completer? _completer;
   Timer? _timer;
 
   Debounce({this.miliseconds = 500});
 
   void dispose() {
+    _completer?.complete();
     _timer?.cancel();
   }
 
-  void startTimer({required String value, required void Function() onTap, required int lenght}) {
+  Future<void> startTimer({required String value, required FutureOr<void> Function() onComplete, required int lenght}) async {
+    if (_completer?.isCompleted == false) _completer?.complete();
     _timer?.cancel();
-    _timer = Timer(Duration(milliseconds: miliseconds!), () {
+    _completer = Completer();
+    _timer = Timer(Duration(milliseconds: miliseconds!), () async {
       if (value.length >= lenght) {
-        onTap.call();
+        await onComplete.call();
+        if (_completer?.isCompleted == false) _completer?.complete();
       }
     });
+    return _completer?.future;
   }
 }

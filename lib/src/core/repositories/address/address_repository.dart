@@ -1,6 +1,7 @@
 import 'package:paipfood_package/env.dart';
+import 'package:paipfood_package/paipfood_package.dart';
 import 'package:paipfood_package/src/core/interfaces/zz_interfaces_export.dart';
-import 'package:paipfood_package/src/core/models/adapters/address_model.dart';
+
 import 'package:paipfood_package/src/core/repositories/address/i_address_repository.dart';
 
 class AddressRepository implements IAddressRepository {

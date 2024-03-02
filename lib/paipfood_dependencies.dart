@@ -22,3 +22,4 @@ export 'package:url_launcher/url_launcher.dart';
 export 'package:sliver_tools/sliver_tools.dart';
 export 'package:path_provider/path_provider.dart';
 export 'package:flutter_dotenv/flutter_dotenv.dart';
+export 'package:flutter_pos_printer_platform/flutter_pos_printer_platform.dart';

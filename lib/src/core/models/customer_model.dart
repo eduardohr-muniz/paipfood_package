@@ -20,6 +20,7 @@ class CustomerModel {
     this.address,
     this.isSingleCustomer = false,
   });
+
   static String box = 'client_model';
 
   CustomerModel copyWith({

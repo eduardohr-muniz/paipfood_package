@@ -1,15 +1,16 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:paipfood_package/paipfood_package.dart';
 
-void main() {
+Future<void> main() async {
   final http = HttpDio();
   final repository = EstablishmentRepository(http: http);
   final authRepository = AuthRepository(http: http);
   CompanyModel companyMock = CompanyModel(slug: "paipfood", paymentFlagsApp: []);
   EstablishmentModel establishmentMock =
-      EstablishmentModel(fantasyName: "Teste", id: uuid, deliveryAreas: [], companySlug: 'paipfood', paymentFlagsApp: []);
+      EstablishmentModel(fantasyName: "Teste", id: uuid, deliveryAreas: [], companySlug: 'paipfood', paymentFlagsApp: [], paymentProvider: {});
 
   const String email = "eduardohr.muniz@gmail.com";
+  const String establishmentId = "26c6c358-ef75-40c1-9be2-19a9bbce45a5";
   group('GET establishmentRepository', () {
     test('getCompanies', () async {
       //Arrange
@@ -122,5 +123,19 @@ void main() {
   test("paymentMethods", () async {
     final request = await repository.getPaymentMethodsByCountry('Brasil');
     expect(request, isA<List<PaymentMethodModel>>());
+  });
+
+  test("PaymentProvider", () async {
+    final user = await authRepository.loginByEmail(email: email, password: Env.passwordDefault);
+    final provider = MercadoPagoModel(
+        createdAt: DateTime.now(),
+        paymentProvider: PaymentProvider.mercadoPago,
+        refreshToken: "token",
+        accessToken: "dasd",
+        expiresIn: 1505,
+        updatedAt: DateTime.now());
+    final request = await repository.updateEstablishmentPaymentProvider(
+        userAcessToken: user.accessToken!, establishmentId: establishmentId, paymentProvider: provider.toMap());
+    expect(request, isA<EstablishmentModel>());
   });
 }

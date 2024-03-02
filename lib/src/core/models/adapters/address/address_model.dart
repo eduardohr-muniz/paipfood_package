@@ -154,8 +154,10 @@ class AddressModel {
   String toJson() => json.encode(toMap());
 
   factory AddressModel.fromJson(String source) => AddressModel.fromMap(json.decode(source));
+  String get addressToFild => "$street ${number.isEmpty ? "" : ", number "}- $city";
 
-  String get addressToString => "$street, $number, $neighborhood${complement.isNotEmpty ? "\n$complement" : ""}";
+  String get addressToString => "$street, $number, $neighborhood${complement.isNotEmpty ? " - 🚩 $complement" : ""}";
+  String get addressFormatted => "$street, $number, $neighborhood\n${complement.isNotEmpty ? complement : ""}";
 
   @override
   String toString() {

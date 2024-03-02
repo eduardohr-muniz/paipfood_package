@@ -1,34 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:paipfood_package/paipfood_package.dart';
 
-class CwDropMenu<Object> extends StatefulWidget {
+class CwDropMenu<T> extends StatefulWidget {
   final String? label;
-  final Object? initialValue;
+  final T? initialValue;
   final TextEditingController? controller;
   final Widget? prefixIcon;
-
+  final String? hintText;
   final bool filled;
-  final String? tooltipMessage;
-  final IconData? tooltipIcon;
-  final List<DropdownMenuEntry<Object>> dropdownMenuEntries;
+  final double? minWidth;
+  final List<DropdownMenuEntry<T>> dropdownMenuEntries;
+  final bool isExpanded;
+  final void Function(T?)? onSelected;
 
   const CwDropMenu({
     required this.dropdownMenuEntries,
+    required this.onSelected,
     Key? key,
     this.label,
     this.initialValue,
     this.controller,
     this.prefixIcon,
     this.filled = true,
-    this.tooltipMessage,
-    this.tooltipIcon,
+    this.hintText,
+    this.minWidth,
+    this.isExpanded = false,
   }) : super(key: key);
 
   @override
-  State<CwDropMenu> createState() => _CwDropMenuState();
+  State<CwDropMenu<T>> createState() => _CwDropMenuState<T>();
 }
 
-class _CwDropMenuState extends State<CwDropMenu> {
+class _CwDropMenuState<T> extends State<CwDropMenu<T>> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -40,21 +43,14 @@ class _CwDropMenuState extends State<CwDropMenu> {
           if (widget.label != null)
             Padding(
                 padding: const EdgeInsets.only(bottom: 4),
-                child: Text(widget.label!, style: context.textTheme.labelMedium, overflow: TextOverflow.ellipsis)
-
-                // Row(
-                //   children: [
-                //     Expanded(child: Text(widget.label!, style: context.textTheme.labelMedium, overflow: TextOverflow.ellipsis)),
-                //     widget.tooltipMessage != null
-                //         ? CwIconTolltip(tooltipMessage: widget.tooltipMessage!, icon: widget.tooltipIcon, iconSize: 18)
-                //         : const SizedBox.shrink(),
-                //   ],
-                // ),
-                ),
-          DropdownMenu<dynamic>(
+                child: Text(widget.label!, style: context.textTheme.labelMedium, overflow: TextOverflow.ellipsis)),
+          DropdownMenu<T>(
+            hintText: widget.hintText,
             initialSelection: widget.initialValue,
+            onSelected: widget.onSelected,
             dropdownMenuEntries: widget.dropdownMenuEntries,
             controller: widget.controller,
+            expandedInsets: widget.isExpanded ? const EdgeInsets.all(0) : null,
             inputDecorationTheme: InputDecorationTheme(
               enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
@@ -67,9 +63,7 @@ class _CwDropMenuState extends State<CwDropMenu> {
               isDense: true,
               constraints: const BoxConstraints(
                 maxHeight: 40,
-                maxWidth: 300,
                 minHeight: 40,
-                minWidth: 40,
               ),
               fillColor: context.color.onPrimaryBG,
               errorMaxLines: 10,

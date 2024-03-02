@@ -4,10 +4,8 @@ import 'package:paipfood_package/paipfood_package.dart';
 
 class CartProductVm {
   final String id;
-  final ProductModel product;
+  ProductModel product;
   SizeModel? size;
-
-  ///<complementId, <itemId, ItemCart>>
   Map<String, Map<String, ItemCart>> itemsCartMap;
   String observation;
   int qty;
@@ -59,13 +57,23 @@ class CartProductVm {
     );
   }
 
+// Map<String, Map<String, ItemCart>>? itemsCartMap
   Map<String, dynamic> toMap() {
+    List<Map> getAllItensCart() {
+      final List<Map> result = [];
+      final maps = itemsCartMap.values;
+      for (final map in maps) {
+        result.addAll(map.values.map((item) => item.toMap()).toList());
+      }
+      return result;
+    }
+
     return {
       'id': id,
-      'product': product.toMap(),
+      'product': product.toMap(isOrder: true),
       'size': size?.toMap(),
       'observation': observation,
-      'items_cart_map': itemsCartMap,
+      'items_cart_map': getAllItensCart(),
       'qty': qty,
       'price': price,
       'qty_flavors_pizza': qtyFlavorsPizza?.qty,
@@ -73,11 +81,21 @@ class CartProductVm {
   }
 
   factory CartProductVm.fromMap(Map map) {
+    Map<String, Map<String, ItemCart>> mapFromComplementCartModel() {
+      final List<ItemCart> itemCartsModel = List.from(map['items_cart_map']?.map((x) => ItemCart.fromMap(x)) ?? const []);
+      return {
+        for (final itemCart in itemCartsModel)
+          itemCart.complementId!: {
+            for (final item in itemCartsModel.where((element) => element.item.complementId == itemCart.complementId)) item.id: item
+          }
+      };
+    }
+
     return CartProductVm(
       id: map['id'],
       product: ProductModel.fromMap(map['product']),
       size: map['size'] != null ? SizeModel.fromMap(map['size']) : null,
-      itemsCartMap: Map<String, Map<String, ItemCart>>.from(map['items_cart_map'] ?? const {}),
+      itemsCartMap: map['items_cart_map'] != null ? mapFromComplementCartModel() : {},
       observation: map['observation'] ?? '',
       qty: map['qty']?.toInt() ?? 0,
       price: map['price']?.toDouble() ?? 0.0,
@@ -105,6 +123,7 @@ class CartProductVm {
   }
 
   double get amount => price * qty;
+
   bool addItem({required ItemModel item, required ComplementModel complement}) {
     final double price_ = getPriceItem(item: item, complement: complement);
     final int qtyActualy = getQtyByItem(item: item, complement: complement);
@@ -220,13 +239,13 @@ class CartProductVm {
 class ItemCart {
   String id;
   ItemModel item;
-  ComplementModel complement;
+  String? complementId;
   int qty;
   double price;
   ItemCart({
     required this.id,
     required this.item,
-    required this.complement,
+    required this.complementId,
     this.qty = 0,
     this.price = 0.0,
   });
@@ -234,14 +253,14 @@ class ItemCart {
   ItemCart copyWith({
     String? id,
     ItemModel? item,
-    ComplementModel? complement,
+    String? complementId,
     int? qty,
     double? price,
   }) {
     return ItemCart(
       id: id ?? this.id,
       item: item ?? this.item,
-      complement: complement ?? this.complement,
+      complementId: complementId ?? this.complementId,
       qty: qty ?? this.qty,
       price: price ?? this.price,
     );
@@ -251,7 +270,7 @@ class ItemCart {
     return ItemCart(
       id: id,
       item: item.clone(),
-      complement: complement.clone(),
+      complementId: complementId,
       qty: qty,
       price: price,
     );
@@ -260,8 +279,8 @@ class ItemCart {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'item': item.toMap(),
-      'complement': complement.toMap(),
+      'item': item.toMap(isComplete: false),
+      'complement_id': complementId,
       'qty': qty,
       'price': price,
     };
@@ -271,7 +290,7 @@ class ItemCart {
     return ItemCart(
       id: map['id'],
       item: ItemModel.fromMap(map['item']),
-      complement: ComplementModel.fromMap(map['complement']),
+      complementId: map['complement_id'],
       qty: map['qty']?.toInt() ?? 0,
       price: map['price']?.toDouble() ?? 0.0,
     );
@@ -280,13 +299,18 @@ class ItemCart {
     return ItemCart(
       id: uuid,
       item: item,
-      complement: complement,
+      complementId: complement.id,
       qty: qty,
       price: price,
     );
   }
 
   String toJson() => json.encode(toMap());
+
+  String descItem({QtyFlavorsPizza? qtyFlavorsPizza}) {
+    if (item.itemtype == Itemtype.pizza) return "$qty/${qtyFlavorsPizza!.qty} - ${item.name}";
+    return "${qty}x ${item.name}";
+  }
 
   factory ItemCart.fromJson(String source) => ItemCart.fromMap(json.decode(source));
 }

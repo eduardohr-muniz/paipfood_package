@@ -136,7 +136,7 @@ class ProductModel {
 
 // List<ComplementModel> complements;
   // List<SizeModel> sizes;
-  Map<String, dynamic> toMap({bool isComplete = true}) {
+  Map<String, dynamic> toMap({bool isComplete = true, bool isOrder = false}) {
     final map = {
       'id': id,
       'index': index,
@@ -159,6 +159,8 @@ class ProductModel {
       'sync_state': syncState.name,
     };
     if (isComplete) map.addAll(mapIsComplete);
+
+    if (isOrder) map.addAll({ComplementModel.box: complements.map((e) => e.toMap(isComplete: false)).toList()});
     return map;
   }
 

@@ -172,4 +172,16 @@ class EstablishmentRepository implements IEstablishmentRepository {
       return PaymentMethodModel.fromMap(paymentMethod);
     }).toList();
   }
+
+  @override
+  Future<EstablishmentModel> updateEstablishmentPaymentProvider(
+      {required String establishmentId, required String userAcessToken, required Map<String, dynamic> paymentProvider}) async {
+    final request = await http.patch(
+      "rest/v1/establishments?id=eq.$establishmentId",
+      headers: {"Authorization": "Bearer $userAcessToken"},
+      data: {"payment_provider": paymentProvider},
+    );
+    final List list = request.data;
+    return EstablishmentModel.fromMap(list.first);
+  }
 }

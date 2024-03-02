@@ -8,6 +8,8 @@ abstract interface class IEstablishmentRepository {
   Future<void> deleteCompany({required CompanyModel company, required AuthModel auth});
   Future<EstablishmentModel> insertEstablishment({required EstablishmentModel establishment, required AuthModel auth, required String companySlug});
   Future<EstablishmentModel> updateEstablishment({required EstablishmentModel establishment, required AuthModel auth});
+  Future<EstablishmentModel> updateEstablishmentPaymentProvider(
+      {required String establishmentId, required String userAcessToken, required Map<String, dynamic> paymentProvider});
   Future<void> deleteEstablishment({required EstablishmentModel establishment, required AuthModel auth});
   Future<EstablishmentModel?> getEstablishmentById(String id);
   Future<List<EstablishmentModel>> getEstablishmentsBySlug(String slug);

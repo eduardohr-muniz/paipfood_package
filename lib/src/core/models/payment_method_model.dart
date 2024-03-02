@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:paipfood_package/src/core/enums/payment_enum.dart';
+import 'package:paipfood_package/paipfood_package.dart';
 
 class PaymentMethodModel {
   final String id;
@@ -9,7 +10,7 @@ class PaymentMethodModel {
   final String description;
   final String countryId;
   final bool isApp;
-  final PaymentFlagEnum paymentId;
+  final PaymentFlagEnum paymentFlag;
   final bool isLocal;
   final PaymentType paymentType;
   final double? rate;
@@ -21,7 +22,7 @@ class PaymentMethodModel {
     required this.createdAt,
     required this.countryId,
     required this.isApp,
-    required this.paymentId,
+    required this.paymentFlag,
     required this.isLocal,
     required this.paymentType,
     required this.name,
@@ -32,15 +33,47 @@ class PaymentMethodModel {
     this.rateAntecipationPercent,
   });
 
+  PaymentMethodModel copyWith({
+    String? id,
+    DateTime? createdAt,
+    String? name,
+    String? description,
+    String? countryId,
+    bool? isApp,
+    PaymentFlagEnum? paymentFlag,
+    bool? isLocal,
+    PaymentType? paymentType,
+    double? rate,
+    double? ratePercent,
+    double? rateAntecipation,
+    double? rateAntecipationPercent,
+  }) {
+    return PaymentMethodModel(
+      id: id ?? this.id,
+      createdAt: createdAt ?? this.createdAt,
+      name: name ?? this.name,
+      description: description ?? this.description,
+      countryId: countryId ?? this.countryId,
+      isApp: isApp ?? this.isApp,
+      paymentFlag: paymentFlag ?? this.paymentFlag,
+      isLocal: isLocal ?? this.isLocal,
+      paymentType: paymentType ?? this.paymentType,
+      rate: rate ?? this.rate,
+      ratePercent: ratePercent ?? this.ratePercent,
+      rateAntecipation: rateAntecipation ?? this.rateAntecipation,
+      rateAntecipationPercent: rateAntecipationPercent ?? this.rateAntecipationPercent,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'created_at': createdAt.millisecondsSinceEpoch,
+      'created_at': createdAt.toTimesTamptzFormat,
       'name': name,
       'description': description,
       'country_id': countryId,
       'is_app': isApp,
-      'payment_id': paymentId.name,
+      'payment_flag': paymentFlag.name,
       'is_local': isLocal,
       'payment_type': paymentType.name,
       'rate': rate,
@@ -53,12 +86,12 @@ class PaymentMethodModel {
   factory PaymentMethodModel.fromMap(Map<String, dynamic> map) {
     return PaymentMethodModel(
       id: map['id'] ?? '',
-      createdAt: DateTime.parse(map['created_at']),
+      createdAt: DateTime.parse(map['created_at'].toString()),
       name: map['name'] ?? '',
       description: map['description'] ?? '',
       countryId: map['country_id'] ?? '',
       isApp: map['is_app'],
-      paymentId: PaymentFlagEnum.fromMap(map['payment_id']),
+      paymentFlag: PaymentFlagEnum.fromMap(map['payment_flag']),
       isLocal: map['is_local'],
       paymentType: PaymentType.fromMap(map['payment_type']),
       rate: map['rate']?.toDouble(),
@@ -71,34 +104,4 @@ class PaymentMethodModel {
   String toJson() => json.encode(toMap());
 
   factory PaymentMethodModel.fromJson(String source) => PaymentMethodModel.fromMap(json.decode(source));
-
-  PaymentMethodModel copyWith({
-    String? id,
-    DateTime? createdAt,
-    String? name,
-    String? countryId,
-    bool? isApp,
-    PaymentFlagEnum? paymentId,
-    bool? isLocal,
-    PaymentType? paymentType,
-    double? rate,
-    double? ratePercent,
-    double? rateAntecipation,
-    double? rateAntecipationPercent,
-  }) {
-    return PaymentMethodModel(
-      id: id ?? this.id,
-      createdAt: createdAt ?? this.createdAt,
-      name: name ?? this.name,
-      countryId: countryId ?? this.countryId,
-      isApp: isApp ?? this.isApp,
-      paymentId: paymentId ?? this.paymentId,
-      isLocal: isLocal ?? this.isLocal,
-      paymentType: paymentType ?? this.paymentType,
-      rate: rate ?? this.rate,
-      ratePercent: ratePercent ?? this.ratePercent,
-      rateAntecipation: rateAntecipation ?? this.rateAntecipation,
-      rateAntecipationPercent: rateAntecipationPercent ?? this.rateAntecipationPercent,
-    );
-  }
 }

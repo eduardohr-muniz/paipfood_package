@@ -24,6 +24,14 @@ extension ListExtension on List {
   }
 }
 
+extension DateTimeExtension on DateTime {
+  String get toTimesTamptzFormat => toIso8601String();
+}
+
+extension WidgetExtension on Widget {
+  Widget get excludeFocus => ExcludeFocus(child: this);
+}
+
 extension MapExtension on Map {
   bool contains({required String key, required String value}) {
     return this[key]?.toUpperCase().contains(value.toUpperCase()) ?? false;
@@ -36,6 +44,11 @@ extension MapExtension on Map {
 
 extension NumExtension on num {
   String get toStringCurrency => "${"currency".i18n()} ${Utils.maskUltisToString(toStringAsFixed(2), MaskUtils.currency())}";
+
+  bool isInRange({required num min, required num max}) {
+    final result = this >= min && this <= max;
+    return result;
+  }
 }
 
 extension StringExtension on String {

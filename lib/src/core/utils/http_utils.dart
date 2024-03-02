@@ -12,6 +12,12 @@ class HttpUtils {
     "Authorization": "Bearer ${Env.supaApiKey}",
     "Content-Type": "application/json",
   });
+  // static BaseOptions mercadoPago = BaseOptions(
+  //   baseUrl: 'https://vipwbbuyhszmxdjsclzg.supabase.co/',
+  // );
+  static BaseOptions mercadoPago = BaseOptions(
+    baseUrl: 'https://api.mercadopago.com/',
+  );
 
   static Map<String, dynamic> headerAuth(AuthModel auth) => {
         "Authorization": "Bearer ${auth.accessToken}",

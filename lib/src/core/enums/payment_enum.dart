@@ -1,5 +1,3 @@
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-
 enum PaymentFlagEnum {
   money,
   amex,
@@ -19,14 +17,39 @@ enum PaymentFlagEnum {
   static String pathIcon(PaymentFlagEnum paymentEnum) => 'assets/payments/${paymentEnum.name}.svg';
 }
 
+enum PaymentProvider {
+  mercadoPago;
+
+  static PaymentProvider fromMap(String value) {
+    return PaymentProvider.values.firstWhere((element) => element.name == value);
+  }
+}
+
+enum PaymentStatus {
+  peding,
+  awaitingPayment,
+  paid,
+  paymentRejected,
+  canceled,
+  lost;
+
+  static PaymentStatus fromMap(String value) {
+    return PaymentStatus.values.firstWhere((element) => element.name == value);
+  }
+}
+
 enum PaymentType {
-  credit,
-  debit,
-  voucher,
-  foodTicket,
-  mealTicket,
-  money,
-  pix;
+  credit("credito"),
+  debit("debito"),
+  voucher("voucher"),
+  foodTicket("valeRefeicao"),
+  mealTicket('valeAlimentacao'),
+  money("dinheiro"),
+  pix("pix");
+
+  final String text;
+
+  const PaymentType(this.text);
 
   static PaymentType fromMap(String value) {
     return PaymentType.values.firstWhere((element) => element.name == value);

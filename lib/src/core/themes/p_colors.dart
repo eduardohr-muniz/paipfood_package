@@ -43,11 +43,11 @@ class PColors extends ThemeExtension<PColors> {
   static const Color errorColorD_ = Colors.redAccent;
   //?light
 
-  static const Color secondaryColorL_ = Color(0xff8257e5);
+  static const Color secondaryColorL_ = Colors.blue;
 
   //?Dark
 
-  static const Color secondaryColorD_ = Color(0xff8257e5);
+  static const Color secondaryColorD_ = Colors.blue;
 
 //*PARAMS
   final Color primaryColor;
@@ -102,7 +102,7 @@ class PColors extends ThemeExtension<PColors> {
       secondaryColor: secondaryColorL_,
       tertiaryColor: tertiaryColor_,
       errorColor: errorColorL_,
-      surface: neutral_.get100,
+      surface: const Color(0xfff1f1f5),
       primaryBG: neutral_.get0,
       onPrimaryBG: neutral_.get50,
       primaryText: neutral_.get950,

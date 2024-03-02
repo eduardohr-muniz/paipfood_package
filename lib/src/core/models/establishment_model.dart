@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:paipfood_package/paipfood_package.dart';
 import 'package:paipfood_package/src/core/enums/zz_enums_export.dart';
 
 import 'zz_models_export.dart';
@@ -11,6 +12,9 @@ class EstablishmentModel {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final String companySlug;
+  int totalOrders;
+  int currentOrderNumber;
+  int currentLocalOrderNumber;
   String fantasyName;
   String corporateName;
   String description;
@@ -34,11 +38,16 @@ class EstablishmentModel {
   List<PaymentFlagEnum> paymentFlagsLocal;
   List<PaymentFlagEnum> paymentFlagsApp;
   SyncState syncState;
+  Map<String, dynamic> paymentProvider;
   EstablishmentModel({
     required this.id,
     required this.deliveryAreas,
     required this.companySlug,
     required this.paymentFlagsApp,
+    required this.paymentProvider,
+    this.totalOrders = 0,
+    this.currentOrderNumber = 0,
+    this.currentLocalOrderNumber = 0,
     this.createdAt,
     this.updatedAt,
     this.address,
@@ -69,6 +78,9 @@ class EstablishmentModel {
     DateTime? createdAt,
     DateTime? updatedAt,
     String? companySlug,
+    int? totalOrders,
+    int? currentOrderNumber,
+    int? currentLocalOrderNumber,
     String? fantasyName,
     String? corporateName,
     String? description,
@@ -92,12 +104,16 @@ class EstablishmentModel {
     List<PaymentFlagEnum>? paymentFlagsLocal,
     List<PaymentFlagEnum>? paymentFlagsApp,
     SyncState? syncState,
+    Map<String, dynamic>? paymentProvider,
   }) {
     return EstablishmentModel(
       id: id ?? this.id,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       companySlug: companySlug ?? this.companySlug,
+      totalOrders: totalOrders ?? this.totalOrders,
+      currentOrderNumber: currentOrderNumber ?? this.currentOrderNumber,
+      currentLocalOrderNumber: currentLocalOrderNumber ?? this.currentLocalOrderNumber,
       fantasyName: fantasyName ?? this.fantasyName,
       corporateName: corporateName ?? this.corporateName,
       description: description ?? this.description,
@@ -121,13 +137,16 @@ class EstablishmentModel {
       paymentFlagsLocal: paymentFlagsLocal ?? this.paymentFlagsLocal,
       paymentFlagsApp: paymentFlagsApp ?? this.paymentFlagsApp,
       syncState: syncState ?? this.syncState,
+      paymentProvider: paymentProvider ?? this.paymentProvider,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'updated_at': DateTime.now().toIso8601String(),
+      'updated_at': DateTime.now().toTimesTamptzFormat,
+      'current_order_number': currentOrderNumber,
+      'current_local_order_number': currentLocalOrderNumber,
       'company_slug': companySlug,
       'fantasy_name': fantasyName,
       'corporate_name': corporateName,
@@ -149,14 +168,18 @@ class EstablishmentModel {
       'email': email,
       'payment_flags_local': paymentFlagsLocal.map((e) => e.name).toList(),
       'payment_flags_app': paymentFlagsApp.map((e) => e.name).toList(),
+      'payment_provider': paymentProvider,
     };
   }
 
   factory EstablishmentModel.fromMap(Map<String, dynamic> map) {
     return EstablishmentModel(
       id: map['id'],
-      createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
-      updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
+      createdAt: DateTime.parse(map['created_at']),
+      updatedAt: DateTime.parse(map['updated_at']),
+      totalOrders: map['total_orders']?.toInt() ?? 0,
+      currentOrderNumber: map['current_order_number']?.toInt() ?? 0,
+      currentLocalOrderNumber: map['current_local_order_number']?.toInt() ?? 0,
       companySlug: map['company_slug'] ?? '',
       fantasyName: map['fantasy_name'] ?? '',
       corporateName: map['corporate_name'] ?? '',
@@ -188,6 +211,7 @@ class EstablishmentModel {
       phoneCountryCode: map['phone_country_code'] ?? '',
       email: map['email'] ?? '',
       deliveryAreas: [],
+      paymentProvider: map['payment_provider'] ?? {},
     );
   }
 

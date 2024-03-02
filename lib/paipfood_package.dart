@@ -38,3 +38,4 @@ export 'src/ui/zz_widgets_export.dart';
 export 'src/core/state/zz_state_export.dart';
 export 'src/core/usecases/zz_usecases_export.dart';
 export 'src/ui/widgets/filds/zz_filds_export.dart';
+export 'src/core/models/adapters/zz_adapters_export.dart';

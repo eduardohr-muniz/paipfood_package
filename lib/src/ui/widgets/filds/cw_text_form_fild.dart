@@ -32,7 +32,9 @@ class CwTextFormFild extends StatefulWidget {
   final IconData? tooltipIcon;
   final String? counterText;
   final AutovalidateMode? autovalidateMode;
-
+  final Color? fillColor;
+  final BoxConstraints? constraints;
+  final Color? textColor;
   const CwTextFormFild({
     Key? key,
     this.label,
@@ -64,6 +66,9 @@ class CwTextFormFild extends StatefulWidget {
     this.autovalidateMode,
     this.autofocus = false,
     this.autocorrect = false,
+    this.fillColor,
+    this.constraints,
+    this.textColor,
   }) : super(key: key);
 
   @override
@@ -108,10 +113,10 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
             ),
           TextFormField(
             focusNode: widget.focusNode ?? focusNode,
-            controller: widget.controller,
             obscureText: _obscure,
             maxLength: widget.maxLength,
             inputFormatters: widget.inputFormatters ?? widget.maskUtils?.inpuFormatters,
+            controller: widget.controller,
             onChanged: () {
               if (widget.maskUtils != null && widget.maskUtils?.onChanged != null) {
                 return (value) {
@@ -122,6 +127,7 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
               return widget.onChanged;
             }(),
             //  widget.onChanged,
+            style: widget.textColor != null ? TextStyle(color: widget.textColor) : null,
             autofocus: widget.autofocus!,
             onFieldSubmitted: widget.onFieldSubmitted,
             autocorrect: widget.autocorrect!,
@@ -141,14 +147,15 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
             decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                        width: context.isDarkTheme ? 0 : 1, color: context.isDarkTheme ? context.color.onPrimaryBG : PColors.neutral_.get300)),
+                        width: context.isDarkTheme ? 0 : 1, color: context.isDarkTheme ? context.color.neutral400 : PColors.neutral_.get300)),
                 contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
                 focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: context.color.primaryColor)),
                 errorBorder: OutlineInputBorder(borderSide: BorderSide(width: 2, color: context.color.errorColor)),
                 focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(width: 2.5, color: context.color.errorColor)),
                 filled: widget.filled,
+                constraints: widget.constraints,
                 isDense: true,
-                fillColor: context.color.onPrimaryBG,
+                fillColor: widget.fillColor ?? context.color.onPrimaryBG,
                 enabled: widget.enabled,
                 errorMaxLines: 10,
                 disabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 0, color: context.color.onPrimaryBG)),
@@ -158,10 +165,13 @@ class _CwTextFormFildState extends State<CwTextFormFild> {
                 prefixIconColor: context.color.primaryColor,
                 prefixText: widget.prefixText,
                 prefixIcon: widget.prefixIcon,
+                prefixStyle: widget.textColor != null ? TextStyle(color: widget.textColor!.withOpacity(0.8)) : null,
                 suffixIcon: widget.obscureText
-                    ? IconButton(
-                        onPressed: () => setState(() => _obscure = !_obscure),
-                        icon: Icon(_obscure ? Icomoon.eye_slash : Icomoon.eye),
+                    ? ExcludeFocus(
+                        child: IconButton(
+                          onPressed: () => setState(() => _obscure = !_obscure),
+                          icon: Icon(_obscure ? Icomoon.eye_slash : Icomoon.eye),
+                        ),
                       )
                     : widget.suffixIcon,
                 hintText: widget.hintText ?? widget.maskUtils?.hint),
